@@ -7,13 +7,13 @@ on:
     branches: [ main ]
 
 env:
-  configuration: Release
-  project: Src/TwIngC1.csproj
-  testProject: Tst/TwIngC1.Tests.csproj
-  Version.Major: 1
-  Version.Minor: 0
-  Version.Patch: $[counter(variables['Version.Major'].variables['Version.Minor'], 0)]
-  Version: $(Version.Major).$(Version.Minor).$(Version.Patch)
+  configuration: ${{ 'Release' }}
+  project: ${{ 'Src/TwIngC1.csproj' }}
+  testProject: ${{ 'Tst/TwIngC1.Tests.csproj' }}
+  Version.Major: ${{ '1' }}
+  Version.Minor: ${{ '0' }}
+  Version.Patch: ${{ github.run_number }}
+  Version: ${{ Version.Major).$(Version.Minor).$(Version.Patch) }}
 
 jobs:
   build:
