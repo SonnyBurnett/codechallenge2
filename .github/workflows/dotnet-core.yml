@@ -13,7 +13,7 @@ env:
   Version.Major: ${{ '1' }}
   Version.Minor: ${{ '0' }}
   Version.Patch: ${{ github.run_number }}
-  Version: ${{ Version.Major).$(Version.Minor).$(Version.Patch) }}
+  Version: ${{ Version.Major }}.${{ Version.Minor }}.${{ Version.Patch }}
 
 jobs:
   build:
