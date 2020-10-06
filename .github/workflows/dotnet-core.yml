@@ -8,8 +8,8 @@ on:
 
 env:
   configuration: Release
-  project: C1/Src/TwIngC1.csproj
-  testProject: C1/Tst/TwIngC1.Tests.csproj
+  project: c1/Src/TwIngC1.csproj
+  testProject: c1/Tst/TwIngC1.Tests.csproj
   Version.Major: 1
   Version.Minor: 0
   Version.Patch: $[counter(variables['Version.Major'].variables['Version.Minor'], 0)]
