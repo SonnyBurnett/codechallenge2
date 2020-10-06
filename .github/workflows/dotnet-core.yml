@@ -8,8 +8,8 @@ on:
 
 env:
   configuration: Release
-  project: /c1/Src/TwIngC1.csproj
-  testProject: /c1/Tst/TwIngC1.Tests.csproj
+  project: Src/TwIngC1.csproj
+  testProject: Tst/TwIngC1.Tests.csproj
   Version.Major: 1
   Version.Minor: 0
   Version.Patch: $[counter(variables['Version.Major'].variables['Version.Minor'], 0)]
@@ -28,14 +28,18 @@ jobs:
         dotnet-version: 3.1.301
     - name: Install dependencies
       run: dotnet restore $(project)
+      working-directory: c1
     - name: Build
       run: dotnet build $(project) --configuration $(Configuration) --no-restore /p:AssemblyVersion=$(version) /p:Version=$(version)
+      working-directory: c1
     - name: Test
       run: dotnet test $(testProject) --no-build --verbosity normal --configuration $(configuration) /p:AssemblyVersion=$(version)  --collect "Code coverage" /p:Version=$(version) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+      working-directory: c1
     - name: Publish
       run: dotnet publish $(project) --no-build --configuration $(Configuration) --output publishOutput
+      working-directory: c1
     - name: Upload DotNet Console App
       uses: actions/upload-artifact@v2
       with:
         name: console
-        path: publishOutput
+        path: c1/publishOutput
