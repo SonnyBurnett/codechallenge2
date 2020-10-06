@@ -1,0 +1,41 @@
+name: .NET Core
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  configuration: Release
+  project: C1\Src\TwIngC1.csproj
+  testProject: C1\Tst\TwIngC1.Tests.csproj
+  Version.Major: 1
+  Version.Minor: 0
+  Version.Patch: $[counter(variables['Version.Major'].variables['Version.Minor'], 0)]
+  Version: $(Version.Major).$(Version.Minor).$(Version.Patch)
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration $(Configuration) --no-restore /p:AssemblyVersion=$(version) /p:Version=$(version)
+    - name: Test
+      run: dotnet test --no-restore --no-build --verbosity normal --configuration $(configuration) /p:AssemblyVersion=$(version)  --collect "Code coverage" /p:Version=$(version) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+    - name: Publish
+      run: dotnet publish --no-build --configuration $(Configuration) --output publishOutput
+    - name: Upload DotNet Console App
+      uses: actions/upload-artifact@v2
+      with:
+        name: console
+        path: publishOutput
