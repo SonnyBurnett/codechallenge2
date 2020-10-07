@@ -25,16 +25,16 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
-      run: dotnet restore $(project)
+      run: dotnet restore ${{ project }}
       working-directory: c1
     - name: Build
-      run: dotnet build $(env.project) --configuration $(env.configuration) --no-restore /p:AssemblyVersion=$(env.version) /p:Version=$(env.version)
+      run: dotnet build ${{ env.project }} --configuration ${{ env.configuration }} --no-restore /p:AssemblyVersion=${{ env.version }} /p:Version=${{ env.version }}
       working-directory: c1
     - name: Test
-      run: dotnet test $(env.testProject) --no-build --verbosity normal --configuration $(env.configuration) /p:AssemblyVersion=$(env.version)  --collect "Code coverage" /p:Version=$(env.version) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+      run: dotnet test ${{ env.testProject }} --no-build --verbosity normal --configuration ${{ env.configuration }} /p:AssemblyVersion=${{ env.version }}  --collect "Code coverage" /p:Version=${{ env.version }} /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
       working-directory: c1
     - name: Publish
-      run: dotnet publish $(env.project) --no-build --configuration $(env.Configuration) --output publishOutput
+      run: dotnet publish ${{ env.project }} --no-build --configuration ${{ env.Configuration }} --output publishOutput
       working-directory: c1
     - name: Upload DotNet Console App
       uses: actions/upload-artifact@v2
