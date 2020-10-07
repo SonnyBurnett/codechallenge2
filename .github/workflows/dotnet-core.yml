@@ -19,7 +19,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      version:   '${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}'
+      version:   ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
