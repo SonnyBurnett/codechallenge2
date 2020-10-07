@@ -19,7 +19,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      version:   '${{ versionMajor }}.${{ versionMinor }}.${{ versionPatch }}'
+      version:   '${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}'
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
@@ -30,13 +30,13 @@ jobs:
       run: dotnet restore $(project)
       working-directory: c1
     - name: Build
-      run: dotnet build $(project) --configuration $(Configuration) --no-restore /p:AssemblyVersion=$(version) /p:Version=$(version)
+      run: dotnet build $(env.project) --configuration $(env.configuration) --no-restore /p:AssemblyVersion=$(env.version) /p:Version=$(env.version)
       working-directory: c1
     - name: Test
-      run: dotnet test $(testProject) --no-build --verbosity normal --configuration $(configuration) /p:AssemblyVersion=$(version)  --collect "Code coverage" /p:Version=$(version) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+      run: dotnet test $(env.testProject) --no-build --verbosity normal --configuration $(env.configuration) /p:AssemblyVersion=$(env.version)  --collect "Code coverage" /p:Version=$(env.version) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
       working-directory: c1
     - name: Publish
-      run: dotnet publish $(project) --no-build --configuration $(Configuration) --output publishOutput
+      run: dotnet publish $(env.project) --no-build --configuration $(env.Configuration) --output publishOutput
       working-directory: c1
     - name: Upload DotNet Console App
       uses: actions/upload-artifact@v2
