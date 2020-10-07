@@ -13,13 +13,11 @@ env:
   versionMajor: ${{ '1' }}
   versionMinor: ${{ '0' }}
   versionPatch: ${{ github.run_number }}
+  version: '1.0.${{ github.run_number }}'
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    env:
-      version:   ${{ env.versionMajor }}.${{ env.versionMinor }}.${{ env.versionPatch }}
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
