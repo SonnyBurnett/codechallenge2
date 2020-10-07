@@ -25,7 +25,7 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
-      run: dotnet restore ${{ project }}
+      run: dotnet restore ${{ env.project }}
       working-directory: c1
     - name: Build
       run: dotnet build ${{ env.project }} --configuration ${{ env.configuration }} --no-restore /p:AssemblyVersion=${{ env.version }} /p:Version=${{ env.version }}
