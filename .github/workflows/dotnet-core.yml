@@ -34,7 +34,7 @@ jobs:
       run: dotnet test ${{ env.testProject }} --no-build --verbosity normal --configuration ${{ env.configuration }} /p:AssemblyVersion=${{ env.version }}  --collect "Code coverage" /p:Version=${{ env.version }} /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
       working-directory: c1
     - name: Publish
-      run: dotnet publish ${{ env.project }} --no-build --configuration ${{ env.Configuration }} --output publishOutput
+      run: dotnet publish ${{ env.project }} --no-build --configuration ${{ env.configuration }} --output publishOutput
       working-directory: c1
     - name: Upload DotNet Console App
       uses: actions/upload-artifact@v2
