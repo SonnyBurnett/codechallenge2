@@ -10,10 +10,10 @@ env:
   configuration: ${{ 'Release' }}
   project: ${{ 'Src/TwIngC1.csproj' }}
   testProject: ${{ 'Tst/TwIngC1.Tests.csproj' }}
-  Version.Major: ${{ '1' }}
-  Version.Minor: ${{ '0' }}
-  Version.Patch: ${{ github.run_number }}
-  Version: '${{ Version.Major }}.${{ Version.Minor }}.${{ Version.Patch }}'
+  versionMajor: ${{ '1' }}
+  versionMinor: ${{ '0' }}
+  versionPatch: ${{ github.run_number }}
+  version: '${{ versionMajor }}.${{ versionMinor }}.${{ versionPatch }}'
 
 jobs:
   build:
