@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwIngC1.Tests", "Tst\TwIngC1.Tests.csproj", "{4E81A66D-9806-4536-B201-D60A730E104E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwIngChallenge.Tests", "Tst\TwIngChallenge.Tests.csproj", "{4E81A66D-9806-4536-B201-D60A730E104E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwIngC1", "Src\TwIngC1.csproj", "{D26FE25F-B6D9-4BDB-87F2-0CBE79F71178}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwIngChallenge", "Src\TwIngChallenge.csproj", "{D26FE25F-B6D9-4BDB-87F2-0CBE79F71178}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
