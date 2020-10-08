@@ -11,7 +11,8 @@ env:
   project: ${{ 'Src/TwIngChallenge.csproj' }}
   runtime: ${{ 'win-x64' }}
   testProject: ${{ 'Tst/TwIngChallenge.Tests.csproj' }}
-  version: 1.0.0
+  version: ${{ '1.0.0' }}
+  
 jobs:
   build:
     runs-on: ubuntu-latest
