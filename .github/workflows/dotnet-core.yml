@@ -8,36 +8,32 @@ on:
 
 env:
   configuration: ${{ 'Release' }}
-  project: ${{ 'Src/TwIngC1.csproj' }}
-  testProject: ${{ 'Tst/TwIngC1.Tests.csproj' }}
-  versionMajor: ${{ '1' }}
-  versionMinor: ${{ '0' }}
-  versionPatch: ${{ github.run_number }}
-  version: '1.0.${{ github.run_number }}'
+  project: ${{ 'Src/TwIngChallenge.csproj' }}
+  testProject: ${{ 'Tst/TwIngChallenge.Tests.csproj' }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.4
+      with:
+        versionSpec: '5.3.x'
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
       run: dotnet restore ${{ env.project }}
-      working-directory: c1
     - name: Build
       run: dotnet build ${{ env.project }} --configuration ${{ env.configuration }} --no-restore /p:AssemblyVersion=${{ env.version }} /p:Version=${{ env.version }}
-      working-directory: c1
     - name: Test
       run: dotnet test ${{ env.testProject }} --no-build --verbosity normal --configuration ${{ env.configuration }} /p:AssemblyVersion=${{ env.version }}  --collect "Code coverage" /p:Version=${{ env.version }} /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
-      working-directory: c1
     - name: Publish
       run: dotnet publish ${{ env.project }} --no-build --configuration ${{ env.configuration }} --output publishOutput
-      working-directory: c1
     - name: Upload DotNet Console App
       uses: actions/upload-artifact@v2
       with:
         name: console
-        path: c1/publishOutput
+        path: publishOutput
