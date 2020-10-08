@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using Moq;
 using Xunit;
-using Tw.Ing.Challenge;
+using Tw.Ing.Challenge.Services;
 
 namespace Tw.Ing.Challenge.Tests
 {
@@ -16,7 +16,9 @@ namespace Tw.Ing.Challenge.Tests
             requestMock.SetupAddOAuth(HttpStatusCode.OK, "", "CsvString");
             
             var httpClient = new HttpClient(requestMock.Object);
-            var srv = new CsvService(httpClient);
+            ICsvService srv = new CsvService(httpClient);
+
+            var result = srv.Load(new Uri(""));
         }
     }
 }
