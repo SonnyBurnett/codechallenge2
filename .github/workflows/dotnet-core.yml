@@ -33,9 +33,9 @@ jobs:
     - name: Install dependencies
       run: dotnet restore ${{ env.project }} --runtime ${{ env.runtime }}
     - name: Build
-      run: dotnet build ${{ env.project }} --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} --no-restore /p:AssemblyVersion=${{ version }} /p:Version=${{ version }}
+      run: dotnet build ${{ env.project }} --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} --no-restore /p:AssemblyVersion=${{ env.version }} /p:Version=${{ env.version }}
     - name: Test
-      run: dotnet test ${{ env.testProject }} --no-build --verbosity normal --configuration ${{ env.configuration }} /p:AssemblyVersion=${{ version }}  --collect "Code coverage" /p:Version=${{ version }} /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+      run: dotnet test ${{ env.testProject }} --no-build --verbosity normal --configuration ${{ env.configuration }} /p:AssemblyVersion=${{ env.version }}  --collect "Code coverage" /p:Version=${{ env.version }} /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
     - name: Publish
       run: dotnet publish ${{ env.project }} --no-build --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} --output publishOutput
     - name: Upload DotNet Console App
