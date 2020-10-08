@@ -42,3 +42,8 @@ jobs:
       with:
         name: console
         path: publishOutput
+      if:
+        contains('
+          refs/heads/main
+        ', github.ref)
+      
