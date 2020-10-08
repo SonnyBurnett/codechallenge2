@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Tw.Ing.C1.Tests</RootNamespace>
+    <RootNamespace>Tw.Ing.Challenge.Tests</RootNamespace>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Src\TwIngC1.csproj" />
+    <ProjectReference Include="..\Src\TwIngChallenge.csproj" />
   </ItemGroup>
 
 </Project>

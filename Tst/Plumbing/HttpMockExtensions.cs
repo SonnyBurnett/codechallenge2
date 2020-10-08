@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Moq;
 using Moq.Protected;
 
-namespace Tw.Ing.C1.Tests
+namespace Tw.Ing.Challenge.Tests
 {
-    public static class MockExtensions
+    public static class HttpMockExtensions
     {
         public static void SetupAddOAuth(this Mock<HttpMessageHandler> handlerMock, HttpStatusCode status, string path, string responseContentString )
         {

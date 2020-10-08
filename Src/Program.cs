@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tw.Ing.C1
+namespace Tw.Ing.Challenge
 {
     class Program
     {
