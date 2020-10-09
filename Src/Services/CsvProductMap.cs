@@ -13,11 +13,9 @@ namespace Tw.Ing.Challenge.Services
             Map(m => m.Id).Name("productId");
             Map(m => m.Name).Name("name");
             Map(m => m.Description).Name("description");
-            Map(m => m.Description).Name("price");
-            Map(m => m.Description).Name("category");
             Map(m => m.Price, false).Name("price").TypeConverter<CsvPriceConverter>();
             Map(m => m.Price, false).Name("currency").TypeConverter<CsvPriceConverter>().Optional();
-
+            Map(m => m.Category).Name("category");
         }
     }
 }

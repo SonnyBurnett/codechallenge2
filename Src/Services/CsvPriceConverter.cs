@@ -15,18 +15,20 @@ namespace Tw.Ing.Challenge.Services
     {
         public override object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)
         {
-            var priceProperty = new ProductPrice() { Price = 0, Currency = Currency.USD};
+            if (row is null) throw new ArgumentNullException(nameof(row));
+            if (memberMapData is null) throw new ArgumentNullException(nameof(memberMapData));
+
+            var priceProperty = new ProductPrice() { Value = 0, Currency = Currency.USD};
 
             var priceString = row.GetField<string>($"price");
             double priceValue;
             if (double.TryParse(priceString, out priceValue))
             {
-                priceProperty.Price = priceValue;
-                TraceExtensions.DoMessage($"Row {memberMapData.Index}: price {priceValue}");
+                priceProperty.Value = priceValue;
             }
             else
             {
-                priceProperty.Price = 0;
+                priceProperty.Value = 0;
                 TraceExtensions.DoWarn($"Row {memberMapData.Index}: Not a valid price  {priceString}");
             }
             string currencyString;

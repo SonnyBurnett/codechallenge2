@@ -12,7 +12,7 @@ namespace Tw.Ing.Challenge
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static async Task<int> Main(string[] args)
         {
             var tw = new TextWriterTraceListener(Console.Out);
             tw.TraceOutputOptions |= TraceOptions.None;
@@ -38,6 +38,7 @@ namespace Tw.Ing.Challenge
             {
                 var assemblyVersion = Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
                 TraceExtensions.DoMessage($"Version: {assemblyVersion}");
+                return 0;
             }
             else
             {
@@ -49,10 +50,17 @@ namespace Tw.Ing.Challenge
                 {
                     ICommandAsync cmd = new ChallengeCommand(csvService);
                     await cmd.Execute().ConfigureAwait(false);
+                    return 0;
                 }
-                catch (Exception x)
+                catch (CsvServiceException x)
                 {
-                    TraceExtensions.DoError($"Something fishy happend. Exception: {x.Message}");
+                    TraceExtensions.DoError(x.Message);
+                    return -1;
+                }
+                catch (Exception)
+                {
+                    TraceExtensions.DoError($"Something fishy happened, exiting.");
+                    throw;
                 }
             }
         }

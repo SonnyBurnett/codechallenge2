@@ -32,6 +32,13 @@ namespace Tw.Ing.Challenge.Tests
             var productList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
 
             Assert.Single<Product>(productList);
+            var product = productList.Single();
+            Assert.Equal(45848, product.Id);
+            Assert.Equal("shorts", product.Name);
+            Assert.Equal("short pants", product.Description);
+            Assert.Equal(8, product.Price.Value);
+            Assert.Equal(Currency.USD, product.Price.Currency);
+            Assert.Equal(ProductCategory.Pants, product.Category);
         }
 
         [Fact]
@@ -90,11 +97,11 @@ namespace Tw.Ing.Challenge.Tests
             var productList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
 
             Assert.Single<Product>(productList);
-            Assert.Equal(0, productList.Single().Price.Price);
+            Assert.Equal(0, productList.Single().Price.Value);
         }
 
         [Fact]
-        public async Task Load_NotFound()
+        public async Task Load_Fail_NotFound()
         {
             var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
             string csvString = @"";
@@ -108,11 +115,11 @@ namespace Tw.Ing.Challenge.Tests
             Func<Task> act = () => srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
 
             // ASSERT
-             await Assert.ThrowsAsync<HttpRequestException>(act);
+             await Assert.ThrowsAsync<CsvServiceException>(act);
          }
 
         [Fact]
-        public async Task Load_InvalidFile()
+        public async Task Load_Fail_InvalidFileContent()
         {
             var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
             string csvString = @"blah";
@@ -126,7 +133,7 @@ namespace Tw.Ing.Challenge.Tests
             Func<Task> act = () => srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
 
             // ASSERT
-             await Assert.ThrowsAsync<HeaderValidationException>(act);
+             await Assert.ThrowsAsync<CsvServiceException>(act);
          }
     }
 }
