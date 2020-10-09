@@ -37,7 +37,9 @@ namespace Tw.Ing.Challenge.Commands
             using var textWriter = new StreamWriter(path );
             _csvService.SaveCsv(convertedProductList, textWriter);
 
-            Console.WriteLine("Opening export result in Notepad...");
+            Console.WriteLine();
+            string closingNotification = $"Opening csv with {convertedProductList.Count()} rows in Notepad...";
+            Console.WriteLine(closingNotification);
             Process.Start("notepad.exe", path);
         }
     }
