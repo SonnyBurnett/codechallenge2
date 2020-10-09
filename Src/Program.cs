@@ -43,7 +43,8 @@ namespace Tw.Ing.Challenge
             else
             {
                 // instantiate services
-                ICsvService csvService = new CsvService(new HttpClient());
+                ICurrencyConverterService converterService = new CurrencyConverterService();
+                ICsvService csvService = new CsvService(converterService, new HttpClient());
 
                 // execute command
                 try

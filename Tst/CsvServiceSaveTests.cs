@@ -6,10 +6,7 @@ using Xunit;
 using Tw.Ing.Challenge.Services;
 using System.Threading.Tasks;
 using Tw.Ing.Challenge.Commands;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using CsvHelper;
 
 namespace Tw.Ing.Challenge.Tests
 {
@@ -18,6 +15,7 @@ namespace Tw.Ing.Challenge.Tests
         [Fact]
         public async Task Load_Success()
         {
+            // ARRANGE
             var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Default);
             string csvString =
 @"productId, name,  description, price, currency,category
@@ -27,10 +25,13 @@ namespace Tw.Ing.Challenge.Tests
             requestMock.SetupGetMethod(HttpStatusCode.OK, "001-experts-inputs.csv", csvString);
             
             var httpClient = new HttpClient(requestMock.Object);
-            ICsvService srv = new CsvService(httpClient);
+            var converterMock = new Mock<ICurrencyConverterService>();
+            ICsvService srv = new CsvService(converterMock.Object, httpClient);
 
+            // ACT
             var productList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
 
+            // ASSESS
             Assert.Single<Product>(productList);
             var product = productList.Single();
             Assert.Equal(45848, product.Id);
@@ -44,6 +45,7 @@ namespace Tw.Ing.Challenge.Tests
         [Fact]
         public async Task Load_Success_WithOutCurrency()
         {
+            // ARRANGE
             var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Default);
             string csvString =
 @"productId, name,  description, price, category
@@ -53,8 +55,10 @@ namespace Tw.Ing.Challenge.Tests
             requestMock.SetupGetMethod(HttpStatusCode.OK, "001-experts-inputs.csv", csvString);
 
             var httpClient = new HttpClient(requestMock.Object);
-            ICsvService srv = new CsvService(httpClient);
+            var converterMock = new Mock<ICurrencyConverterService>();
+            ICsvService srv = new CsvService(converterMock.Object, httpClient);
 
+            // ACT
             var productList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
 
             Assert.Single<Product>(productList);
@@ -63,6 +67,7 @@ namespace Tw.Ing.Challenge.Tests
         [Fact]
         public async Task Load_Success_UnknownCategory()
         {
+            // ARRANGE
             var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Default);
             string csvString =
 @"productId, name,  description, price, category
@@ -72,8 +77,10 @@ namespace Tw.Ing.Challenge.Tests
             requestMock.SetupGetMethod(HttpStatusCode.OK, "001-experts-inputs.csv", csvString);
 
             var httpClient = new HttpClient(requestMock.Object);
-            ICsvService srv = new CsvService(httpClient);
+            var converterMock = new Mock<ICurrencyConverterService>();
+            ICsvService srv = new CsvService(converterMock.Object, httpClient);
 
+            // ACT
             var productList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
 
             Assert.Single<Product>(productList);
@@ -83,6 +90,7 @@ namespace Tw.Ing.Challenge.Tests
         [Fact]
         public async Task Load_Success_InvalidPrice()
         {
+            // ARRANGE
             var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Default);
             string csvString =
 @"productId, name,  description, price, category
@@ -92,8 +100,10 @@ namespace Tw.Ing.Challenge.Tests
             requestMock.SetupGetMethod(HttpStatusCode.OK, "001-experts-inputs.csv", csvString);
 
             var httpClient = new HttpClient(requestMock.Object);
-            ICsvService srv = new CsvService(httpClient);
+            var converterMock = new Mock<ICurrencyConverterService>();
+            ICsvService srv = new CsvService(converterMock.Object, httpClient);
 
+            // ACT
             var productList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
 
             Assert.Single<Product>(productList);
@@ -103,13 +113,15 @@ namespace Tw.Ing.Challenge.Tests
         [Fact]
         public async Task Load_Fail_NotFound()
         {
+            // ARRANGE
             var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
             string csvString = @"";
             requestMock.SetupGetMethod(HttpStatusCode.NotFound, "001-experts-inputs.csv", csvString);
 
 
             var httpClient = new HttpClient(requestMock.Object);
-            ICsvService srv = new CsvService(httpClient);
+            var converterMock = new Mock<ICurrencyConverterService>();
+            ICsvService srv = new CsvService(converterMock.Object, httpClient);
 
             // ACT
             Func<Task> act = () => srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
@@ -121,13 +133,15 @@ namespace Tw.Ing.Challenge.Tests
         [Fact]
         public async Task Load_Fail_InvalidFileContent()
         {
+            // ARRANGE
             var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
             string csvString = @"blah";
             requestMock.SetupGetMethod(HttpStatusCode.OK, "001-experts-inputs.csv", csvString);
 
 
             var httpClient = new HttpClient(requestMock.Object);
-            ICsvService srv = new CsvService(httpClient);
+            var converterMock = new Mock<ICurrencyConverterService>();
+            ICsvService srv = new CsvService(converterMock.Object, httpClient);
 
             // ACT
             Func<Task> act = () => srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));

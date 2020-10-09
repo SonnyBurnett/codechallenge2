@@ -9,14 +9,16 @@ namespace Tw.Ing.Challenge.Commands
     public sealed class ChallengeCommand : ICommandAsync
     {
         private readonly ICsvService _csvService ;
-        public ChallengeCommand(ICsvService service)
+
+        public ChallengeCommand(ICsvService csvService)
         {
-            _csvService = service;
+            _csvService = csvService;
         }
 
         async Task ICommandAsync.Execute()
         {
             await _csvService.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csvv")).ConfigureAwait(false);
+
         }
     }
 }

@@ -17,10 +17,12 @@ namespace Tw.Ing.Challenge.Services
 {
     internal class CsvService : ICsvService
     {
+        private readonly ICurrencyConverterService _converterService;
         private readonly HttpClient _client;
 
-        public CsvService(HttpClient client)
+        public CsvService(ICurrencyConverterService converterService, HttpClient client)
         {
+            _converterService = converterService;
             _client = client;
         }
 
@@ -41,7 +43,7 @@ namespace Tw.Ing.Challenge.Services
                         csvRdr.Configuration.RegisterClassMap<CsvProductMap>();
                         csvRdr.Configuration.Delimiter = ",";
                         csvRdr.Configuration.TrimOptions = TrimOptions.Trim;
-
+                        csvRdr.Configuration.TypeConverterCache.AddConverter<CsvPriceConverter>(new CsvPriceConverter());
                         int rowCount = 0;
 
                         var productList = new List<Product>();
@@ -63,6 +65,11 @@ namespace Tw.Ing.Challenge.Services
                     throw new CsvServiceException($"Cannot Read and Parse the CSV File. Exception: {ex.Message}", ex);
                 }
             }
+        }
+
+        public async Task SaveCsv()
+        {
+           // TypeConverterFactory.AddConverter
         }
     }
 }
