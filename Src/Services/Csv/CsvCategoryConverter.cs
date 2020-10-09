@@ -20,7 +20,7 @@ namespace Tw.Ing.Challenge.Services
 
             ProductCategory categoryProperty;
 
-            if (Enum.TryParse<ProductCategory>(text, out categoryProperty))
+            if (Enum.TryParse<ProductCategory>(text, true, out categoryProperty))
             {
                 return categoryProperty;
             }

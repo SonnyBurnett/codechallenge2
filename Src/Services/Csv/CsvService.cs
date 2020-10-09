@@ -37,7 +37,7 @@ namespace Tw.Ing.Challenge.Services
                     var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
                     var textReader = new StreamReader(responseStream);
 
-                    using (var csvRdr = new CsvReader(textReader, CultureInfo.InvariantCulture))
+                    using (CsvReader csvRdr = new CsvReader(textReader, CultureInfo.InvariantCulture))
                     {
                         csvRdr.Configuration.RegisterClassMap<CsvProductMap>();
                         csvRdr.Configuration.Delimiter = ",";
@@ -65,7 +65,7 @@ namespace Tw.Ing.Challenge.Services
             }
         }
 
-        async void ICsvService.SaveCsv(IEnumerable<Product> productList, TextWriter textWriter)
+        void ICsvService.SaveCsv(IEnumerable<Product> productList, TextWriter textWriter)
         {
             using (var csvWrtr = new CsvWriter(textWriter, CultureInfo.InvariantCulture))
             {
@@ -75,12 +75,14 @@ namespace Tw.Ing.Challenge.Services
                 csvWrtr.Configuration.TrimOptions = TrimOptions.Trim;
 
                 csvWrtr.WriteHeader(typeof(Product));
+                csvWrtr.NextRecord();
                 int rowNumber = 0;
 
                 foreach (var prod in productList)
                 {
                     rowNumber++;
                     csvWrtr.WriteRecord(prod);
+                    csvWrtr.NextRecord();
                     TraceExtensions.DoMessage($"    Row {rowNumber}: {prod.Name}, {prod.Price.Value.ToString(CultureInfo.InvariantCulture)}");
                 }
             }

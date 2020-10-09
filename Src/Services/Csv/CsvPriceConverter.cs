@@ -22,8 +22,7 @@ namespace Tw.Ing.Challenge.Services
             var priceProperty = new ProductPrice() { Value = 0, Currency = Currency.USD};
 
             var priceString = row.GetField<string>($"price");
-            double priceValue;
-            if (double.TryParse(priceString, out priceValue))
+            if (double.TryParse(priceString, out double priceValue))
             {
                 priceProperty.Value = priceValue;
             }
@@ -32,8 +31,7 @@ namespace Tw.Ing.Challenge.Services
                 priceProperty.Value = 0;
                 TraceExtensions.DoWarn($"Row {memberMapData.Index}: Not a valid price  {priceString}");
             }
-            string currencyString;
-            if (row.TryGetField<string>("currency", out currencyString))
+            if (row.TryGetField<string>("currency", out string currencyString))
             {
                 priceProperty.Currency = Enum.Parse<Currency>(currencyString);
             }
@@ -43,12 +41,15 @@ namespace Tw.Ing.Challenge.Services
 
         public override string ConvertToString(object value, IWriterRow row, MemberMapData memberMapData)
         {
-            var price = (ProductPrice)value;
+            ProductPrice price = value as ProductPrice;
+
+            if (price == null) throw new ArgumentOutOfRangeException(nameof(value));
+            if (memberMapData is null) throw new ArgumentNullException(nameof(memberMapData));
 
             var fieldName = memberMapData.Names.Single();
             if (fieldName == "currency") 
             {
-                return price.Currency.ToString(CultureInfo.InvariantCulture);
+                return price.Currency.ToString();
             }
 
             if (fieldName == "price")
