@@ -1,10 +1,17 @@
+using CsvHelper;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
+using Tw.Ing.Challenge.Commands;
 
 namespace Tw.Ing.Challenge.Services
 {
-    internal class CsvService:ICsvService
+    internal class CsvService<T> : ICsvService<T>
     {
         private readonly HttpClient _client;
 
@@ -13,14 +20,39 @@ namespace Tw.Ing.Challenge.Services
             _client = client;
         }
 
-        async Task<Object> ICsvService.Load(Uri csvFile)
+        async Task<IEnumerable<T>> ICsvService<T>.Load(Uri csvFileUri)
         {
-            using (var req = new HttpRequestMessage(HttpMethod.Get, csvFile))
+            var tokenSource = new CancellationTokenSource();
+            using (var req = new HttpRequestMessage(HttpMethod.Get, csvFileUri))
             {
-                await _client.SendAsync(req).ConfigureAwait(false);
+                var response = await _client.SendAsync(req, tokenSource.Token).ConfigureAwait(false);
+                response.EnsureSuccessStatusCode();
+
+                var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+
+                var fieldList = GetFieldList(typeof(T));
+
             }
 
-            return null;
+        }
+
+        private IEnumerable<string>GetFieldList(Type targetObjectType)
+        {
+            var fieldList = new List<string>();
+
+            var type = typeof(T);
+            var classProperties = type.GetProperties();
+            foreach (var prop in classProperties)
+            {
+                var csvField = prop.GetCustomAttributes(typeof(CsvFieldNameAttribute), false).FirstOrDefault();
+                if (csvField != null)
+                {
+                    var csvFieldNameAttribute = (CsvFieldNameAttribute)csvField;
+                    fieldList.Add(csvFieldNameAttribute.FieldName);
+                }
+            }
+
+            return fieldList;
         }
     }
 

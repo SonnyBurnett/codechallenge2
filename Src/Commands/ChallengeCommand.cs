@@ -8,16 +8,15 @@ namespace Tw.Ing.Challenge.Commands
 {
     public sealed class ChallengeCommand : ICommandAsync
     {
-        private readonly ICsvService _csvService ;
-        public ChallengeCommand(ICsvService service)
+        private readonly ICsvService<Product> _csvService ;
+        public ChallengeCommand(ICsvService<Product> service)
         {
             _csvService = service;
         }
 
         async Task ICommandAsync.Execute()
         {
-            throw new InvalidOperationException("Blah");
-            await _csvService.Load(new Uri("")).ConfigureAwait(false);
+            await _csvService.Load(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv")).ConfigureAwait(false);
         }
     }
 }

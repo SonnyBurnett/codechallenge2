@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Tw.Ing.Challenge.Commands;
 
 namespace Tw.Ing.Challenge.Services
 {
-    public interface ICsvService
+    public interface ICsvService<T>
     {
-        Task<Object> Load(Uri csvFile);
+        Task<IEnumerable<T>> Load(Uri csvFile);
     }
 }
