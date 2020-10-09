@@ -9,7 +9,7 @@ namespace Tw.Ing.Challenge.Tests
 {
     public static class HttpMockExtensions
     {
-        public static void SetupAddOAuth(this Mock<HttpMessageHandler> handlerMock, HttpStatusCode status, string path, string responseContentString )
+        public static void SetupGetMethod(this Mock<HttpMessageHandler> handlerMock, HttpStatusCode status, string path, string responseContentString )
         {
             handlerMock.Protected()
                 .Setup<Task<HttpResponseMessage>>(
