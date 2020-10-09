@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Tw.Ing.Challenge.Extensions;
@@ -23,17 +24,22 @@ namespace Tw.Ing.Challenge.Commands
 
         async Task ICommandAsync.Execute()
         {
-            var banner = FiggleFonts.Big.Render("Challenge 1");
+            var banner = FiggleFonts.Big.Render("Challenge - 1");
             Console.WriteLine(banner);
 
             var productList = await _csvService.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv")).ConfigureAwait(false);
 
-            var convertedProductList = _currencyService.ConvertTo(productList, Currency.EUR);
-            string path = Directory.GetCurrentDirectory() + "/ProductListInEuros.csv";
+            var filteredProductList = productList.Where(product => !(product.Price.Value < 10));
 
+            var convertedProductList = _currencyService.ConvertTo(filteredProductList, Currency.EUR);
+
+            string path = Directory.GetCurrentDirectory() + "/ProductListInEuros.csv";
             using var textWriter = new StreamWriter(path );
             _csvService.SaveCsv(convertedProductList, textWriter);
 
+            Console.WriteLine();
+            string closingNotification = $"Opening csv with {convertedProductList.Count()} rows in Notepad...";
+            Console.WriteLine(closingNotification);
             Process.Start("notepad.exe", path);
         }
     }
