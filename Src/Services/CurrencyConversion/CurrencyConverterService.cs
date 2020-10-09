@@ -28,5 +28,22 @@ namespace Tw.Ing.Challenge.Services
             var conversionRatio = _conversionList.Where(cc => cc.From == price.Currency && cc.To == toCurrency).Single().Ratio;
             return new ProductPrice() { Value = price.Value * conversionRatio, Currency = toCurrency};
         }
+
+        List<Product> ICurrencyConverterService.ConvertTo(List<Product> productList, Currency toCurrency)
+        {
+            var convertedList = new List<Product>();
+            foreach(var price in productList)
+            {
+                ICurrencyConverterService srv = this;
+                var newProduct = price.Clone() as Product;
+
+                if (newProduct != null && newProduct.Price != null)
+                {
+                    newProduct.Price = srv.ConvertTo(newProduct.Price, toCurrency);
+                }
+                convertedList.Add(newProduct);
+            }
+            return convertedList;
+        }
     }
 }

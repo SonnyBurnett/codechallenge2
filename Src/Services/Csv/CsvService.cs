@@ -43,7 +43,6 @@ namespace Tw.Ing.Challenge.Services
                         csvRdr.Configuration.RegisterClassMap<CsvProductMap>();
                         csvRdr.Configuration.Delimiter = ",";
                         csvRdr.Configuration.TrimOptions = TrimOptions.Trim;
-                        csvRdr.Configuration.TypeConverterCache.AddConverter<CsvPriceConverter>(new CsvPriceConverter());
                         int rowCount = 0;
 
                         var productList = new List<Product>();
@@ -67,9 +66,9 @@ namespace Tw.Ing.Challenge.Services
             }
         }
 
-        public async Task SaveCsv()
+        async Task ICsvService.SaveCsv(List<Product> productList, Currency currency)
         {
-           // TypeConverterFactory.AddConverter
+
         }
     }
 }

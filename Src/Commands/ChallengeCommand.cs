@@ -17,7 +17,7 @@ namespace Tw.Ing.Challenge.Commands
 
         async Task ICommandAsync.Execute()
         {
-            await _csvService.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csvv")).ConfigureAwait(false);
+            await _csvService.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv")).ConfigureAwait(false);
 
         }
     }

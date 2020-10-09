@@ -13,18 +13,9 @@ namespace Tw.Ing.Challenge.Services
 {
     public class CsvPriceConverter: DefaultTypeConverter
     {
-        private ICurrencyConverterService _conversionService;
-        private Currency? _currency;
-
         public CsvPriceConverter()
         {
 
-        }
-
-        public CsvPriceConverter(ICurrencyConverterService conversionService, Currency currency)
-        {
-            _conversionService = conversionService;
-            _currency = currency;
         }
 
         public override object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)

@@ -9,5 +9,6 @@ namespace Tw.Ing.Challenge.Services
     public interface ICsvService
     {
         Task<IEnumerable<Product>> DownloadCsv(Uri csvFile);
+        Task SaveCsv(List<Product> productList, Currency currency);
     }
 }

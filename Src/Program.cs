@@ -23,7 +23,7 @@ namespace Tw.Ing.Challenge
             var app = new CommandLineApplication
             {
                 Name = "TW ING Coding Challenge",
-                Description = "The TeamWildenber console app for the different assignments in the ING Coding Challenge"
+                Description = "The TeamWildenberg console app for the different assignments in the ING Coding Challenge"
             };
             app.HelpOption("-?|-h|--help");
             var versionOption = app.Option("-v|--version", "Check which version we are running", CommandOptionType.NoValue);
