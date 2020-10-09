@@ -4,10 +4,9 @@ using System.Text;
 
 namespace Tw.Ing.Challenge.Commands
 {
-    public enum ProductCategory
+    public enum Currency
     {
-        Unknown,
-        Pants,
-        Shirts
+        USD,
+        EUR
     }
 }

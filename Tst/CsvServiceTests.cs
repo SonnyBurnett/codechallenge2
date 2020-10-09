@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Tw.Ing.Challenge.Commands;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using CsvHelper;
 
 namespace Tw.Ing.Challenge.Tests
 {
@@ -18,18 +20,77 @@ namespace Tw.Ing.Challenge.Tests
         {
             var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Default);
             string csvString =
-@"productId, name,  description, price, category
-45848, shorts, short pants,  8, pants
+@"productId, name,  description, price, currency,category
+45848, shorts, short pants,  8, USD, pants
 ";
 
             requestMock.SetupGetMethod(HttpStatusCode.OK, "001-experts-inputs.csv", csvString);
             
             var httpClient = new HttpClient(requestMock.Object);
-            ICsvService<Product> srv = new CsvService<Product>(httpClient);
+            ICsvService srv = new CsvService(httpClient);
 
-            var productList = await srv.Load(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
+            var productList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
 
             Assert.Single<Product>(productList);
+        }
+
+        [Fact]
+        public async Task Load_Success_WithOutCurrency()
+        {
+            var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Default);
+            string csvString =
+@"productId, name,  description, price, category
+45848, shorts, short pants,  8, pants
+";
+
+            requestMock.SetupGetMethod(HttpStatusCode.OK, "001-experts-inputs.csv", csvString);
+
+            var httpClient = new HttpClient(requestMock.Object);
+            ICsvService srv = new CsvService(httpClient);
+
+            var productList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
+
+            Assert.Single<Product>(productList);
+        }
+
+        [Fact]
+        public async Task Load_Success_UnknownCategory()
+        {
+            var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Default);
+            string csvString =
+@"productId, name,  description, price, category
+45848, shorts, short pants,  8, trousers
+";
+
+            requestMock.SetupGetMethod(HttpStatusCode.OK, "001-experts-inputs.csv", csvString);
+
+            var httpClient = new HttpClient(requestMock.Object);
+            ICsvService srv = new CsvService(httpClient);
+
+            var productList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
+
+            Assert.Single<Product>(productList);
+            Assert.Equal(ProductCategory.Unknown, productList.Single().Category);
+        }
+
+        [Fact]
+        public async Task Load_Success_InvalidPrice()
+        {
+            var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Default);
+            string csvString =
+@"productId, name,  description, price, category
+45848, shorts, short pants,  8m, pants
+";
+
+            requestMock.SetupGetMethod(HttpStatusCode.OK, "001-experts-inputs.csv", csvString);
+
+            var httpClient = new HttpClient(requestMock.Object);
+            ICsvService srv = new CsvService(httpClient);
+
+            var productList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
+
+            Assert.Single<Product>(productList);
+            Assert.Equal(0, productList.Single().Price.Price);
         }
 
         [Fact]
@@ -41,15 +102,31 @@ namespace Tw.Ing.Challenge.Tests
 
 
             var httpClient = new HttpClient(requestMock.Object);
-            ICsvService<Product> srv = new CsvService<Product>(httpClient);
+            ICsvService srv = new CsvService(httpClient);
 
             // ACT
-            Func<Task> act = () => srv.Load(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
-            await Assert.ThrowsAsync<HttpRequestException>(act);
+            Func<Task> act = () => srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
 
             // ASSERT
-            
+             await Assert.ThrowsAsync<HttpRequestException>(act);
+         }
 
-        }
+        [Fact]
+        public async Task Load_InvalidFile()
+        {
+            var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
+            string csvString = @"blah";
+            requestMock.SetupGetMethod(HttpStatusCode.OK, "001-experts-inputs.csv", csvString);
+
+
+            var httpClient = new HttpClient(requestMock.Object);
+            ICsvService srv = new CsvService(httpClient);
+
+            // ACT
+            Func<Task> act = () => srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
+
+            // ASSERT
+             await Assert.ThrowsAsync<HeaderValidationException>(act);
+         }
     }
 }

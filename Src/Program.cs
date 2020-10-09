@@ -42,7 +42,7 @@ namespace Tw.Ing.Challenge
             else
             {
                 // instantiate services
-                ICsvService<Product> csvService = new CsvService<Product>(new HttpClient());
+                ICsvService csvService = new CsvService(new HttpClient());
 
                 // execute command
                 try

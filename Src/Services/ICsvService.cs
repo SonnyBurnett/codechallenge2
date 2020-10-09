@@ -6,8 +6,8 @@ using Tw.Ing.Challenge.Commands;
 
 namespace Tw.Ing.Challenge.Services
 {
-    public interface ICsvService<T>
+    public interface ICsvService
     {
-        Task<IEnumerable<T>> Load(Uri csvFile);
+        Task<IEnumerable<Product>> DownloadCsv(Uri csvFile);
     }
 }
