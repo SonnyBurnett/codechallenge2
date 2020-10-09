@@ -1,7 +1,9 @@
 using CsvHelper;
+using CsvHelper.Configuration;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -22,39 +24,23 @@ namespace Tw.Ing.Challenge.Services
 
         async Task<IEnumerable<T>> ICsvService<T>.Load(Uri csvFileUri)
         {
-            var tokenSource = new CancellationTokenSource();
-            using (var req = new HttpRequestMessage(HttpMethod.Get, csvFileUri))
+             using (var req = new HttpRequestMessage(HttpMethod.Get, csvFileUri))
             {
-                var response = await _client.SendAsync(req, tokenSource.Token).ConfigureAwait(false);
+                var response = await _client.SendAsync(req).ConfigureAwait(false);
                 response.EnsureSuccessStatusCode();
 
                 var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                var textReader = new StreamReader(responseStream);
 
-                var fieldList = GetFieldList(typeof(T));
-
-            }
-
-        }
-
-        private IEnumerable<string>GetFieldList(Type targetObjectType)
-        {
-            var fieldList = new List<string>();
-
-            var type = typeof(T);
-            var classProperties = type.GetProperties();
-            foreach (var prop in classProperties)
-            {
-                var csvField = prop.GetCustomAttributes(typeof(CsvFieldNameAttribute), false).FirstOrDefault();
-                if (csvField != null)
+                using (var csvRdr = new CsvReader(textReader, CultureInfo.InvariantCulture))
                 {
-                    var csvFieldNameAttribute = (CsvFieldNameAttribute)csvField;
-                    fieldList.Add(csvFieldNameAttribute.FieldName);
+                    csvRdr.Configuration.Delimiter = ",";
+                    csvRdr.Configuration.TrimOptions = TrimOptions.Trim;
+                    var productList = csvRdr.GetRecords<T>();
+                    return productList.ToList<T>();
                 }
             }
 
-            return fieldList;
         }
     }
-
-
 }

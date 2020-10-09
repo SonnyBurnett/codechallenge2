@@ -7,29 +7,19 @@ namespace Tw.Ing.Challenge.Commands
 {
     public class Product
     {
-        [CsvFieldName("productId")]
+        [Name("productId")]
         public int ProductId { get; set; }
 
-        [CsvFieldName("name")]
+        [Name("name")]
         public string Name { get; set; }
 
-        [CsvFieldName("description")]
+        [Name("description")]
         public string Description { get; set; }
 
-        [CsvFieldName("price")]
+        [Name("price")]
         public double Price { get; set; }
 
-        [CsvFieldName("category")]
+        [Name("category")]
         public ProductCategory Category { get; set; }
-
-        public static Product ParseFromString(string productString, IEnumerable<string> headerList)
-        {
-
-        }
-
-        public static IEnumerable<string>GetHeaderList()
-        {
-
-        }
     }
 }

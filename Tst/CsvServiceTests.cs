@@ -18,14 +18,14 @@ namespace Tw.Ing.Challenge.Tests
         {
             var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Default);
             string csvString =
-@"productId,name,description,price,category
-45848,shorts, short pants,8,pants
+@"productId, name,  description, price, category
+45848, shorts, short pants,  8, pants
 ";
 
             requestMock.SetupGetMethod(HttpStatusCode.OK, "001-experts-inputs.csv", csvString);
             
             var httpClient = new HttpClient(requestMock.Object);
-            ICsvService srv = new CsvService(httpClient);
+            ICsvService<Product> srv = new CsvService<Product>(httpClient);
 
             var productList = await srv.Load(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
 
@@ -41,7 +41,7 @@ namespace Tw.Ing.Challenge.Tests
 
 
             var httpClient = new HttpClient(requestMock.Object);
-            ICsvService srv = new CsvService(httpClient);
+            ICsvService<Product> srv = new CsvService<Product>(httpClient);
 
             // ACT
             Func<Task> act = () => srv.Load(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
