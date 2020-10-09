@@ -8,6 +8,6 @@ namespace Tw.Ing.Challenge.Services
     public interface ICurrencyConverterService
     {
         ProductPrice ConvertTo(ProductPrice price, Currency toCurrency);
-        List<Product> ConvertTo(List<Product>priceList, Currency toCurrency);
+        IEnumerable<Product> ConvertTo(IEnumerable<Product>productList, Currency toCurrency);
     }
 }

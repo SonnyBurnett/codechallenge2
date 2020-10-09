@@ -29,7 +29,7 @@ namespace Tw.Ing.Challenge.Services
             return new ProductPrice() { Value = price.Value * conversionRatio, Currency = toCurrency};
         }
 
-        List<Product> ICurrencyConverterService.ConvertTo(List<Product> productList, Currency toCurrency)
+        IEnumerable<Product> ICurrencyConverterService.ConvertTo(IEnumerable<Product> productList, Currency toCurrency)
         {
             var convertedList = new List<Product>();
             foreach(var price in productList)

@@ -17,17 +17,16 @@ namespace Tw.Ing.Challenge.Services
 {
     internal class CsvService : ICsvService
     {
-        private readonly ICurrencyConverterService _converterService;
         private readonly HttpClient _client;
 
-        public CsvService(ICurrencyConverterService converterService, HttpClient client)
+        public CsvService(HttpClient client)
         {
-            _converterService = converterService;
             _client = client;
         }
 
         async Task<IEnumerable<Product>> ICsvService.DownloadCsv(Uri csvFileUri)
         {
+            TraceExtensions.DoMessage("Loading Product List in Dollars.");
             using (var req = new HttpRequestMessage(HttpMethod.Get, csvFileUri))
             {
                 try
@@ -51,7 +50,7 @@ namespace Tw.Ing.Challenge.Services
                             rowCount++;
                             var product = csvRdr.GetRecord<Product>();
                             productList.Add(product);
-                            TraceExtensions.DoMessage($"row {rowCount}: {product.Name}, {product.Price.Value}");
+                            TraceExtensions.DoMessage($"    row {rowCount}: {product.Name}, {product.Price.Value}");
                         }
                         return productList;
                     }
@@ -66,9 +65,25 @@ namespace Tw.Ing.Challenge.Services
             }
         }
 
-        async Task ICsvService.SaveCsv(List<Product> productList, Currency currency)
+        async void ICsvService.SaveCsv(IEnumerable<Product> productList, TextWriter textWriter)
         {
+            using (var csvWrtr = new CsvWriter(textWriter, CultureInfo.InvariantCulture))
+            {
+                TraceExtensions.DoMessage("Exporting Product List in Euros.");
+                csvWrtr.Configuration.RegisterClassMap<CsvProductMap>();
+                csvWrtr.Configuration.Delimiter = ",";
+                csvWrtr.Configuration.TrimOptions = TrimOptions.Trim;
 
+                csvWrtr.WriteHeader(typeof(Product));
+                int rowNumber = 0;
+
+                foreach (var prod in productList)
+                {
+                    rowNumber++;
+                    csvWrtr.WriteRecord(prod);
+                    TraceExtensions.DoMessage($"    Row {rowNumber}: {prod.Name}, {prod.Price.Value.ToString(CultureInfo.InvariantCulture)}");
+                }
+            }
         }
     }
 }

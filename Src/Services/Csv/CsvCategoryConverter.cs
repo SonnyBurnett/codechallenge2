@@ -13,11 +13,6 @@ namespace Tw.Ing.Challenge.Services
 {
     public class CsvCategoryConverter: DefaultTypeConverter
     {
-        public CsvCategoryConverter()
-        {
-
-        }
-
         public override object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)
         {
             if (row is null) throw new ArgumentNullException(nameof(row));

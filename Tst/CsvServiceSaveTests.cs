@@ -7,37 +7,38 @@ using Tw.Ing.Challenge.Services;
 using System.Threading.Tasks;
 using Tw.Ing.Challenge.Commands;
 using System.Linq;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Tw.Ing.Challenge.Tests
 {
     public class CsvServiceSaveTests
     {
         [Fact]
-        public async Task Load_Success()
+        public void Save_Success()
         {
             // ARRANGE
-            var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Default);
-            string csvString =
-@"productId, name,  description, price, currency,category
-45848, shorts, short pants,  8, USD, pants
-";
-            var product = new Product() 
-            { 
-                Id = 1, 
-                Name = "shorts", 
-                Description = "short pants", 
-                Category = ProductCategory.Pants, 
-                Price = new ProductPrice() { Value = 1, Currency= Currency.USD}
+            var p1 = new Product()
+            {
+                Id = 1,
+                Name = "hmm",
+                Description = "Desc",
+                Price = new ProductPrice { Value = 1, Currency = Currency.USD },
+                Category = ProductCategory.Pants
+            };
+            var productList = new List<Product>()
+            {
+                p1
             };
 
-            var converterMock = new Mock<ICurrencyConverterService>();
-            //ICsvService srv = new CsvService(converterMock.Object, httpClient);
+            var textWriterMock = new Mock<TextWriter>();
+            ICsvService srv = new CsvService(new HttpClient());
 
-            //// ACT
-            //var productList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
+            // ACT
+            srv.SaveCsv(productList, textWriterMock.Object);
 
-            //// ASSERT
-            //Assert.Single<Product>(productList);
+            // ASSERT
+            textWriterMock.Verify(mock => mock.Write(It.Is<string>(arg => arg == "USD")), Times.Once());
         }
     }
 

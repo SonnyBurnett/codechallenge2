@@ -44,12 +44,12 @@ namespace Tw.Ing.Challenge
             {
                 // instantiate services
                 ICurrencyConverterService converterService = new CurrencyConverterService();
-                ICsvService csvService = new CsvService(converterService, new HttpClient());
+                ICsvService csvService = new CsvService(new HttpClient());
 
                 // execute command
                 try
                 {
-                    ICommandAsync cmd = new ChallengeCommand(csvService);
+                    ICommandAsync cmd = new ChallengeCommand(csvService, converterService);
                     await cmd.Execute().ConfigureAwait(false);
                     return 0;
                 }

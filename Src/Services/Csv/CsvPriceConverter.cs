@@ -4,6 +4,7 @@ using CsvHelper.Expressions;
 using CsvHelper.TypeConversion;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Tw.Ing.Challenge.Commands;
@@ -13,11 +14,6 @@ namespace Tw.Ing.Challenge.Services
 {
     public class CsvPriceConverter: DefaultTypeConverter
     {
-        public CsvPriceConverter()
-        {
-
-        }
-
         public override object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)
         {
             if (row is null) throw new ArgumentNullException(nameof(row));
@@ -47,7 +43,19 @@ namespace Tw.Ing.Challenge.Services
 
         public override string ConvertToString(object value, IWriterRow row, MemberMapData memberMapData)
         {
+            var price = (ProductPrice)value;
 
+            var fieldName = memberMapData.Names.Single();
+            if (fieldName == "currency") 
+            {
+                return price.Currency.ToString(CultureInfo.InvariantCulture);
+            }
+
+            if (fieldName == "price")
+            {
+                return price.Value.ToString(CultureInfo.InvariantCulture);
+            }
+            
             return base.ConvertToString(value, row, memberMapData);
         }
     }
