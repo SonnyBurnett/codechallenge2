@@ -34,9 +34,9 @@ jobs:
     - name: Install dependencies
       run: dotnet restore ${{ env.solution }} --runtime ${{ env.runtime }}
     - name: Build
-      run: dotnet build ${{ env.solution }} --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} /warnaserror --no-restore /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+      run: dotnet build ${{ env.project }} --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} /warnaserror --no-restore /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
     - name: Test
-      run: dotnet test ${{ env.testProject }} --no-build --verbosity normal --configuration ${{ env.configuration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }}  --collect "Code coverage" /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }} /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura -l:trx;LogFileName=${{ github.workspace }}/test-results/TestOutput.xml
+      run: dotnet test ${{ env.testProject }} --no-restore --verbosity normal --configuration ${{ env.configuration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }}  --collect "Code coverage" /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }} --collect "XPlat Code Coverage" -l:trx;LogFileName=${{ github.workspace }}/TestResults/TestOutput.xml
     - name: Publish
       run: dotnet publish ${{ env.project }} --no-build --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} --output publishOutput
     - name: Publish Unit Test Results
@@ -45,9 +45,15 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         check_name: Unit Test Results
-        files: test-results/**/*.xml
+        files: TestResults/**/*.xml
         report_individual_runs: true
         deduplicate_classes_by_file_name: false
+    - name: Publish Code Coverage Results
+      uses: 5monkeys/cobertura-action@master
+      with:
+        path: TestResults/**/coverage.cobertura.xml
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        minimum_coverage: 75
     - name: Upload DotNet Console App
       uses: actions/upload-artifact@v2
       with:
