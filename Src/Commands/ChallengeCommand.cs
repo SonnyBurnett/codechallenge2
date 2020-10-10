@@ -27,17 +27,21 @@ namespace Tw.Ing.Challenge.Commands
             var banner = FiggleFonts.Big.Render("Challenge - 1");
             Console.WriteLine(banner);
 
-            var productList = await _csvService.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv")).ConfigureAwait(false);
+            const string CSVFILEURI = "https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv";
+
+            Console.WriteLine($"Start download CSV from '{CSVFILEURI}'");
+            var productList = await _csvService.DownloadCsv(new Uri(CSVFILEURI)).ConfigureAwait(false);
 
             var filteredProductList = productList.Where(product => !(product.Price.Value < 10));
 
             var convertedProductList = _currencyService.ConvertTo(filteredProductList, Currency.EUR);
 
-            string path = Directory.GetCurrentDirectory() + "/ProductListInEuros.csv";
+            const string CSVFILENAME = "ProductListInEuros.csv";
+            string path = $@"{Directory.GetCurrentDirectory()}/{CSVFILENAME}";
             using var textWriter = new StreamWriter(path );
             _csvService.SaveCsv(convertedProductList, textWriter);
+            Console.WriteLine($"Saving file to '{path}'");
 
-            Console.WriteLine();
             string closingNotification = $"Opening csv with {convertedProductList.Count()} rows in Notepad...";
             Console.WriteLine(closingNotification);
             Process.Start("notepad.exe", path);

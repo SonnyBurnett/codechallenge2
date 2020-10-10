@@ -47,10 +47,17 @@ namespace Tw.Ing.Challenge.Services
                         var productList = new List<Product>();
                         while (csvRdr.Read())
                         {
-                            rowCount++;
-                            var product = csvRdr.GetRecord<Product>();
-                            productList.Add(product);
-                            TraceExtensions.DoMessage($"    row {rowCount}: {product.Name}, {product.Price.Value}");
+                            try
+                            {
+                                rowCount++;
+                                var product = csvRdr.GetRecord<Product>();
+                                productList.Add(product);
+                                TraceExtensions.DoMessage($"    row {rowCount}: {product.Name}, {product.Price.Value}");
+                            }
+                            catch(ReaderException ex)
+                            {
+                                TraceExtensions.DoWarn($"    Row {rowCount}: Unable to parse: exception - {ex.Message}");
+                            }
                         }
                         return productList;
                     }
