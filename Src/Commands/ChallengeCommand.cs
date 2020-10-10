@@ -29,7 +29,6 @@ namespace Tw.Ing.Challenge.Commands
 
             const string CSVFILEURI = "https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv";
 
-            Console.WriteLine($"Start download CSV from '{CSVFILEURI}'");
             var productList = await _csvService.DownloadCsv(new Uri(CSVFILEURI)).ConfigureAwait(false);
 
             var filteredProductList = productList.Where(product => !(product.Price.Value < 10));
@@ -40,10 +39,8 @@ namespace Tw.Ing.Challenge.Commands
             string path = $@"{Directory.GetCurrentDirectory()}/{CSVFILENAME}";
             using var textWriter = new StreamWriter(path );
             _csvService.SaveCsv(convertedProductList, textWriter);
-            Console.WriteLine($"Saving file to '{path}'");
 
             string closingNotification = $"Opening csv with {convertedProductList.Count()} rows in Notepad...";
-            Console.WriteLine(closingNotification);
             Process.Start("notepad.exe", path);
         }
     }
