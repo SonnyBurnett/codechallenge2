@@ -7,11 +7,11 @@ on:
     branches: [ main ]
 
 env:
-  configuration: ${{ 'Release' }}
+  configuration: Release
   solution: c.sln
   project: Src/TwIngChallenge.csproj
-  runtime: ${{ 'win-x64' }}
-  testProject: ${{ 'Tst/TwIngChallenge.Tests.csproj' }}
+  runtime: win-x64
+  testProject: Tst/TwIngChallenge.Tests.csproj
 
 jobs:
   build:
@@ -34,9 +34,9 @@ jobs:
     - name: Install dependencies
       run: dotnet restore ${{ env.solution }} --runtime ${{ env.runtime }}
     - name: Build
-      run: dotnet build ${{ env.project }} --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} /warnaserror --no-restore /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+      run: dotnet build ${{ env.solution }} --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} /warnaserror --no-restore /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
     - name: Test
-      run: dotnet test ${{ env.testProject }} --no-restore --verbosity normal --configuration ${{ env.configuration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }}  --collect "Code coverage" /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }} /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura -l:trx;LogFileName=${{ github.workspace }}/test-results/TestOutput.xml
+      run: dotnet test ${{ env.testProject }} --no-build --verbosity normal --configuration ${{ env.configuration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }}  --collect "Code coverage" /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }} /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura -l:trx;LogFileName=${{ github.workspace }}/test-results/TestOutput.xml
     - name: Publish
       run: dotnet publish ${{ env.project }} --no-build --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} --output publishOutput
     - name: Publish Unit Test Results
