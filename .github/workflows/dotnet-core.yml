@@ -72,4 +72,10 @@ jobs:
       with:
         name: 'Test Run'
         path: ${{github.workspace}}/${{env.file_name}}
+    - name: Upload Code Coverage Report
+      uses: actions/upload-artifact@v2
+      if: ${{always()}}
+      with:
+        name: 'Code Coverage'
+        path: ${{github.workspace}}/**/coverage.cobertura.xml
       
