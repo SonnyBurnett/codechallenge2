@@ -35,8 +35,18 @@ jobs:
       run: dotnet restore ${{ env.solution }} --runtime ${{ env.runtime }}
     - name: Build
       run: dotnet build ${{ env.project }} --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} /warnaserror --no-restore /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+    - name: Set Test Title
+      run: | 
+            if ${{ github.event_name == 'pull_request' }}
+            then
+              echo "::set-env name=title::Test Run for PR #${{steps.PRNUMBER.outputs.pr}} (${{github.run_number}})"
+              echo "::set-env name=file_name::TestReport.${{steps.PRNUMBER.outputs.pr}}.${{github.run_number}}.md"
+            else
+              echo "::set-env name=title::Test Run ${{github.run_number}}"
+              echo "::set-env name=file_name::TestReport.${{github.run_number}}.md"
+            fi
     - name: Test
-      run: dotnet test ${{ env.testProject }} --no-restore --verbosity normal --configuration ${{ env.configuration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }}  --collect "Code coverage" /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }} --collect "XPlat Code Coverage"
+      run: dotnet test ${{ env.testProject }} --no-restore --verbosity normal --configuration ${{ env.configuration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }}  --collect "Code coverage" /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }} --collect "XPlat Code Coverage" --logger "liquid.md;LogFileName=${{github.workspace}}/${{env.file_name}};Title=${{env.title}};"
     - name: Publish
       run: dotnet publish ${{ env.project }} --no-build --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} --output publishOutput
     - name: Upload DotNet Console App
@@ -48,4 +58,18 @@ jobs:
         contains('
           refs/heads/main
         ', github.ref)
+      # upload report as build artifact
+    - name: comment PR
+      uses: machine-learning-apps/pr-comment@master
+      if: ${{ github.event_name == 'pull_request' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        path: ${{env.file_name}}
+    - name: Upload Test Report
+      uses: actions/upload-artifact@v2
+      if: ${{always()}}
+      with:
+        name: 'Test Run'
+        path: ${{github.workspace}}/${{env.file_name}}
       
