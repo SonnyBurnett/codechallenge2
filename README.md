@@ -1,2 +1,12 @@
 # IngBytes
-Coding challenge repo
+
+![Build Status](https://github.com/teamwildenberg/IngBytes/workflows/Build/badge.svg)
+
+   _____ _           _ _                                  __
+  / ____| |         | | |                                /_ |
+ | |    | |__   __ _| | | ___ _ __   __ _  ___   ______   | |
+ | |    | '_ \ / _` | | |/ _ \ '_ \ / _` |/ _ \ |______|  | |
+ | |____| | | | (_| | | |  __/ | | | (_| |  __/           | |
+  \_____|_| |_|\__,_|_|_|\___|_| |_|\__, |\___|           |_|
+                                     __/ |
+                                    |___/

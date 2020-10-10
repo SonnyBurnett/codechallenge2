@@ -143,5 +143,44 @@ namespace Tw.Ing.Challenge.Tests
             // ASSERT
             await Assert.ThrowsAsync<CsvServiceException>(act);
         }
+
+        [Fact]
+        public async Task Load_Warning_InvalidRecord()
+        {
+            // ARRANGE
+            var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Default);
+            string csvString =
+@"productId, name,  description, price, category
+1,a,aa,11,shirts
+45848, 
+2,b,bb,22,pants
+45850,";
+
+            requestMock.SetupGetMethod(HttpStatusCode.OK, "001-experts-inputs.csv", csvString);
+
+            var httpClient = new HttpClient(requestMock.Object);
+            ICsvService srv = new CsvService(httpClient);
+
+            // ACT
+            var productList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
+
+            // ASSESS
+            Assert.Equal(2, productList.Count());
+            var product1 = productList.First();
+            Assert.Equal(1, product1.Id);
+            Assert.Equal("a", product1.Name);
+            Assert.Equal("aa", product1.Description);
+            Assert.Equal(11, product1.Price.Value);
+            Assert.Equal(Currency.USD, product1.Price.Currency);
+            Assert.Equal(ProductCategory.Shirts, product1.Category);
+
+            var product2 = productList.ElementAt(1);
+            Assert.Equal(2, product2.Id);
+            Assert.Equal("b", product2.Name);
+            Assert.Equal("bb", product2.Description);
+            Assert.Equal(22, product2.Price.Value);
+            Assert.Equal(Currency.USD, product2.Price.Currency);
+            Assert.Equal(ProductCategory.Pants, product2.Category);
+        }
     }
 }
