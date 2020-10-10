@@ -36,18 +36,17 @@ jobs:
     - name: Build
       run: dotnet build ${{ env.project }} --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} /warnaserror --no-restore /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
     - name: Test
-      run: dotnet test ${{ env.testProject }} --no-restore --verbosity normal --configuration ${{ env.configuration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }}  --collect "Code coverage" /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }} --collect "XPlat Code Coverage" -l:trx;LogFileName=${{ github.workspace }}/TestResults/TestOutput.xml
+      run: dotnet test ${{ env.testProject }} --no-restore --verbosity normal --configuration ${{ env.configuration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }}  --collect "Code coverage" /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }} --collect "XPlat Code Coverage" -l:trx;LogFileName=${{ github.workspace }}/test-reports/TestOutput.xml
     - name: Publish
       run: dotnet publish ${{ env.project }} --no-build --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} --output publishOutput
-    - name: Publish Unit Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v1.3
-      if: always()
+    - name: XUnit Viewer
+      id: xunit-viewer
+      uses: AutoModality/action-xunit-viewer@v1  
+    - name: Attach the report
+      uses: actions/upload-artifact@v1
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        check_name: Unit Test Results
-        files: TestResults/**/*.trx
-        report_individual_runs: true
-        deduplicate_classes_by_file_name: false
+        name: ${{ steps.xunit-viewer.outputs.report-name }}
+        path: ${{ steps.xunit-viewer.outputs.report-dir }}
     - name: Publish Code Coverage Results
       uses: 5monkeys/cobertura-action@master
       with:
