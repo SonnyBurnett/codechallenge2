@@ -158,3 +158,13 @@ Data collector 'Code Coverage' message: No code coverage data available. Code co
 ----
 
 [Created using Liquid Test Reports](https://github.com/kurtmkurtm/LiquidTestReports)                                    
+
+
+### Code Coverage
+
+![Code Coverage](c1/Doc/CodeCoverage.pn)
+
+
+### Code Analysis
+
+![Code Analysis](c1/Doc/CodeAnalysis.pn)
