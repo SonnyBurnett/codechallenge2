@@ -31,6 +31,8 @@ jobs:
     - name: Use GitVersion
       id: gitversion # step id used as reference for output values
       uses: gittools/actions/gitversion/execute@v0.9.4
+      with: 
+        targetPath: ${{github.workspace}}/c1
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -75,4 +77,10 @@ jobs:
       with:
         name: 'Test Run'
         path: ${{github.workspace}}/${{env.file_name}}
+    - name: Upload Code Coverage Report
+      uses: actions/upload-artifact@v2
+      if: ${{always()}}
+      with:
+        name: 'Code Coverage'
+        path: ${{github.workspace}}/**/coverage.cobertura.xml
       
