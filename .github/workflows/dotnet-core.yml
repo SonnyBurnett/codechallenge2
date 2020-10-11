@@ -1,17 +1,21 @@
-name: Build
+name: Build C1
 
 on:
   push:
     branches: [ main ]
+    paths: 
+    - 'c1/**'
   pull_request:
     branches: [ main ]
+    paths: 
+    - 'c1/*'
 
 env:
   configuration: Release
-  solution: c.sln
-  project: Src/TwIngChallenge.csproj
+  solution: c1/c1.sln
+  project: c1/Src/TwIngChallenge.csproj
   runtime: win-x64
-  testProject: Tst/TwIngChallenge.Tests.csproj
+  testProject: c1/Tst/TwIngChallenge.Tests.csproj
 
 jobs:
   build:
@@ -28,7 +32,7 @@ jobs:
       id: gitversion # step id used as reference for output values
       uses: gittools/actions/gitversion/execute@v0.9.4
       with: 
-        targetPath: ${{github.workspace}}/c1
+        targetPath: c1
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -60,7 +64,6 @@ jobs:
         contains('
           refs/heads/main
         ', github.ref)
-      # upload report as build artifact
     - name: comment PR
       uses: machine-learning-apps/pr-comment@master
       if: ${{ github.event_name == 'pull_request' }}

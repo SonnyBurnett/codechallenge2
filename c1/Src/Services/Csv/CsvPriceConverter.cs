@@ -31,6 +31,7 @@ namespace Tw.Ing.Challenge.Services
                 priceProperty.Value = 0;
                 TraceExtensions.DoWarn($"Row {memberMapData.Index}: Not a valid price  {priceString}");
             }
+
             if (row.TryGetField<string>("currency", out string currencyString))
             {
                 priceProperty.Currency = Enum.Parse<Currency>(currencyString);
@@ -50,9 +51,7 @@ namespace Tw.Ing.Challenge.Services
             if (fieldName == "currency") 
             {
                 return price.Currency.ToString();
-            }
-
-            if (fieldName == "price")
+            } else if (fieldName == "price")
             {
                 return price.Value.ToString(CultureInfo.InvariantCulture);
             }
