@@ -1,6 +1,6 @@
 # IngBytes
 
-![Build Status](https://github.com/teamwildenberg/IngBytes/workflows/Build/badge.svg)
+![Build Status](https://github.com/teamwildenberg/IngBytes/workflows/Build%20C1/badge.svg)
 
        _____ _           _ _                                  __
       / ____| |         | | |                                /_ |
@@ -162,9 +162,9 @@ Data collector 'Code Coverage' message: No code coverage data available. Code co
 
 ### Code Coverage
 
-![Code Coverage](c1/Doc/CodeCoverage.pn)
+![Code Coverage](c1/Doc/CodeCoverage.png)
 
 
 ### Code Analysis
 
-![Code Analysis](c1/Doc/CodeAnalysis.pn)
+![Code Analysis](c1/Doc/CodeAnalysis.png)
