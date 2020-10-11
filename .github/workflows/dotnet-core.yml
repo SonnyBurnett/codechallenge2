@@ -27,6 +27,8 @@ jobs:
     - name: Use GitVersion
       id: gitversion # step id used as reference for output values
       uses: gittools/actions/gitversion/execute@v0.9.4
+      with: 
+        path: ${{github.workspace}}/c1
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
