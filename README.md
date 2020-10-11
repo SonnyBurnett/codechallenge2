@@ -9,18 +9,15 @@
      | |____| | | | (_| | | |  __/ | | | (_| |  __/           | |
       \_____|_| |_|\__,_|_|_|\___|_| |_|\__, |\___|           |_|
                                          __/ |
-                                    |___/
+                                         |___/
 
 
 ## For the Reviewer:
 
 Some tips for the reviewer:
 - [ChallengeCommand.cs](https://github.com/teamwildenberg/IngBytes/blob/main/Src/Commands/ChallengeCommand.cs) is the start of the implemention, following the command pattern.
-- [Command Line](https://github.com/teamwildenberg/IngBytes/suites/1319898973/artifacts/20986196) can be downloaded from the build (Win-X64)
-- [Test Report](https://github.com/teamwildenberg/IngBytes/suites/1319898973/artifacts/20986197) is part of the build (and copied below)
--  
-
-
+- [Command Line](https://github.com/teamwildenberg/IngBytes/suites/1322330937/artifacts/21071581) can be downloaded from the build (Win-X64)
+- [Test Report](https://github.com/teamwildenberg/IngBytes/suites/1322330937/artifacts/21071582) is part of the build (and copied below)
 
 
 ## Test Run for PR # (62)
