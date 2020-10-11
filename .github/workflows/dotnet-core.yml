@@ -12,7 +12,7 @@ on:
 
 env:
   configuration: Release
-  solution: c1/c.sln
+  solution: c1/c1.sln
   project: c1/Src/TwIngChallenge.csproj
   runtime: win-x64
   testProject: c1/Tst/TwIngChallenge.Tests.csproj
