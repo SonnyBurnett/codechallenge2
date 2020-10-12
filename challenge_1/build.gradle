@@ -14,12 +14,6 @@ plugins {
     id 'application'
 }
 
-repositories {
-    // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    jcenter()
-}
-
 sourceCompatibility = 15
 targetCompatibility = 15
 
@@ -27,7 +21,6 @@ dependencies {
     // This dependency is used by the application.
     implementation 'org.apache.commons:commons-csv:1.8'
 
-    // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testImplementation 'com.google.truth:truth:1.0.1'
 
