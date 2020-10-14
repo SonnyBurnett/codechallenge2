@@ -1,11 +1,11 @@
 public class Product {
-    private int id;
+    private long id;
     private String name;
     private String description;
     private double price;
     private String category;
 
-    public Product(int id, String name, String description, double price, String category){
+    public Product(long id, String name, String description, double price, String category){
         this.id = id;
         this.name = name;
         this.description = description;
@@ -18,7 +18,7 @@ public class Product {
         return id + ", " + name + ", " + description + ", " + price + ", " + category;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

@@ -13,16 +13,16 @@ public class FilterProducts {
         readProductFile(file);
     }
 
-    public void readProductFile(String file){
+    public void readProductFile(String fileName){
         try {
-            File myObj = new File(file);
-            Scanner myReader = new Scanner(myObj);
-            myReader.nextLine();
-            while (myReader.hasNextLine()) {
-                String[] data = myReader.nextLine().split(",");
-                inputList.add(new Product(Integer.parseInt(data[0]), data[1], data[2], Double.parseDouble(data[3]), data[4]));
+            File file = new File(fileName);
+            Scanner scanner = new Scanner(file);
+            scanner.nextLine();
+            while (scanner.hasNextLine()) {
+                String[] data = scanner.nextLine().split(",");
+                inputList.add(new Product(Long.parseLong(data[0]), data[1], data[2], Double.parseDouble(data[3]), data[4]));
             }
-            myReader.close();
+            scanner.close();
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
