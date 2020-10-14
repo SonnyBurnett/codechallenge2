@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 public class Product {
     private long id;
     private String name;
@@ -11,6 +13,10 @@ public class Product {
         this.description = description;
         this.price = price;
         this.category = category;
+    }
+
+    public boolean priceIsBelow(double max) {
+        return this.price < max;
     }
 
     @Override
