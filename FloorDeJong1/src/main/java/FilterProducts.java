@@ -10,11 +10,12 @@ public class FilterProducts {
     private List<Product> inputList = new ArrayList<>();
     private List<Product> outputList;
 
-    public FilterProducts(String file){
+    public FilterProducts(String file) throws CloneNotSupportedException {
         readProductFile(file);
         List<Product> filterList = filterOut(inputList, p -> p.priceIsBelow(10));
+        List<Product> convertedList = convertCurrency(filterList, "EURO", 0.85);
         System.out.println(filterList);
-
+        System.out.println(convertedList);
     }
 
     public void readProductFile(String fileName) {
@@ -33,14 +34,34 @@ public class FilterProducts {
         }
     }
 
-    public List<Product> filterOut(List<Product> productList, Predicate<Product> checker) {
-        List<Product> filteredList = new ArrayList<>(inputList);
+    public List<Product> filterOut(List<Product> productList, Predicate<Product> checker) throws CloneNotSupportedException {
+        List<Product> filteredList = cloneList(inputList);
         for (Product product: productList) {
             if (checker.test(product)) {
                  filteredList.remove(product);
             }
         }
         return filteredList;
+    }
+
+    public List<Product> convertCurrency(List<Product> productList, String newCurrency, double rate) throws CloneNotSupportedException {
+        List<Product> convertedList = cloneList(productList);
+
+        for (Product product: convertedList) {
+            if (!product.getCurrency().equals(newCurrency)) {
+                product.setPrice(product.getPrice() * rate);
+                product.setCurrency(newCurrency);
+            }
+        }
+        return convertedList;
+    }
+
+    public List<Product> cloneList(List<Product> oldList) throws CloneNotSupportedException {
+        List<Product> newList = new ArrayList<>();
+        for (Product product: oldList) {
+            newList.add(product.clone());
+        }
+        return newList;
     }
 
     public List<Product> getInputList() {
