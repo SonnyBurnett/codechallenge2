@@ -1,0 +1,9 @@
+/home/allan/code-challenge2/assignment1/Assignment1/obj/Debug/netcoreapp3.1/Assignment1.csprojAssemblyReference.cache
+/home/allan/code-challenge2/assignment1/Assignment1/obj/Debug/netcoreapp3.1/Assignment1.AssemblyInfoInputs.cache
+/home/allan/code-challenge2/assignment1/Assignment1/obj/Debug/netcoreapp3.1/Assignment1.AssemblyInfo.cs
+/home/allan/code-challenge2/assignment1/Assignment1/obj/Debug/netcoreapp3.1/Assignment1.csproj.CoreCompileInputs.cache
+/home/allan/code-challenge2/assignment1/Assignment1/bin/Debug/netcoreapp3.1/Assignment1.deps.json
+/home/allan/code-challenge2/assignment1/Assignment1/bin/Debug/netcoreapp3.1/Assignment1.dll
+/home/allan/code-challenge2/assignment1/Assignment1/bin/Debug/netcoreapp3.1/Assignment1.pdb
+/home/allan/code-challenge2/assignment1/Assignment1/obj/Debug/netcoreapp3.1/Assignment1.dll
+/home/allan/code-challenge2/assignment1/Assignment1/obj/Debug/netcoreapp3.1/Assignment1.pdb

@@ -1,0 +1,4 @@
+/home/allan/code-challenge2/assignment1/Assignment1/obj/Debug/netstandard2.0/Assignment1.csprojAssemblyReference.cache
+/home/allan/code-challenge2/assignment1/Assignment1/obj/Debug/netstandard2.0/Assignment1.AssemblyInfoInputs.cache
+/home/allan/code-challenge2/assignment1/Assignment1/obj/Debug/netstandard2.0/Assignment1.AssemblyInfo.cs
+/home/allan/code-challenge2/assignment1/Assignment1/obj/Debug/netstandard2.0/Assignment1.csproj.CoreCompileInputs.cache
