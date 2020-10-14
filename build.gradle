@@ -12,10 +12,10 @@ plugins {
     id 'application'
 }
 
-application {
+/*application {
     // Define the main class for the application.
     mainClassName = 'com.ing.challenge.App'
-}
+}*/
 
 dependencies {
     // This dependency is used by the application.
