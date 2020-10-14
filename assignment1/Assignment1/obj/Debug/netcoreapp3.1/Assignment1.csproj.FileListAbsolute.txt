@@ -7,3 +7,7 @@
 /home/allan/code-challenge2/assignment1/Assignment1/bin/Debug/netcoreapp3.1/Assignment1.pdb
 /home/allan/code-challenge2/assignment1/Assignment1/obj/Debug/netcoreapp3.1/Assignment1.dll
 /home/allan/code-challenge2/assignment1/Assignment1/obj/Debug/netcoreapp3.1/Assignment1.pdb
+/home/allan/code-challenge2/assignment1/Assignment1/bin/Debug/netcoreapp3.1/Assignment1
+/home/allan/code-challenge2/assignment1/Assignment1/bin/Debug/netcoreapp3.1/Assignment1.runtimeconfig.json
+/home/allan/code-challenge2/assignment1/Assignment1/bin/Debug/netcoreapp3.1/Assignment1.runtimeconfig.dev.json
+/home/allan/code-challenge2/assignment1/Assignment1/obj/Debug/netcoreapp3.1/Assignment1.genruntimeconfig.cache
