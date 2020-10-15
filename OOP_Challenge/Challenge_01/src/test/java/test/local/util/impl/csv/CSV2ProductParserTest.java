@@ -2,14 +2,14 @@ package test.local.util.impl.csv;
 
 
 import org.junit.jupiter.api.Test;
-import test.local.model.Category;
 import test.local.model.Product;
+import test.local.model.impl.Pants;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CSV2ProductParserTest {
 
-    private Product expected = new Product(1, "name", "desc", 42, Category.PANTS);
+    private Product expected = new Pants(1, "name", "desc", 42);
 
     @Test
     void getValidProductsFromCSVLine() {

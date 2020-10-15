@@ -1,11 +1,16 @@
 package test.local.util.impl.csv;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import test.local.model.Category;
 import test.local.model.Product;
+import test.local.model.impl.Pants;
+import test.local.model.impl.Shirts;
 
 import java.util.Arrays;
 
 public final class CSV2ProductParser {
+    private static final Logger logger = LoggerFactory.getLogger(CSV2ProductParser.class);
     private CSV2ProductParser() {
         // no creation of CSV 2 Product parser class
     }
@@ -18,7 +23,7 @@ public final class CSV2ProductParser {
         String[] lines = csvLine.split(",");
 
         if (lines.length != 5) {
-            System.out.println("not all information for this product is filled correctly");
+            logger.warn("not all information for this product is filled correctly, returning invalid product");
             return Product.invalid();
         }
 
@@ -30,11 +35,16 @@ public final class CSV2ProductParser {
             int price = Integer.parseInt(lines[3].trim());
 
             Category category = Category.valueOf(lines[4].trim().toUpperCase());
-
-            return new Product(id, lines[1].trim(), lines[2].trim(), price, category);
+            if (category == Category.PANTS) {
+                return new Pants(id, lines[1].trim(), lines[2].trim(), price);
+            } else if (category == Category.SHIRTS) {
+                return new Shirts(id, lines[1].trim(), lines[2].trim(), price);
+            } else {
+                return Product.invalid();
+            }
 
         } catch (Exception ex) {
-            System.out.println("cannot parse input to valid product");
+            logger.error("cannot parse input to valid product, {}", ex.getLocalizedMessage());
             return Product.invalid();
         }
 

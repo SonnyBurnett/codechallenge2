@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 public class CSVPrinter implements FilePrinter {
-    private final Logger logger = LoggerFactory.getLogger(CSVPrinter.class);
+    private static final Logger logger = LoggerFactory.getLogger(CSVPrinter.class);
 
     @Override
     public void printFile(String filename, List<String> content) {

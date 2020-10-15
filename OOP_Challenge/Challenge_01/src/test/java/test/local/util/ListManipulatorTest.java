@@ -2,8 +2,9 @@ package test.local.util;
 
 import org.junit.jupiter.api.Test;
 import test.local.CodingChallenge;
-import test.local.model.Category;
 import test.local.model.Product;
+import test.local.model.impl.Pants;
+import test.local.model.impl.Shirts;
 
 import java.util.List;
 
@@ -12,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ListManipulatorTest {
 
     private List<Product> products = List.of(
-            new Product(1, "product1", "desc1", 1, Category.PANTS),
-            new Product(2, "product2", "desc2", 5, Category.SHIRTS)
+            new Pants(1, "product1", "desc1", 1),
+            new Shirts(2, "product2", "desc2", 5)
 
     );
 

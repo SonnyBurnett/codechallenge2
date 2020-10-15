@@ -1,5 +1,7 @@
 package test.local.util.impl.csv;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import test.local.util.FileReader;
 
 import java.io.BufferedReader;
@@ -8,10 +10,9 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class CSVReader implements FileReader {
-    private static final Logger LOGGER = Logger.getLogger(CSVReader.class.getName());
+    private final Logger logger = LoggerFactory.getLogger(CSVReader.class);
 
     public List<String> readFile(String filename) {
         List<String> lines = new ArrayList<>();
@@ -29,7 +30,7 @@ public class CSVReader implements FileReader {
             streamReader.close();
 
         } catch (Exception ex) {
-            LOGGER.warning("cannot open or read input file");
+            logger.error("cannot open or read input file: {}", ex.getLocalizedMessage());
         }
         return lines;
     }
