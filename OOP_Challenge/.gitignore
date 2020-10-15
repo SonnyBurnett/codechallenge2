@@ -237,3 +237,5 @@ Temporary Items
 .apdisk
 
 target/
+.idea/sonarlint
+.idea/sonarlint/*
