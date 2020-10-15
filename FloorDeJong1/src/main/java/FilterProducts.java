@@ -10,11 +10,12 @@ import java.util.function.Predicate;
 
 // ToDo: Logging
 // ToDo: Tests
+// ToDo: Create productList class
 public class FilterProducts {
     private List<Product> inputList = new ArrayList<>();
     private List<Product> outputList;
 
-    public FilterProducts(String file) throws CloneNotSupportedException {
+    public FilterProducts(String file) {
         readProductFile(file);
     }
 
@@ -42,7 +43,7 @@ public class FilterProducts {
     }
 
     // ToDo: Use sort and find first product >= 10, remove rest
-    public List<Product> filterOut(List<Product> productList, Predicate<Product> checker) throws CloneNotSupportedException {
+    public List<Product> filterOut(List<Product> productList, Predicate<Product> checker) {
         List<Product> filteredList = new ArrayList<>(productList);
         List<Product> toBeFilteredOut = new ArrayList<>();
 
