@@ -110,7 +110,7 @@ namespace Assignment1.Services
 
     public class Shirts : Clothing
     {
-        // specific properties for pants
+        // specific properties for arms
         private int arms;
 
         private string category = "shirts";
