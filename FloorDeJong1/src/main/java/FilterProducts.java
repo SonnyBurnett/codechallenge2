@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,16 +15,19 @@ public class FilterProducts {
     public FilterProducts(String file) throws CloneNotSupportedException {
         readProductFile(file);
         List<Product> filterList = filterOut(inputList, p -> p.priceIsBelow(10));
-        List<Product> convertedList = convertCurrency(filterList, "EURO", 0.85);
-        System.out.println(filterList);
-        System.out.println(convertedList);
+        outputList = convertCurrency(filterList, "EURO", 0.85);
+
+        System.out.println(inputList);
+        System.out.println(outputList);
+
+        writeProductFile(outputList);
     }
 
     public void readProductFile(String fileName) {
         try {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
-            scanner.nextLine();
+            System.out.println(scanner.nextLine());
             while (scanner.hasNextLine()) {
                 String[] data = scanner.nextLine().split(",");
                 inputList.add(new Product(Long.parseLong(data[0]), data[1], data[2], Double.parseDouble(data[3]), data[4]));
@@ -34,13 +39,23 @@ public class FilterProducts {
         }
     }
 
+    // ToDo: Use sort and find first product >= 10, remove rest
     public List<Product> filterOut(List<Product> productList, Predicate<Product> checker) throws CloneNotSupportedException {
-        List<Product> filteredList = cloneList(inputList);
-        for (Product product: productList) {
+        List<Product> filteredList = new ArrayList<>(productList);
+        List<Product> toBeFilteredOut = new ArrayList<>();
+
+        for (Product product: filteredList) {
+            System.out.println("product: " + product);
             if (checker.test(product)) {
-                 filteredList.remove(product);
+                System.out.println("Remove product: " + product);
+                toBeFilteredOut.add(product);
             }
         }
+
+        for (Product product: toBeFilteredOut) {
+            filteredList.remove(product);
+        }
+
         return filteredList;
     }
 
@@ -54,6 +69,21 @@ public class FilterProducts {
             }
         }
         return convertedList;
+    }
+
+    public void writeProductFile(List<Product> productList) {
+        try {
+            FileWriter myWriter = new FileWriter("output.csv");
+            myWriter.write("productId, name, description, price, category\n");
+            for (Product product: productList) {
+                myWriter.write(product.toString() + "\n");
+            }
+            myWriter.close();
+            System.out.println("Successfully wrote to the file.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     public List<Product> cloneList(List<Product> oldList) throws CloneNotSupportedException {
