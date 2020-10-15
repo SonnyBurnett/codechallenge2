@@ -1,4 +1,6 @@
-package local.test.util.csv;
+package local.test.util.impl.csv;
+
+import local.test.util.FileReader;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -8,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class CSVReader {
+public class CSVReader implements FileReader {
     private static final Logger LOGGER = Logger.getLogger(CSVReader.class.getName());
 
     public List<String> readFile(String filename) {

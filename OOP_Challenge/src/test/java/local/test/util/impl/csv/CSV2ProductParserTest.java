@@ -1,8 +1,7 @@
-package local.test.util.csv;
+package local.test.util.impl.csv;
 
 import local.test.model.Category;
 import local.test.model.Product;
-import local.test.util.csv.CSV2ProductParser;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

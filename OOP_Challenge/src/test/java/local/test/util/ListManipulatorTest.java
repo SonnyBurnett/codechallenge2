@@ -1,22 +1,23 @@
-package local.test;
+package local.test.util;
 
+import local.test.CodingChallenge;
 import local.test.model.Category;
 import local.test.model.Product;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CodingChallengeTest {
+class ListManipulatorTest {
 
-    private CodingChallenge cc = new CodingChallenge();
     private List<Product> products = List.of(
             new Product(1, "product1", "desc1", 1, Category.PANTS),
             new Product(2, "product2", "desc2", 5, Category.SHIRTS)
 
     );
+
+    private ListManipulator listManipulator = new ListManipulator();
     @Test
     void mergeHeaderWithProducts() {
         List<String> expected = List.of(
@@ -24,7 +25,7 @@ class CodingChallengeTest {
                 "1, product1, desc1, 0.85, pants",
                 "2, product2, desc2, 4.25, shirts"
         );
-        List<String> actual = cc.mergeHeaderWithProducts(products);
+        List<String> actual = listManipulator.mergeHeaderWithProducts(products);
         assertEquals(expected, actual);
     }
 
@@ -34,7 +35,7 @@ class CodingChallengeTest {
                 "1, product1, desc1, 0.85, pants",
                 "2, product2, desc2, 4.25, shirts"
         );
-        List<String> actual = cc.convertProductToCSVStringList(products);
+        List<String> actual = listManipulator.convertProductToCSVStringList(products);
         assertEquals(expected, actual);
     }
 }

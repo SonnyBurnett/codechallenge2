@@ -1,4 +1,4 @@
-package local.test.util.csv;
+package local.test.util.impl.csv;
 
 import local.test.model.Category;
 import local.test.model.Product;
