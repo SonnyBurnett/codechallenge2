@@ -1,10 +1,11 @@
 package test.local.model;
 
+import test.local.model.impl.InvalidProduct;
 import test.local.util.CashConverter;
 
 import java.util.Objects;
 
-public class Product {
+public abstract class Product {
     private long productId;
     private String name;
     private String description;
@@ -46,7 +47,7 @@ public class Product {
     }
 
     public static Product invalid() {
-        return new Product(-1, "", "", 0, null);
+        return new InvalidProduct();
     }
 
 
