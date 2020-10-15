@@ -23,3 +23,7 @@ productId,	name,		description,	price,	category​
 4184688,	trousers,	trousers,	10.2,	pants​
 848488,		blue shirt,	shirt,		74.8,	shirts
 ```
+
+## Solution
+
+Run the `main` inside the `CodingChallenge` class. The result will be printed to the `output.csv` file in the `resources` directory
