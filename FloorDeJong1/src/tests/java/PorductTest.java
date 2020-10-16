@@ -1,4 +1,5 @@
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -72,7 +73,7 @@ public class PorductTest {
     }
 
     @Test
-    public void testCheckProductInfoCorrect() {
+    public void testCheckProduct() {
         // assign
         String correctInfo = "productId, name, description, price, category";
         String incorrectInfo = "productId, name, description, category";
@@ -82,4 +83,44 @@ public class PorductTest {
         assertFalse(Product.checkProductInfo(incorrectInfo));
     }
 
+    @Test
+    public void testCompareTo() {
+        // assign
+        Product product1 = new Product(1, "a", "b", 5.0, "c");
+        Product mockProduct = Mockito.mock(Product.class);
+        Mockito.when(mockProduct.getPrice()).thenReturn(4.0).thenReturn(5.0).thenReturn(6.0);
+
+        // act + assert
+        assertTrue(product1.compareTo(mockProduct) > 0);
+        assertEquals(0, product1.compareTo(mockProduct));
+        assertTrue(product1.compareTo(mockProduct) < 0);
+    }
+
+    @Test
+    public void testConverCurrencyDifferentCurrency() {
+        // Assign
+        Product product1 = new Product(1, "a", "b", 5.0, "c");
+
+        // Act
+        product1.convertCurrency("Euro", 0.85);
+
+        // assert
+        assertEquals("Euro".toUpperCase(), product1.getCurrency());
+        assertEquals(5.0 * 0.85, product1.getPrice());
+
+    }
+
+    @Test
+    public void testConverCurrencySameCurrency() {
+        // Assign
+        Product product1 = new Product(1, "a", "b", 5.0, "c");
+
+        // Act
+        product1.convertCurrency("Dollar", 0.85);
+
+        // assert
+        assertEquals("DOLLAR", product1.getCurrency());
+        assertEquals(5.0, product1.getPrice());
+
+    }
 }

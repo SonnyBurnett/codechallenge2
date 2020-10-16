@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -7,10 +10,12 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class ProductFilterTest {
 
     private final ProductFilter filter = new ProductFilter();
 
+    @Mock
     private final Product mockProduct = Mockito.mock(Product.class);
 
     private final List<Product> productList = new ArrayList<>();
@@ -81,5 +86,27 @@ public class ProductFilterTest {
         // Assert
         assertFalse(filterList.isEmpty());
         assertEquals(1, filterList.size());
+    }
+
+//    @Test
+//    public void testConvertCurrency() throws CloneNotSupportedException {
+//        Product mockProduct = Mockito.mock(Product.class);
+////        Mockito.when(mockProduct.setCurrency()).thenReturn(false);
+//
+//        List<Product> productList = new ArrayList<>();
+//        productList.add(mockProduct);
+//
+//
+//        filter.convertCurrency(productList, "euro", 0.85);
+//    }
+
+
+    @Test
+    public void testCloneList() throws CloneNotSupportedException {
+        // Act
+        List<Product> newList = filter.cloneList(productList);
+
+        // assign
+        assertNotEquals(productList, newList);
     }
 }

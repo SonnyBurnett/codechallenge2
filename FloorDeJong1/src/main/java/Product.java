@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class Product implements Cloneable {
+public class Product implements Cloneable, Comparable<Product> {
     private long id;
     private String name;
     private String description;
@@ -8,7 +8,7 @@ public class Product implements Cloneable {
     private String category;
     private String currency;
 
-    public static final String[] PRODUCT_INFO = {"productId", "name", "description", "price", "category"};
+    public static final String PRODUCT_INFO = "productId, name, description, price, category";
 
     public Product(long id, String name, String description, double price, String category, String currency){
         this.id = id;
@@ -25,21 +25,34 @@ public class Product implements Cloneable {
 
     public boolean checkPriceBelow(double max) {
         return this.price < max;
-
     }
 
+    @Override
+    public int compareTo(Product o) {
+        return Double.compare(this.price, o.getPrice());
+    }
+
+    @Override
     public Product clone() throws CloneNotSupportedException {
        return (Product) super.clone();
     }
 
     public static boolean checkProductInfo(String info) {
         String[] lineList = info.split(", ");
+        String[] productInfo = PRODUCT_INFO.split(", ");
 
-        if (Arrays.compare(lineList, PRODUCT_INFO) == 0) {
+        if (Arrays.compare(lineList, productInfo) == 0) {
             return true;
         }
         System.out.println("Error: Product information is not correct.\n" + Arrays.toString(lineList));
         return false;
+    }
+
+    public void convertCurrency(String newCurrency, double rate) {
+        if (!this.currency.equals(newCurrency.toUpperCase())) {
+            this.price *= rate;
+//            this.setCurrency(newCurrency);
+        }
     }
 
     @Override
@@ -88,6 +101,6 @@ public class Product implements Cloneable {
     }
 
     public void setCurrency(String currency) {
-        this.currency = currency;
+        this.currency = currency.toUpperCase();
     }
 }

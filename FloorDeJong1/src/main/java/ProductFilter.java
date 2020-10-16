@@ -10,7 +10,6 @@ import java.util.function.Predicate;
 
 // ToDo: Tests
 // ToDo: logging
-// ToDo: Create productList class
 public class ProductFilter {
     private List<Product> inputList = new ArrayList<>();
     private List<Product> outputList = new ArrayList<>();
@@ -29,25 +28,19 @@ public class ProductFilter {
         scanner.close();
     }
 
-    public void createFilteredConvertedFile() throws CloneNotSupportedException {
+    public void createFilteredConvertedFile(String fileName) throws CloneNotSupportedException {
         List<Product> filterList = filterOut(inputList, p -> p.checkPriceBelow(10));
         outputList = convertCurrency(filterList, "EURO", 0.85);
-        writeProductFile(outputList);
+        writeProductFile(outputList, fileName);
     }
 
-    // ToDo: Use sort and find first product >= 10, remove rest
     public List<Product> filterOut(List<Product> productList, Predicate<Product> checker) {
-        List<Product> filteredList = new ArrayList<>(productList);
-        List<Product> toBeFilteredOut = new ArrayList<>();
+        List<Product> filteredList = new ArrayList<>();
 
-        for (Product product: filteredList) {
-            if (checker.test(product)) {
-                toBeFilteredOut.add(product);
+        for (Product product: productList) {
+            if (!(checker.test(product))) {
+                filteredList.add(product);
             }
-        }
-
-        for (Product product: toBeFilteredOut) {
-            filteredList.remove(product);
         }
 
         return filteredList;
@@ -58,19 +51,17 @@ public class ProductFilter {
         List<Product> convertedList = cloneList(productList);
 
         for (Product product : convertedList) {
-            if (!product.getCurrency().equals(newCurrency)) {
-                product.setPrice(product.getPrice() * rate);
-                product.setCurrency(newCurrency);
-            }
+            product.convertCurrency(newCurrency, rate);
         }
         return convertedList;
     }
 
     // TODO: option: check whether a file already exists
-    public void writeProductFile(List<Product> productList) {
+    // TODO: Let new file be output in same folder as input
+    public void writeProductFile(List<Product> productList, String fileName) {
         try {
-            FileWriter myWriter = new FileWriter("output.csv");
-            myWriter.write("productId, name, description, price, category\n");
+            FileWriter myWriter = new FileWriter(fileName);
+            myWriter.write(Product.PRODUCT_INFO);
             for (Product product: productList) {
                 myWriter.write(product.toString() + "\n");
             }
@@ -95,7 +86,6 @@ public class ProductFilter {
     }
 
     public List<Product> getOutputList() {
-
         return outputList;
     }
 }
