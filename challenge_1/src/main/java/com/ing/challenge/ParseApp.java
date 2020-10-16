@@ -3,6 +3,7 @@
  */
 package com.ing.challenge;
 
+import com.ing.challenge.converter.Converter;
 import com.ing.challenge.converter.ProductConverter;
 import com.ing.challenge.model.Product;
 import com.ing.challenge.parser.CsvProductParser;
@@ -15,6 +16,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -23,12 +25,24 @@ public class ParseApp {
 
     public static void main(String[] args) throws URISyntaxException, IOException {
         Path source = pathToOutputFile("999-test.csv");
+
         Parser<Product> csvParser = new CsvProductParser();
-        ProductConverter converter = new ProductConverter();
+        Converter<Product> converter = new ProductConverter();
+
         List<Product> products = csvParser.read(getFile("001-experts-inputs.csv"));
+
+        System.out.println("\nCurrent products in US dollars: [");
+        products.forEach(product -> System.out.println("        " + product.toString()));
+        System.out.println("]\n");
+
         List<Product> filteredProducts = products.stream().filter(p -> converter.filterPrice(p,10.0))
                 .map(p -> converter.convertCurrency(p,0.85))
                 .collect(Collectors.toList());
+
+        System.out.println("Filtered products in Euros: [");
+        filteredProducts.forEach(product -> System.out.println("        " + product.toString()));
+        System.out.println("]");
+
         File f = Files.createFile(source).toFile();
         csvParser.write(f, filteredProducts);
     }
