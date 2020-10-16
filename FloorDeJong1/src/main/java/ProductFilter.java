@@ -8,32 +8,25 @@ import java.util.Scanner;
 import java.util.function.Predicate;
 
 
-// ToDo: Logging
 // ToDo: Tests
+// ToDo: logging
 // ToDo: Create productList class
-public class FilterProducts {
+public class ProductFilter {
     private List<Product> inputList = new ArrayList<>();
-    private List<Product> outputList;
+    private List<Product> outputList = new ArrayList<>();
 
-    public FilterProducts(String file) {
-        readProductFile(file);
-    }
-
-    // ToDo: Check whether first line is can be used for as products
-    public void readProductFile(String fileName) {
-        try {
-            File file = new File(fileName);
-            Scanner scanner = new Scanner(file);
-            scanner.nextLine();
+    public void readProductFile(String fileName) throws FileNotFoundException {
+        inputList.clear();
+        File file = new File(fileName);
+        Scanner scanner = new Scanner(file);
+        if(Product.checkProductInfo(scanner.nextLine())) {
             while (scanner.hasNextLine()) {
                 String[] data = scanner.nextLine().split(",");
-                inputList.add(new Product(Long.parseLong(data[0]), data[1], data[2], Double.parseDouble(data[3]), data[4]));
+                inputList.add(new Product(Long.parseLong(data[0]), data[1].strip(), data[2].strip(),
+                        Double.parseDouble(data[3]), data[4].strip()));
             }
-            scanner.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
         }
+        scanner.close();
     }
 
     public void createFilteredConvertedFile() throws CloneNotSupportedException {
