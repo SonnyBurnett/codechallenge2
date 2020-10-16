@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Product implements Cloneable {
     private long id;
     private String name;
@@ -5,6 +7,8 @@ public class Product implements Cloneable {
     private double price;
     private String category;
     private String currency;
+
+    public static final String[] PRODUCT_INFO = {"productId", "name", "description", "price", "category"};
 
     public Product(long id, String name, String description, double price, String category, String currency){
         this.id = id;
@@ -26,6 +30,16 @@ public class Product implements Cloneable {
 
     public Product clone() throws CloneNotSupportedException {
        return (Product) super.clone();
+    }
+
+    public static boolean checkProductInfo(String info) {
+        String[] lineList = info.split(", ");
+
+        if (Arrays.compare(lineList, PRODUCT_INFO) == 0) {
+            return true;
+        }
+        System.out.println("Error: Product information is not correct.\n" + Arrays.toString(lineList));
+        return false;
     }
 
     @Override

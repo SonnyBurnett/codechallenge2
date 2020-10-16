@@ -71,4 +71,15 @@ public class PorductTest {
         assertNotEquals(product1, product2);
     }
 
+    @Test
+    public void testCheckProductInfoCorrect() {
+        // assign
+        String correctInfo = "productId, name, description, price, category";
+        String incorrectInfo = "productId, name, description, category";
+
+        // act + assert
+        assertTrue(Product.checkProductInfo(correctInfo));
+        assertFalse(Product.checkProductInfo(incorrectInfo));
+    }
+
 }
