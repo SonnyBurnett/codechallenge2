@@ -37,7 +37,7 @@ public class FilterProducts {
     }
 
     public void createFilteredConvertedFile() throws CloneNotSupportedException {
-        List<Product> filterList = filterOut(inputList, p -> p.priceIsBelow(10));
+        List<Product> filterList = filterOut(inputList, p -> p.checkPriceBelow(10));
         outputList = convertCurrency(filterList, "EURO", 0.85);
         writeProductFile(outputList);
     }

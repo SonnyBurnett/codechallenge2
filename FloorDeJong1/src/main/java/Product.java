@@ -12,15 +12,16 @@ public class Product implements Cloneable {
         this.description = description;
         this.price = price;
         this.category = category;
-        this.currency = currency;
+        this.currency = currency.toUpperCase();
     }
 
     public Product(long id, String name, String description, double price, String category){
-        this(id, name, description, price, category, "dollar");
+        this(id, name, description, price, category, "DOLLAR");
     }
 
-    public boolean priceIsBelow(double max) {
+    public boolean checkPriceBelow(double max) {
         return this.price < max;
+
     }
 
     public Product clone() throws CloneNotSupportedException {
