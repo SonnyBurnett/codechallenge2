@@ -76,3 +76,4 @@ public class Product implements Cloneable {
         this.currency = currency;
     }
 }
+ 
