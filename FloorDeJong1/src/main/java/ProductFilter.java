@@ -1,3 +1,5 @@
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -10,22 +12,28 @@ import java.util.function.Predicate;
 
 // ToDo: Tests
 // ToDo: logging
+
+@Slf4j
 public class ProductFilter {
     private List<Product> inputList = new ArrayList<>();
     private List<Product> outputList = new ArrayList<>();
 
-    public void readProductFile(String fileName) throws FileNotFoundException {
-        inputList.clear();
-        File file = new File(fileName);
-        Scanner scanner = new Scanner(file);
-        if(Product.checkProductInfo(scanner.nextLine())) {
-            while (scanner.hasNextLine()) {
-                String[] data = scanner.nextLine().split(",");
-                inputList.add(new Product(Long.parseLong(data[0]), data[1].strip(), data[2].strip(),
-                        Double.parseDouble(data[3]), data[4].strip()));
+    public void readProductFile(String fileLocation) throws FileNotFoundException {
+//        try {
+            inputList.clear();
+            File file = new File(fileLocation);
+            Scanner scanner = new Scanner(file);
+            if (Product.checkProductInfo(scanner.nextLine())) {
+                while (scanner.hasNextLine()) {
+                    String[] data = scanner.nextLine().split(",");
+                    inputList.add(new Product(Long.parseLong(data[0]), data[1].strip(), data[2].strip(),
+                            Double.parseDouble(data[3]), data[4].strip()));
+                }
             }
-        }
-        scanner.close();
+            scanner.close();
+//        } catch (FileNotFoundException e){
+//            log.error(e.toString());
+//        }
     }
 
     public void createFilteredConvertedFile(String fileName) throws CloneNotSupportedException {
@@ -57,19 +65,17 @@ public class ProductFilter {
     }
 
     // TODO: option: check whether a file already exists
-    // TODO: Let new file be output in same folder as input
-    public void writeProductFile(List<Product> productList, String fileName) {
+    public void writeProductFile(List<Product> productList, String fileLocation) {
         try {
-            FileWriter myWriter = new FileWriter(fileName);
-            myWriter.write(Product.PRODUCT_INFO);
+            FileWriter writer = new FileWriter(fileLocation);
+            writer.write(Product.PRODUCT_INFO);
             for (Product product: productList) {
-                myWriter.write(product.toString() + "\n");
+                writer.write(product.toString() + "\n");
             }
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
+            writer.close();
+            System.out.println("Successfully wrote to file: " + fileLocation);
         } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            log.error(e.toString());
         }
     }
 

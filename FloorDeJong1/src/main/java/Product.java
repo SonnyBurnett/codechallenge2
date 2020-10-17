@@ -51,7 +51,7 @@ public class Product implements Cloneable, Comparable<Product> {
     public void convertCurrency(String newCurrency, double rate) {
         if (!this.currency.equals(newCurrency.toUpperCase())) {
             this.price *= rate;
-//            this.setCurrency(newCurrency);
+            this.setCurrency(newCurrency);
         }
     }
 
