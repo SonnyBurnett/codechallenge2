@@ -3,7 +3,7 @@ import org.mockito.Mockito;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PorductTest {
+public class TestProduct {
 
     @Test
     public void testCreate(){
