@@ -5,6 +5,6 @@ public class Main {
         String input = "FloordeJong1/src/main/resources/input.csv";
         ProductFilter filter = new ProductFilter();
         filter.readProductFile(input);
-        filter.createFilteredConvertedFile("output.csv");
+        filter.createFilteredConvertedFile("FloordeJong1/src/main/resources/output.csv");
     }
 }
