@@ -28,11 +28,7 @@ public class Expert01 {
         }
 
         prod.migrateValue("price");
-
-        Map<String, String> priceProperties = new HashMap<>();
-        priceProperties.put("price", "10.20");
-        ProductDetail whatToFilter = new ProductDetail(priceProperties);
-        prod.filterGreaterThanOrEqual(whatToFilter, "price");
+        filterMethod(prod, "price", "10.20");
 
         try {
             prod.write("gep2/sre-gep2-ex01/src/main/resources/001-experts-outputs.csv");
@@ -40,5 +36,13 @@ public class Expert01 {
         } catch (Exception error) {
             System.out.println("NOT able to write file.");
         }
+    }
+
+    private static void filterMethod(Products prod,  String label, String value) {
+
+        Map<String, String> priceProperties = new HashMap<>();
+        priceProperties.put(label, value);
+        ProductDetail whatToFilter = new ProductDetail(priceProperties);
+        prod.filterGreaterThanOrEqual(whatToFilter, label);
     }
 }

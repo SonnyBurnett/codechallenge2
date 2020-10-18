@@ -1,6 +1,5 @@
 package ex01;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,11 +9,11 @@ import java.util.Map;
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class ProductsTest {
 
     private final Products test_Products = new Products("Test Products");
-//    private static ProductDetail test_Details;
 
     @BeforeEach
     void test_setUp() {
@@ -54,12 +53,6 @@ class ProductsTest {
         assertEquals("848488",
                 test_Products.getProduct("productId", "848488"
                 ).getDetails().getProperty("productId"));
-
-
-    }
-
-    @AfterEach
-    void test_tearDown() {
     }
 
     @Test
@@ -165,28 +158,115 @@ class ProductsTest {
                         "    price: 12\n" +
                         "---\n";
 
-        System.out.println(test_String.toString());
         assertEquals(test_expectedString, test_String.toString());
     }
 
     @Test
     void test_greaterThanOrEqual() {
+        Map<String, String> properties = new HashMap<>();
+        properties.put("price", "12");
+        ProductDetail whatToCompare = new ProductDetail(properties);
+        List<Product> test_productsList = test_Products.greaterThanOrEqual(whatToCompare, "price");
+        StringBuilder test_String = new StringBuilder();
+
+        if (!test_productsList.isEmpty()) {
+            test_String.append("---\n");
+            for (ex01.Product Product : test_productsList) {
+                ProductDetail detail = Product.getDetails();
+                for (String propertyName : detail.getProperties().keySet()) {
+                    if (propertyName.equals("price")) {
+                        test_String.append("    ").append(propertyName).append(": ")
+                                .append(detail.getProperty(propertyName)).append("\n");
+                    }
+                }
+            }
+            test_String.append("---\n");
+        }
+
+        String test_expectedString =
+                "---\n" +
+                        "    price: 12\n" +
+                        "    price: 88\n" +
+                        "---\n";
+
+        assertEquals(test_expectedString, test_String.toString());
     }
 
     @Test
     void test_listAll() {
+        List<Product> test_productsList = test_Products.listAll();
+        StringBuilder test_String = new StringBuilder();
+
+        if (!test_productsList.isEmpty()) {
+            test_String.append("---\n");
+            for (ex01.Product Product : test_productsList) {
+                ProductDetail detail = Product.getDetails();
+                for (String propertyName : detail.getProperties().keySet()) {
+                    if (propertyName.equals("productId")) {
+                        test_String.append("    ").append(propertyName).append(": ")
+                                .append(detail.getProperty(propertyName)).append("\n");
+                    }
+                }
+            }
+            test_String.append("---\n");
+        }
+
+        String test_expectedString =
+                "---\n" +
+                        "    productId: 45848\n" +
+                        "    productId: 4184688\n" +
+                        "    productId: 848488\n" +
+                        "---\n";
+
+        assertEquals(test_expectedString, test_String.toString());
     }
 
     @Test
     void test_migrateValue() {
+        test_Products.migrateValue("price");
+
+        assertEquals("6.80",
+                test_Products.getProduct("productId", "45848"
+                ).getDetails().getProperty("price"));
+        assertEquals("10.20",
+                test_Products.getProduct("productId", "4184688"
+                ).getDetails().getProperty("price"));
+        assertEquals("74.80",
+                test_Products.getProduct("productId", "848488"
+                ).getDetails().getProperty("price"));
     }
 
     @Test
     void test_filterProducts() {
+        Map<String, String> priceProperties = new HashMap<>();
+        priceProperties.put("price", "12");
+        ProductDetail whatToFilter = new ProductDetail(priceProperties);
+        test_Products.filterProducts(whatToFilter);
+
+        assertNull(
+                test_Products.getProduct("productId", "45848"
+                ));
+        assertEquals("12",
+                test_Products.getProduct("productId", "4184688"
+                ).getDetails().getProperty("price"));
+        assertNull(
+                test_Products.getProduct("productId", "848488"
+                ));
     }
 
     @Test
     void test_filterGreaterThanOrEqual() {
+        Map<String, String> priceProperties = new HashMap<>();
+        priceProperties.put("price", "12.00");
+        ProductDetail whatToFilter = new ProductDetail(priceProperties);
+        test_Products.filterGreaterThanOrEqual(whatToFilter, "price");
+
+        assertEquals("12",
+                test_Products.getProduct("productId", "4184688"
+                ).getDetails().getProperty("price"));
+        assertEquals("88",
+                test_Products.getProduct("productId", "848488"
+                ).getDetails().getProperty("price"));
     }
 
     @Test

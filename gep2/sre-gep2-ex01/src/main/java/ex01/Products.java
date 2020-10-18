@@ -54,6 +54,7 @@ public class Products implements ProductsHandler {
         return matchingProducts;
     }
 
+    @SuppressWarnings("unused")
     public List<Product> greaterThanOrEqual(ProductDetail searchDetail, String name) {
         List<Product> matchingProducts = new LinkedList<>();
         for (Product product : productsList) {

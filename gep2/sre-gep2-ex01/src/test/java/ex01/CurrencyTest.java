@@ -24,11 +24,16 @@ class CurrencyTest {
         dollar = Currency.DOLLAR.toEuro(new BigDecimal("1.00"));
         dollar = dollar.setScale(2, RoundingMode.HALF_EVEN);
         assertEquals("0.85", dollar.toString());
+        dollar = Currency.DOLLAR.toEuro(new BigDecimal("0.00"));
+        dollar = dollar.setScale(2, RoundingMode.HALF_EVEN);
+        assertEquals("0.00", dollar.toString());
     }
 
     @Test
     void toDollar() {
         euro = Currency.EURO.toDollar(new BigDecimal("0.85"));
         assertEquals("1.00", euro.toString());
+        euro = Currency.EURO.toDollar(new BigDecimal("0.00"));
+        assertEquals("0.00", euro.toString());
     }
 }
