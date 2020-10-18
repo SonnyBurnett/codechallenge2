@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CodeChallenge1.Products;
+using CodeChallenge1.Utils;
+using System;
 
 namespace CodeChallenge1
 {
@@ -6,7 +8,9 @@ namespace CodeChallenge1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ProductCSV productCSV = new ProductCSV();
+            productCSV.csvToProductList(@"C:\Users\YK47BU\source\repos\CodeChallenge1\CodeChallenge1\resources\001-experts-inputs.csv");
+            productCSV.writeToCSVProductsWithPriceAbove(10);
         }
     }
 }
