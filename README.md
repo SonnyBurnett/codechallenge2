@@ -41,11 +41,11 @@ Set-up the code by either clone the repertory or download it as a whole and extr
 The readme files of the root modules contain the explanation for the expert assignments.
 
 #### Expert problems
-1\. [Expert Assignment 1](gep2/sre-gep2-ex01/README.md): 'gep2/sre-gep2-ex01/README.md'
+1. [Expert Assignment 1](gep2/sre-gep2-ex01/README.md): 'gep2/sre-gep2-ex01/README.md'
     is guiding you through the solution for the Object Oriented setup for assignment 1.
-2\. [Expert Assignment 2](gep2/sre-gep2-ex02/README.md): 'gep2/sre-gep2-ex02/README.md'
+2. [Expert Assignment 2](gep2/sre-gep2-ex02/README.md): 'gep2/sre-gep2-ex02/README.md'
     <TBD> for assignment 2.
-2\. [Expert Assignment 3](gep2/sre-gep2-ex03/README.md): 'gep2/sre-gep2-ex03/README.md'
+2. [Expert Assignment 3](gep2/sre-gep2-ex03/README.md): 'gep2/sre-gep2-ex03/README.md'
     <TBD> for assignment 3.
 
 ## Deployment
