@@ -62,6 +62,7 @@ public class ProductFilter {
     }
 
     // TODO: option: check whether a file already exists
+    // ToDo: use FileWriterFactory for not using new FileWriter...
     public void writeProductFile(List<Product> productList, String fileLocation) {
         try {
             FileWriter writer = new FileWriter(fileLocation);

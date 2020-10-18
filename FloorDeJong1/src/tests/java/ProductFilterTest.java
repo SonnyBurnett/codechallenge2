@@ -1,6 +1,9 @@
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.lang.CloneNotSupportedException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,25 +21,37 @@ public class ProductFilterTest {
 
     private final ProductFilter filter = new ProductFilter();
 
-    private final Product mockProduct = mock(Product.class);
+    private static final Product mockProduct = mock(Product.class);
 
-    private final List<Product> productList = new ArrayList<>();
-    {productList.add(mockProduct);}
+    private static final List<Product> productList = new ArrayList<>();
 
-    private final Logger logger = (Logger) LoggerFactory.getLogger(ProductFilter.class);
+    private static final Logger logger = (Logger) LoggerFactory.getLogger(ProductFilter.class);
 
+    private static final ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
+
+    @BeforeAll
+    public static void setUp() {
+        productList.add(mockProduct);
+
+        listAppender.start();
+        logger.addAppender(listAppender);
+    }
+
+    @AfterAll
+    public static void cleanUp() {
+        listAppender.stop();
+    }
+
+    @BeforeEach
+    public void cleanUpEach() {
+        listAppender.list.clear();
+        reset(mockProduct);
+    }
 
     @Test
     public void testReadProductFileNotExistingFile() {
         // Assign
         String fileName = "thisIsAnNonExistingFile.text";
-
-        // create and start a ListAppender
-        ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
-        listAppender.start();
-
-        // add the appender to the logger
-        logger.addAppender(listAppender);
 
         // Act
         filter.readProductFile(fileName);
@@ -128,10 +143,21 @@ public class ProductFilterTest {
     }
 
     @Test
-    public void testwriteProductFile() {
+    public void testWriteProductFile() {
+        // Assign
+        String fileName = System.getProperty("java.io.tmpdir") + "/output.csv";
+        when(mockProduct.toString()).thenReturn("1, a, b, 0.85, c");
 
+        // Act
+        filter.writeProductFile(productList , fileName);
+
+        // Assert
+        List<ILoggingEvent> logsList = listAppender.list;
+        assertEquals(Level.INFO, logsList.get(0).getLevel());
+        assertTrue(logsList.get(0).getMessage().contains("Successfully wrote to file:"));
+
+        assertTrue(checkFileExists(fileName));
     }
-
 
     @Test
     public void testCloneListCloneable() throws CloneNotSupportedException {
@@ -153,13 +179,6 @@ public class ProductFilterTest {
         List<Product> newProductList = new ArrayList<>(productList);
         when(mockProduct.clone()).thenThrow(new CloneNotSupportedException());
 
-        // create and start a ListAppender
-        ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
-        listAppender.start();
-
-        // add the appender to the logger
-        logger.addAppender(listAppender);
-
         // Act
         List<Product> newList = filter.cloneList(newProductList);
 
@@ -170,5 +189,10 @@ public class ProductFilterTest {
 
         assertEquals(0, newList.size());
         verify(mockProduct, times(1)).clone();
+    }
+
+    private boolean checkFileExists(String fileName) {
+        File file = new File(fileName);
+        return file.exists();
     }
 }
