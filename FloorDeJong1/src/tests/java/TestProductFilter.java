@@ -7,6 +7,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import org.slf4j.LoggerFactory;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
+
 public class TestProductFilter {
 
     private final ProductFilter filter = new ProductFilter();
@@ -17,16 +23,30 @@ public class TestProductFilter {
     {productList.add(mockProduct);}
 
     @Test
-    public void testReadProductFileNotExistingFile(){
-        // assign
+    public void testReadProductFileNotExistingFile() {
+        // Assign
         String fileName = "thisIsAnNonExistingFile.text";
+        Logger logger = (Logger) LoggerFactory.getLogger(ProductFilter.class);
 
-        // act + assert
-        assertThrows(FileNotFoundException.class, () -> filter.readProductFile(fileName) );
+        // create and start a ListAppender
+        ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
+        listAppender.start();
+
+        // add the appender to the logger
+        logger.addAppender(listAppender);
+
+        // Act
+        filter.readProductFile(fileName);
+
+        // Assert
+        List<ILoggingEvent> logsList = listAppender.list;
+        assertEquals(Level.ERROR, logsList.get(0).getLevel());
+        assertTrue(logsList.get(0).getMessage().contains("FileNotFoundException"));
+
     }
 
     @Test
-    public void testReadProductFileCorrectProductFile() throws FileNotFoundException {
+    public void testReadProductFileCorrectProductFile() {
         // assign
         String fileName = "FloordeJong1/src/tests/resources/correctInput.csv";
 
@@ -45,7 +65,7 @@ public class TestProductFilter {
     }
 
     @Test
-    public void testReadProductFileIncorrectProductFile() throws FileNotFoundException {
+    public void testReadProductFileIncorrectProductFile() {
         // assign
         String fileName = "FloordeJong1/src/tests/resources/incorrectInput.csv";
 

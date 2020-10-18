@@ -1,4 +1,5 @@
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,17 +10,13 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.function.Predicate;
 
-
-// ToDo: Tests
-// ToDo: logging
-
-@Slf4j
 public class ProductFilter {
     private List<Product> inputList = new ArrayList<>();
     private List<Product> outputList = new ArrayList<>();
+    static final Logger LOGGER = LoggerFactory.getLogger(ProductFilter .class);
 
-    public void readProductFile(String fileLocation) throws FileNotFoundException {
-//        try {
+    public void readProductFile(String fileLocation) {
+        try {
             inputList.clear();
             File file = new File(fileLocation);
             Scanner scanner = new Scanner(file);
@@ -31,9 +28,9 @@ public class ProductFilter {
                 }
             }
             scanner.close();
-//        } catch (FileNotFoundException e){
-//            log.error(e.toString());
-//        }
+        } catch (FileNotFoundException e){
+            LOGGER.error(e.toString());
+        }
     }
 
     public void createFilteredConvertedFile(String fileName) throws CloneNotSupportedException {
@@ -75,7 +72,7 @@ public class ProductFilter {
             writer.close();
             System.out.println("Successfully wrote to file: " + fileLocation);
         } catch (IOException e) {
-            log.error(e.toString());
+            LOGGER.error(e.toString());
         }
     }
 
