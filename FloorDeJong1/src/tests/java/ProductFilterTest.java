@@ -14,7 +14,7 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.read.ListAppender;
 
-public class TestProductFilter {
+public class ProductFilterTest {
 
     private final ProductFilter filter = new ProductFilter();
 
@@ -79,6 +79,8 @@ public class TestProductFilter {
         assertTrue(filter.getInputList().isEmpty());
     }
 
+
+
     @Test
     public void testFilterOutPriceBelow(){
         //assign
@@ -125,9 +127,14 @@ public class TestProductFilter {
         verify(mockProduct, times(2)).convertCurrency(newCurrency, rate);
     }
 
+    @Test
+    public void testwriteProductFile() {
+
+    }
+
 
     @Test
-    public void testCloneList() throws CloneNotSupportedException {
+    public void testCloneListCloneable() throws CloneNotSupportedException {
         // Assign
         List<Product> newProductList = new ArrayList<>(productList);
         newProductList.add(mockProduct);

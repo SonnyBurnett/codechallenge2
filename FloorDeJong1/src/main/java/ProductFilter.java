@@ -51,7 +51,7 @@ public class ProductFilter {
         return filteredList;
     }
 
-    // ToDo: create class for currency change
+    // ToDo: create class for currency, with a methode convertCurrency
     public List<Product> convertCurrency(List<Product> productList, String newCurrency, double rate) {
         List<Product> convertedList = cloneList(productList);
 
@@ -70,7 +70,7 @@ public class ProductFilter {
                 writer.write(product.toString() + "\n");
             }
             writer.close();
-            System.out.println("Successfully wrote to file: " + fileLocation);
+            LOGGER.info("Successfully wrote to file: " + fileLocation);
         } catch (IOException e) {
             LOGGER.error(e.toString());
         }
