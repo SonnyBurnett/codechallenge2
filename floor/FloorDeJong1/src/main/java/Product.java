@@ -1,30 +1,59 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
+
 public class Product implements Cloneable {
     private long id;
     private String name;
     private String description;
     private double price;
     private String category;
-    private String currency;
+    private Currency currency;
 
-    public Product(long id, String name, String description, double price, String category, String currency){
+    public static final String PRODUCT_INFO = "productId, name, description, price, category";
+    static final Logger LOGGER = LoggerFactory.getLogger(Product .class);
+
+    public Product(long id, String name, String description, double price, String category, Currency.Type currency){
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
-        this.currency = currency;
+        this.currency = new Currency(currency);
     }
 
     public Product(long id, String name, String description, double price, String category){
-        this(id, name, description, price, category, "dollar");
+        this(id, name, description, price, category, Currency.Type.USD);
     }
 
-    public boolean priceIsBelow(double max) {
+    public boolean checkPriceBelow(double max) {
         return this.price < max;
     }
 
+    @Override
     public Product clone() throws CloneNotSupportedException {
        return (Product) super.clone();
+    }
+
+    public static boolean checkProductInfo(String info) {
+        String[] lineList = info.split(", ");
+        String[] productInfo = PRODUCT_INFO.split(", ");
+
+        if (Arrays.compare(lineList, productInfo) == 0) {
+            return true;
+        }
+        LOGGER.error("Product information is incorrect.\n" + Arrays.toString(lineList));
+        return false;
+    }
+
+    public void convertCurrency(Currency.Type newCurrency) {
+        if (!this.currency.getCurrencyType().equals(newCurrency)) {
+            this.price *= this.currency.getRate(newCurrency);
+            this.currency.setCurrencyType(newCurrency);
+        } else {
+            LOGGER.info("Price of product is already in " + newCurrency);
+        }
     }
 
     @Override
@@ -68,12 +97,8 @@ public class Product implements Cloneable {
         this.category = category;
     }
 
-    public String getCurrency() {
+    public Currency getCurrency() {
         return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 }
  
