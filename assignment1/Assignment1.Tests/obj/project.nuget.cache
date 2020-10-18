@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "soBWNAHab+y0Qef2xg6GlSrqRaHQEHkWfWDOREJwszZ2pRCYhiV+AaxtHkLP0co0cU94Zi+rgrNAm8pHgcoK9Q==",
+  "dgSpecHash": "Vdz1O48Lwa/0dqhTAAaw7FN4G+UabNp1n8wvPSbedLdh0VYrlkgPUGDN/VSaMqWMZYB1rxtOqgmbCkdJpKjrLA==",
   "success": true,
-  "projectFilePath": "/home/allan/code-challenge2/assignment1/Assignment1.Tests/Assignment1.Tests.csproj",
+  "projectFilePath": "/home/allan/code/code-challenge2/assignment1/Assignment1.Tests/Assignment1.Tests.csproj",
   "expectedPackageFiles": [
     "/home/allan/.nuget/packages/coverlet.collector/1.2.0/coverlet.collector.1.2.0.nupkg.sha512",
     "/home/allan/.nuget/packages/microsoft.codecoverage/16.5.0/microsoft.codecoverage.16.5.0.nupkg.sha512",

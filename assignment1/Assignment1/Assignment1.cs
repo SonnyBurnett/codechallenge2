@@ -1,4 +1,8 @@
-﻿// Assignment 1 for the code challenge 2
+﻿// Copyright (c) DEVCOP. All Rights Reserved.
+/*
+ * Assignment 1 for code challenge 2
+ * By A.C. Cop - Allan.Cop@ing.com
+ */
 
 namespace Assignment1.Services
 {

@@ -45,11 +45,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/allan/code-challenge2/assignment1/Assignment1/Assignment1.csproj",
+      "projectUniqueName": "/home/allan/code/code-challenge2/assignment1/Assignment1/Assignment1.csproj",
       "projectName": "Assignment1",
-      "projectPath": "/home/allan/code-challenge2/assignment1/Assignment1/Assignment1.csproj",
+      "projectPath": "/home/allan/code/code-challenge2/assignment1/Assignment1/Assignment1.csproj",
       "packagesPath": "/home/allan/.nuget/packages/",
-      "outputPath": "/home/allan/code-challenge2/assignment1/Assignment1/obj/",
+      "outputPath": "/home/allan/code/code-challenge2/assignment1/Assignment1/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/allan/.nuget/NuGet/NuGet.Config"
@@ -95,7 +95,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.402/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.403/RuntimeIdentifierGraph.json"
       }
     }
   }
