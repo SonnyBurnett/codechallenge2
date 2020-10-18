@@ -27,6 +27,10 @@ namespace Assignment1.Services
             this.Arms = 1;
         }
 
-        protected int Arms { get; set; }
+        protected int Arms
+        {
+            get;
+            set;
+        }
     }
 }

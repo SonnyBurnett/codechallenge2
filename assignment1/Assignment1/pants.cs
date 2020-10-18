@@ -36,6 +36,10 @@ namespace Assignment1.Services
             this.Legs = 1;
         }
 
-        protected int Legs { get; set; }
+        protected int Legs
+        {
+            get;
+            set;
+        }
     }
 }
