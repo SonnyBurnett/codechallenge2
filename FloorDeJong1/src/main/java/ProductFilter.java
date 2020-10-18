@@ -33,7 +33,7 @@ public class ProductFilter {
         }
     }
 
-    public void createFilteredConvertedFile(String fileName) throws CloneNotSupportedException {
+    public void createFilteredConvertedFile(String fileName) {
         List<Product> filterList = filterOut(inputList, p -> p.checkPriceBelow(10));
         outputList = convertCurrency(filterList, "EURO", 0.85);
         writeProductFile(outputList, fileName);
@@ -52,7 +52,7 @@ public class ProductFilter {
     }
 
     // ToDo: create class for currency change
-    public List<Product> convertCurrency(List<Product> productList, String newCurrency, double rate) throws CloneNotSupportedException {
+    public List<Product> convertCurrency(List<Product> productList, String newCurrency, double rate) {
         List<Product> convertedList = cloneList(productList);
 
         for (Product product : convertedList) {
@@ -76,10 +76,14 @@ public class ProductFilter {
         }
     }
 
-    public List<Product> cloneList(List<Product> oldList) throws CloneNotSupportedException {
+    public List<Product> cloneList(List<Product> oldList) {
         List<Product> newList = new ArrayList<>();
         for (Product product: oldList) {
-            newList.add(product.clone());
+            try {
+                newList.add(product.clone());
+            } catch (CloneNotSupportedException e) {
+                LOGGER.error(e.toString());
+            }
         }
         return newList;
     }

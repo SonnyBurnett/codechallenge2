@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
+import java.lang.CloneNotSupportedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,13 @@ public class TestProductFilter {
     private final List<Product> productList = new ArrayList<>();
     {productList.add(mockProduct);}
 
+    private final Logger logger = (Logger) LoggerFactory.getLogger(ProductFilter.class);
+
+
     @Test
     public void testReadProductFileNotExistingFile() {
         // Assign
         String fileName = "thisIsAnNonExistingFile.text";
-        Logger logger = (Logger) LoggerFactory.getLogger(ProductFilter.class);
 
         // create and start a ListAppender
         ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
@@ -135,5 +138,30 @@ public class TestProductFilter {
         // assert
         assertEquals(2, newList.size());
         verify(mockProduct, times(2)).clone();
+    }
+
+    @Test
+    public void testCloneListNotCloneable() throws CloneNotSupportedException {
+        // Assign
+        List<Product> newProductList = new ArrayList<>(productList);
+        when(mockProduct.clone()).thenThrow(new CloneNotSupportedException());
+
+        // create and start a ListAppender
+        ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
+        listAppender.start();
+
+        // add the appender to the logger
+        logger.addAppender(listAppender);
+
+        // Act
+        List<Product> newList = filter.cloneList(newProductList);
+
+        // Assert
+        List<ILoggingEvent> logsList = listAppender.list;
+        assertEquals(Level.ERROR, logsList.get(0).getLevel());
+        assertTrue(logsList.get(0).getMessage().contains("CloneNotSupportedException"));
+
+        assertEquals(0, newList.size());
+        verify(mockProduct, times(1)).clone();
     }
 }
