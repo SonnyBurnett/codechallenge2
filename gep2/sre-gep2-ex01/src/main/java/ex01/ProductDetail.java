@@ -50,7 +50,7 @@ public class ProductDetail {
         return true;
     }
 
-    public boolean compareMonetary(ProductDetail otherDetail, String propertyName ) {
+    public boolean compareMonetary(ProductDetail otherDetail, String propertyName) {
         for (Object propertyObject : otherDetail.getProperties().keySet()) {
             if (Objects.equals(propertyName, propertyObject)) {
                 BigDecimal productDetailValue = new BigDecimal(properties.get(propertyName));
