@@ -1,9 +1,41 @@
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.read.ListAppender;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.slf4j.LoggerFactory;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.reset;
 
 public class ProductTest {
+
+    private static final Logger logger = (Logger) LoggerFactory.getLogger(Product.class);
+
+    private static final ListAppender<ILoggingEvent> listAppender = new ListAppender<>();
+
+    @BeforeAll
+    public static void setUp() {
+        listAppender.start();
+        logger.addAppender(listAppender);
+    }
+
+    @AfterAll
+    public static void cleanUp() {
+        listAppender.stop();
+    }
+
+    @BeforeEach
+    public void cleanUpEach() {
+        listAppender.list.clear();
+    }
+
 
     @Test
     public void testCreate(){
@@ -73,31 +105,29 @@ public class ProductTest {
     }
 
     @Test
-    public void testCheckProduct() {
+    public void testCheckProductCorrect() {
         // assign
         String correctInfo = "productId, name, description, price, category";
-        String incorrectInfo = "productId, name, description, category";
 
         // act + assert
         assertTrue(Product.checkProductInfo(correctInfo));
-        assertFalse(Product.checkProductInfo(incorrectInfo));
     }
 
     @Test
-    public void testCompareTo() {
+    public void testCheckProductIncorrect() {
         // assign
-        Product product1 = new Product(1, "a", "b", 5.0, "c");
-        Product mockProduct = Mockito.mock(Product.class);
-        Mockito.when(mockProduct.getPrice()).thenReturn(4.0).thenReturn(5.0).thenReturn(6.0);
+        String incorrectInfo = "productId, name, description, category";
 
-        // act + assert
-        assertTrue(product1.compareTo(mockProduct) > 0);
-        assertEquals(0, product1.compareTo(mockProduct));
-        assertTrue(product1.compareTo(mockProduct) < 0);
+        // act + act
+        assertFalse(Product.checkProductInfo(incorrectInfo));
+
+        List<ILoggingEvent> logsList = listAppender.list;
+        assertEquals(Level.ERROR, logsList.get(0).getLevel());
+        assertTrue(logsList.get(0).getMessage().contains("Product information is incorrect."));
     }
 
     @Test
-    public void testConverCurrencyDifferentCurrency() {
+    public void testConvertCurrencyDifferentCurrency() {
         // Assign
         Product product1 = new Product(1, "a", "b", 5.0, "c");
 
@@ -111,7 +141,7 @@ public class ProductTest {
     }
 
     @Test
-    public void testConverCurrencySameCurrency() {
+    public void testConvertCurrencySameCurrency() {
         // Assign
         Product product1 = new Product(1, "a", "b", 5.0, "c");
 
@@ -119,8 +149,14 @@ public class ProductTest {
         product1.convertCurrency("Dollar", 0.85);
 
         // assert
+        List<ILoggingEvent> logsList = listAppender.list;
+        assertEquals(Level.INFO, logsList.get(0).getLevel());
+        assertTrue(logsList.get(0).getMessage().contains("Price of product is already in "));
+
         assertEquals("DOLLAR", product1.getCurrency());
         assertEquals(5.0, product1.getPrice());
+
+
 
     }
 }

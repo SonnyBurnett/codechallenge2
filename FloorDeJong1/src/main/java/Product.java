@@ -1,6 +1,9 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Arrays;
 
-public class Product implements Cloneable, Comparable<Product> {
+public class Product implements Cloneable {
     private long id;
     private String name;
     private String description;
@@ -9,6 +12,7 @@ public class Product implements Cloneable, Comparable<Product> {
     private String currency;
 
     public static final String PRODUCT_INFO = "productId, name, description, price, category";
+    static final Logger LOGGER = LoggerFactory.getLogger(Product .class);
 
     public Product(long id, String name, String description, double price, String category, String currency){
         this.id = id;
@@ -28,11 +32,6 @@ public class Product implements Cloneable, Comparable<Product> {
     }
 
     @Override
-    public int compareTo(Product o) {
-        return Double.compare(this.price, o.getPrice());
-    }
-
-    @Override
     public Product clone() throws CloneNotSupportedException {
        return (Product) super.clone();
     }
@@ -44,14 +43,17 @@ public class Product implements Cloneable, Comparable<Product> {
         if (Arrays.compare(lineList, productInfo) == 0) {
             return true;
         }
-        System.out.println("Error: Product information is not correct.\n" + Arrays.toString(lineList));
+        LOGGER.error("Product information is incorrect.\n" + Arrays.toString(lineList));
         return false;
     }
 
+    // ToDo: create class for currency, with a methode convertCurrency
     public void convertCurrency(String newCurrency, double rate) {
         if (!this.currency.equals(newCurrency.toUpperCase())) {
             this.price *= rate;
             this.setCurrency(newCurrency);
+        } else {
+            LOGGER.info("Price of product is already in " + newCurrency);
         }
     }
 
