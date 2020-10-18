@@ -6,7 +6,7 @@ using System.Text;
 
 namespace CodeChallenge1.Utils
 {
-    class Files
+    public class Files
     {
         private static List<string> readFile(string path)
         {

@@ -14,11 +14,11 @@ namespace CodeChallenge1.Products
     //    public string category;
     //}
 
-    class ProductCSV : IProduct
+    public class ProductCSV : IProduct
     {
         List<Dictionary<string,string>> productList;
         const float EURO = 0.85F;
-        string path;
+        public string path;
 
         public float convertPrice(float price, float currency = EURO)
         {
@@ -36,7 +36,7 @@ namespace CodeChallenge1.Products
             Files.listToCSVFile(getProductsWithPriceAbove(minPrice), path);
         }
 
-        private List<Dictionary<string, string>> getProductsWithPriceAbove(float minPrice)
+        public List<Dictionary<string, string>> getProductsWithPriceAbove(float minPrice)
         {
             List<Dictionary<string, string>> listOfProductsWithPriceAbove = new List<Dictionary<string, string>>();
             foreach (Dictionary<string, string> product in productList)
