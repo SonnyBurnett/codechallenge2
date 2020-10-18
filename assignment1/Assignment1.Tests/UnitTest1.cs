@@ -63,6 +63,7 @@ namespace Assignment1.Tests
             }
             Assert.IsTrue(myresult, "My shirt is of type shirt.");
         }
+        [TestMethod]
         
         public void Assignment1_TestHatFactory_ReturnTrue()
         {
