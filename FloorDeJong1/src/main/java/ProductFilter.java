@@ -33,10 +33,10 @@ public class ProductFilter {
         }
     }
 
-    public void createFilteredConvertedFile(String fileName) {
-        List<Product> filterList = filterOut(inputList, p -> p.checkPriceBelow(10));
-        outputList = convertCurrency(filterList, "EURO", 0.85);
-        writeProductFile(outputList, fileName);
+    public void createFilteredConvertedFile(String newFileName, double maxPrice, Currency.Type newCurrency) {
+        List<Product> filterList = filterOut(inputList, p -> p.checkPriceBelow(maxPrice));
+        outputList = convertCurrency(filterList, newCurrency);
+        writeProductFile(outputList, newFileName);
     }
 
     public List<Product> filterOut(List<Product> productList, Predicate<Product> checker) {
@@ -51,12 +51,11 @@ public class ProductFilter {
         return filteredList;
     }
 
-    // ToDo: create class for currency, with a methode convertCurrency
-    public List<Product> convertCurrency(List<Product> productList, String newCurrency, double rate) {
+    public List<Product> convertCurrency(List<Product> productList, Currency.Type newCurrency) {
         List<Product> convertedList = cloneList(productList);
 
         for (Product product : convertedList) {
-            product.convertCurrency(newCurrency, rate);
+            product.convertCurrency(newCurrency);
         }
         return convertedList;
     }

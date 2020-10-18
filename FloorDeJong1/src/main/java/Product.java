@@ -9,22 +9,22 @@ public class Product implements Cloneable {
     private String description;
     private double price;
     private String category;
-    private String currency;
+    private Currency currency;
 
     public static final String PRODUCT_INFO = "productId, name, description, price, category";
     static final Logger LOGGER = LoggerFactory.getLogger(Product .class);
 
-    public Product(long id, String name, String description, double price, String category, String currency){
+    public Product(long id, String name, String description, double price, String category, Currency.Type currency){
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category;
-        this.currency = currency.toUpperCase();
+        this.currency = new Currency(currency);
     }
 
     public Product(long id, String name, String description, double price, String category){
-        this(id, name, description, price, category, "DOLLAR");
+        this(id, name, description, price, category, Currency.Type.USD);
     }
 
     public boolean checkPriceBelow(double max) {
@@ -47,11 +47,10 @@ public class Product implements Cloneable {
         return false;
     }
 
-    // ToDo: create class for currency, with a methode convertCurrency
-    public void convertCurrency(String newCurrency, double rate) {
-        if (!this.currency.equals(newCurrency.toUpperCase())) {
-            this.price *= rate;
-            this.setCurrency(newCurrency);
+    public void convertCurrency(Currency.Type newCurrency) {
+        if (!this.currency.getCurrencyType().equals(newCurrency)) {
+            this.price *= this.currency.getRate(newCurrency);
+            this.currency.setCurrencyType(newCurrency);
         } else {
             LOGGER.info("Price of product is already in " + newCurrency);
         }
@@ -98,11 +97,7 @@ public class Product implements Cloneable {
         this.category = category;
     }
 
-    public String getCurrency() {
+    public Currency getCurrency() {
         return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency.toUpperCase();
     }
 }

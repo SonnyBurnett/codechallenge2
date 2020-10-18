@@ -79,7 +79,7 @@ public class ProductFilterTest {
         assertEquals("short pants", product.getDescription());
         assertEquals(8, product.getPrice());
         assertEquals("pants", product.getCategory());
-        assertEquals("DOLLAR", product.getCurrency());
+        assertEquals(Currency.Type.USD, product.getCurrency().getCurrencyType());
     }
 
     @Test
@@ -130,16 +130,16 @@ public class ProductFilterTest {
 
         List<Product> newProductList = new ArrayList<>(productList);
         newProductList.add(mockProduct);
-        String newCurrency = "euro";
+        Currency.Type newCurrency = Currency.Type.EURO;
         double rate = 0.85;
 
         // Act
-        List<Product> convertedList = filter.convertCurrency(newProductList, newCurrency, rate);
+        List<Product> convertedList = filter.convertCurrency(newProductList, newCurrency);
 
         // assert
         assertEquals(2, convertedList.size());
         verify(mockProduct, times(2)).clone();
-        verify(mockProduct, times(2)).convertCurrency(newCurrency, rate);
+        verify(mockProduct, times(2)).convertCurrency(newCurrency);
     }
 
     @Test

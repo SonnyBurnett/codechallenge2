@@ -6,13 +6,11 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.reset;
 
 public class ProductTest {
 
@@ -36,13 +34,13 @@ public class ProductTest {
         listAppender.list.clear();
     }
 
-
     @Test
     public void testCreate(){
         // assign
         long id = 1;
-        String name = "Product1", description = "This is a product", category = "newProduct", currency = "Euro";
+        String name = "Product1", description = "This is a product", category = "newProduct";
         double price = 1.20;
+        Currency.Type currency = Currency.Type.EURO;
 
         // act
         Product productWithoutCurrency = new Product(id, name, description, price, category);
@@ -54,14 +52,14 @@ public class ProductTest {
         assertEquals(description, productWithoutCurrency.getDescription());
         assertEquals(price, productWithoutCurrency.getPrice());
         assertEquals(category, productWithoutCurrency.getCategory());
-        assertEquals("DOLLAR", productWithoutCurrency.getCurrency());
+        assertEquals(Currency.Type.USD, productWithoutCurrency.getCurrency().getCurrencyType());
 
         assertEquals(id, productWithCurrency.getId());
         assertEquals(name, productWithCurrency.getName());
         assertEquals(description, productWithCurrency.getDescription());
         assertEquals(price, productWithCurrency.getPrice());
         assertEquals(category, productWithCurrency.getCategory());
-        assertEquals(currency.toUpperCase(), productWithCurrency.getCurrency());
+        assertEquals(Currency.Type.EURO, productWithCurrency.getCurrency().getCurrencyType());
     }
 
     @Test
@@ -130,13 +128,14 @@ public class ProductTest {
     public void testConvertCurrencyDifferentCurrency() {
         // Assign
         Product product1 = new Product(1, "a", "b", 5.0, "c");
+        Double rate = Currency.usdRates.get(Currency.Type.EURO);
 
         // Act
-        product1.convertCurrency("Euro", 0.85);
+        product1.convertCurrency(Currency.Type.EURO);
 
         // assert
-        assertEquals("Euro".toUpperCase(), product1.getCurrency());
-        assertEquals(5.0 * 0.85, product1.getPrice());
+        assertEquals(Currency.Type.EURO, product1.getCurrency().getCurrencyType());
+        assertEquals(5.0 * rate, product1.getPrice());
 
     }
 
@@ -146,14 +145,14 @@ public class ProductTest {
         Product product1 = new Product(1, "a", "b", 5.0, "c");
 
         // Act
-        product1.convertCurrency("Dollar", 0.85);
+        product1.convertCurrency(Currency.Type.USD);
 
         // assert
         List<ILoggingEvent> logsList = listAppender.list;
         assertEquals(Level.INFO, logsList.get(0).getLevel());
         assertTrue(logsList.get(0).getMessage().contains("Price of product is already in "));
 
-        assertEquals("DOLLAR", product1.getCurrency());
+        assertEquals(Currency.Type.USD, product1.getCurrency().getCurrencyType());
         assertEquals(5.0, product1.getPrice());
 
 
