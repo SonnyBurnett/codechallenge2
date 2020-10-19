@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace MM.CurrencyConverter
 {
-    public class CurrencyConverter
+    public class CurrencyConverter : ICurrencyConverter
     {
-        private Dictionary<Currency, decimal> exchangeRates = new Dictionary<Currency, decimal>();
+        private readonly Dictionary<Currency, decimal> exchangeRates = new Dictionary<Currency, decimal>();
 
         public Currency BaseCurrency { get; set; }
 
@@ -19,16 +19,16 @@ namespace MM.CurrencyConverter
         {
             this.exchangeRates = exchangeRates;
         }
-         
+
         private void CheckCurrency(Currency currency)
-        { 
+        {
             if (!this.exchangeRates.ContainsKey(currency))
             {
-                throw new Exception("Unknown currency '" + currency + "', please use GetCurrencyList() to get list of available currencies!", new KeyNotFoundException());
+                throw new Exception($"Unknown currency '{currency}'.", new KeyNotFoundException());
             }
         }
 
-        public decimal Exchange(decimal amount, Currency to, Currency from = Currency.USD)
+        public decimal Exchange(decimal amount, Currency from, Currency to)
         {
             if (from == to)
             {
@@ -39,6 +39,11 @@ namespace MM.CurrencyConverter
             CheckCurrency(to);
 
             return amount * this.exchangeRates[to] / this.exchangeRates[from];
+        }
+
+        public decimal Exchange(decimal amount, Currency to)
+        {
+            return this.Exchange(amount, this.BaseCurrency, to);
         }
     }
 }

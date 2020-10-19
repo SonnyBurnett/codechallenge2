@@ -23,11 +23,10 @@ namespace RecordService
 
         public Task SetRecords(IEnumerable<Record> records)
         {
-            using (var writer = new StreamWriter(filePath))
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-            {
-                return csv.WriteRecordsAsync(records);
-            }
+            using StreamWriter writer = new StreamWriter(filePath);
+            using CsvWriter csv = new CsvWriter(writer, CultureInfo.InvariantCulture);
+
+            return csv.WriteRecordsAsync(records);
         }
     }
 }

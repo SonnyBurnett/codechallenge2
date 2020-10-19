@@ -18,9 +18,8 @@ namespace CodeChallenge
         /// <param name="args">Command line arguments.</param>
         /// <returns>A <see cref="Task"/> representing the result of the asynchronous operation.</returns>
         public static async Task Main(string[] args)
-
         {
-            using var parser = new Parser(with =>
+            using Parser parser = new Parser(with =>
             {
                 with.CaseSensitive = false;
                 with.CaseInsensitiveEnumValues = true;
@@ -40,8 +39,7 @@ namespace CodeChallenge
                     { Currency.USD, 1M }
                 };
 
-            CurrencyConverter currencyConverter = new CurrencyConverter(exchangeRates);
-
+            ICurrencyConverter currencyConverter = new CurrencyConverter(exchangeRates);
             IRecordInputService inputService = new CsvRecordInputService(options.InputFilePath);
             IRecordOutputService outputService = new CsvRecordOutputService(options.OutpuFilePath);
 

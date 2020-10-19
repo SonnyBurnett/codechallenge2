@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace RecordService
 {
@@ -24,14 +25,14 @@ namespace RecordService
 
         public IEnumerable<Record> GetRecords()
         {
-            using (var reader = new StreamReader(filePath))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-            {
-                csv.Configuration.PrepareHeaderForMatch = (header, index) => header.Trim();
-                csv.Configuration.TrimOptions = TrimOptions.Trim;
-                
-                return csv.GetRecords<Record>().ToList();
-            }
+            using StreamReader reader = new StreamReader(filePath);
+            using CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+
+            csv.Configuration.PrepareHeaderForMatch = (header, index) => header.Trim();
+            csv.Configuration.TrimOptions = TrimOptions.Trim;
+
+            return csv.GetRecords<Record>().ToList();
+
         }
     }
 }
