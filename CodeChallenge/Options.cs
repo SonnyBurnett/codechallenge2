@@ -3,7 +3,7 @@ using System.IO;
 
 namespace CodeChallenge
 {
-    class Options
+    public class Options
     {
         private string inputFilePath;
         private string outputFilePath;
