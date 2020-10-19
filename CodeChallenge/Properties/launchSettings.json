@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CodeChallenge": {
+      "commandName": "Project",
+      "commandLineArgs": "-i \"C:\\Users\\mario\\source\\repos\\CodeChallenge\\001-experts-inputs.csv\" -o \"C:\\Users\\mario\\source\\repos\\CodeChallenge\\001-experts-output.csv\""
+    }
+  }
+}

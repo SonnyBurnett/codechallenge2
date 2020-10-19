@@ -3,14 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace CodeChallenge
 {
-    public class CsvRecordInputService : IRecordInputService
+    public class CsvRecordOutputService : IRecordOutputService
     {
         private readonly string filePath;
 
-        public CsvRecordInputService(string filePath)
+        public CsvRecordOutputService(string filePath)
         {
             if (string.IsNullOrEmpty(filePath))
             {
@@ -20,12 +21,12 @@ namespace CodeChallenge
             this.filePath = filePath;
         }
 
-        public IEnumerable<Record> GetRecords()
+        public Task SetRecords(IEnumerable<Record> records)
         {
-            using (var reader = new StreamReader(filePath))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            using (var writer = new StreamWriter(filePath))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
-                return csv.GetRecords<Record>();
+                return csv.WriteRecordsAsync(records);
             }
         }
     }

@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace CurrencyConverter
+namespace MM.CurrencyConverter
 {
     public class CurrencyConverter
     {
-        private Dictionary<string, decimal> exchangeRates = new Dictionary<string, decimal>();
+        private Dictionary<Currency, decimal> exchangeRates = new Dictionary<Currency, decimal>();
 
-        public string BaseCurrency { get; set; }
+        public Currency BaseCurrency { get; set; }
 
         public CurrencyConverter()
         {
-            this.BaseCurrency = "USD";
+            this.BaseCurrency = Currency.USD;
             this.exchangeRates.Add(this.BaseCurrency, 1M);
         }
 
-        public CurrencyConverter(Dictionary<string, decimal> exchangeRates) : this()
+        public CurrencyConverter(Dictionary<Currency, decimal> exchangeRates) : this()
         {
             this.exchangeRates = exchangeRates;
         }
-
-        private void CheckCurrency(string currency)
+         
+        private void CheckCurrency(Currency currency)
         { 
             if (!this.exchangeRates.ContainsKey(currency))
             {
@@ -28,6 +28,17 @@ namespace CurrencyConverter
             }
         }
 
+        public decimal Exchange(decimal amount, Currency to, Currency from = Currency.USD)
+        {
+            if (from == to)
+            {
+                return amount;
+            }
 
+            CheckCurrency(from);
+            CheckCurrency(to);
+
+            return amount * this.exchangeRates[to] / this.exchangeRates[from];
+        }
     }
 }

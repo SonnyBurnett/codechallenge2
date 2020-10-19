@@ -7,7 +7,11 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.8.0" />
-    <PackageReference Include="CsvHelper" Version="15.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CurrencyConverter\CurrencyConverter.csproj" />
+    <ProjectReference Include="..\RecordService\RecordService.csproj" />
   </ItemGroup>
 
 </Project>

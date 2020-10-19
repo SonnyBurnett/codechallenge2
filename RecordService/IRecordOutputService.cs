@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CodeChallenge
 {
     public interface IRecordOutputService
     {
-        void SetRecords(IEnumerable<Record> records);
+        Task SetRecords(IEnumerable<Record> records);
     }
 }

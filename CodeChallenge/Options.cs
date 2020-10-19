@@ -6,15 +6,22 @@ namespace CodeChallenge
     public class Options
     {
         private string inputFilePath;
-        private string outputFilePath;
 
+        [Option('r',
+            "ExchangeRate",
+            HelpText = "Dollar to Euro exchange rate.",
+            Default = (float)0.85)]
+        public float ExchangeRate { get; set; }
 
-        [Option(Default = (double)0.85)]
-        public double ExchangeRate { get; set; }
+        [Option('p',
+            "PricePoint",
+            HelpText = "Path to the input file.",
+            Default = (float)10)]
+        public float PricePoint { get; set; }
 
         [Option(
             'i',
-            "input-file",
+            "InputFile",
             Required = true,
             HelpText = "Path to the input file.")]
         public string InputFilePath
@@ -39,28 +46,9 @@ namespace CodeChallenge
 
         [Option(
             'o',
-            "output-file",
-            Required = true,
+            "OutputFile",
             HelpText = "Path to the output file.",
             Default = "outputs.csv")]
-        public string OutpuFilePath
-        {
-            get
-            {
-                return this.outputFilePath;
-            }
-
-            set
-            {
-                string fullpath = Path.GetFullPath(value);
-
-                if (!File.Exists(fullpath))
-                {
-                    throw new FileNotFoundException($"Input file was not found at '{fullpath}' ", fullpath);
-                }
-
-                this.outputFilePath = fullpath;
-            }
-        }
+        public string OutpuFilePath { get; set; }
     }
 }

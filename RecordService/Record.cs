@@ -1,7 +1,4 @@
 ﻿using CsvHelper.Configuration.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CodeChallenge
 {
@@ -10,12 +7,16 @@ namespace CodeChallenge
         [Name("productId")]
         public int Id { get; set; }
 
-
+        [Name("name")]
         public string Name { get; set; }
 
+        [Name("description")]
         public string Description { get; set; }
 
+        [Name("price")]
+        public decimal Price { get; set; }
 
-
+        [Name("category")]
+        public string Category { get; set; }
     }
 }
