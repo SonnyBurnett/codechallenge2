@@ -6,7 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-namespace CodeChallenge
+namespace RecordService
 {
     public class CsvRecordInputService : IRecordInputService
     {

@@ -1,6 +1,6 @@
 ﻿using CsvHelper.Configuration.Attributes;
 
-namespace CodeChallenge
+namespace RecordService
 {
     public class Record
     {

@@ -1,5 +1,6 @@
 ﻿using CommandLine;
 using MM.CurrencyConverter;
+using RecordService;
 using System;
 using System.Collections.Generic;
 using System.Linq;

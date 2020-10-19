@@ -5,7 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace CodeChallenge
+namespace RecordService
 {
     public class CsvRecordOutputService : IRecordOutputService
     {
