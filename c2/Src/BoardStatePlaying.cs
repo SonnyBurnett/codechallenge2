@@ -7,31 +7,31 @@ using Tw.Ing.Challenge2.Plumbing;
 
 namespace Tw.Ing.Challenge2
 {
-    internal partial class BoardService 
+    internal partial class BoardContext 
     {
-        public class BoardServiceImplementationDrawn : IBoardServiceImplementation
+        public class BoardStatePlaying : Board
         {
-            private readonly Board _board;
+            private readonly IDictionary<Pair<char, int>, Cell> _matrix;
 
-            public BoardServiceImplementationDrawn(Board board)
+            public BoardStatePlaying(IDictionary<Pair<char, int>, Cell> matrix)
             {
-                _board = board;
+                _matrix = matrix;
             }
 
-            public void End()
+            public override void End()
             {
                 // don't have to do anything here.
             }
 
-            public void Initialize()
+            public override void Initialize()
             {
                 throw new InvalidOperationException("Initialize not supported on Board 'draws' (we are playing it)");
             }
 
-            public void Play(char columnName, int rowNumber, Cell.Marker mark)
+            public override void Play(char columnName, int rowNumber, Cell.Marker mark)
             {
                 var cellCoordinate = new Pair<char, int>(columnName, rowNumber);
-                _board.Matrix[cellCoordinate].Mark = mark;
+                _matrix[cellCoordinate].Mark = mark;
             }
         }
     }
