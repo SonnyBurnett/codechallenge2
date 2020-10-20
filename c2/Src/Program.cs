@@ -9,7 +9,7 @@ namespace Tw.Ing.Challenge2
 {
     class Program
     {
-        static async Task<int> Main(string[] args)
+        static int Main(string[] args)
         {
             var tw = new TextWriterTraceListener(Console.Out);
             tw.TraceOutputOptions |= TraceOptions.None;
