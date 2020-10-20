@@ -43,7 +43,7 @@ namespace Tw.Ing.Challenge2
                 try
                 {
                     // Game Loop
-                    return 0;
+                    return 1;
                 }
                 catch (Exception)
                 {
