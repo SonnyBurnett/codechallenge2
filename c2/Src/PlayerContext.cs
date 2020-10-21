@@ -44,7 +44,8 @@ namespace Tw.Ing.Challenge2
         }
 
         public Cell.Marker Mark { get; set; }
-        
+
+        public List<Cell> Moves { get; set; } = new List<Cell>();
 
         public PlayerContext()
         {
@@ -53,22 +54,17 @@ namespace Tw.Ing.Challenge2
 
         public void Register(string name, Cell.Marker mark)
         {
-            Name = name;
-            Mark = mark;
-            _state = new PlayerStateActive(this);
+            _state = _state.Register(name, mark);
         }
 
         public void GiveTurn()
         {
-            _state = new PlayerStateAtHand(this);
+            _state = _state.Turn();
         }
 
         public void MakeMove(Cell cellToPlay)
         {
-            _state.Move(cellToPlay);
-
-            // TODO: do check if the player wins
-            _state = new PlayerStateActive(this);
+            _state = _state.Move(cellToPlay);
         }
     }
 }

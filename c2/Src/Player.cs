@@ -15,7 +15,10 @@ namespace Tw.Ing.Challenge2
                 Parent = parent;
             }
 
-            public abstract void Move(Cell cellToPlay);
+            public abstract Player Register(string name, Cell.Marker mark);
+            public abstract Player Turn();
+
+            public abstract Player Move(Cell cellToPlay);
         }
     }
 }

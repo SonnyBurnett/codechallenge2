@@ -14,9 +14,21 @@ namespace Tw.Ing.Challenge2
                 Parent.Mark = Cell.Marker.Empty;
             }
 
-            public override void Move(Cell cellToPlay)
+            public override Player Move(Cell cellToPlay)
             {
-                throw new NotImplementedException();
+                throw new InvalidOperationException("Register player before making a move.");
+            }
+
+            public override Player Register(string name, Cell.Marker mark)
+            {
+                Parent.Name = name;
+                Parent.Mark = mark;
+                return new PlayerStateActive(Parent);
+            }
+
+            public override Player Turn()
+            {
+                throw new InvalidOperationException("Register player before it is your turn");
             }
         }
     }

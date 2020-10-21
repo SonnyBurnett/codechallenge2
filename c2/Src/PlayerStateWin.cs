@@ -16,9 +16,19 @@ namespace Tw.Ing.Challenge2
                 }
             }
 
-            public override void Move(Cell cellToPlay)
+            public override Player Move(Cell cellToPlay)
             {
-                throw new NotImplementedException();
+                throw new InvalidOperationException("Cannot Turn, game ended with a Win");
+            }
+
+            public override Player Register(string name, Cell.Marker mark)
+            {
+                throw new InvalidOperationException("Cannot Turn, game ended with a Win");
+            }
+
+            public override Player Turn()
+            {
+                throw new InvalidOperationException("Cannot Turn, game ended with a Win");
             }
         }
     }

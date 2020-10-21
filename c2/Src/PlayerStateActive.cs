@@ -16,9 +16,19 @@ namespace Tw.Ing.Challenge2
                 }
             }
 
-            public override void Move(Cell cellToPlay)
+            public override Player Move(Cell cellToPlay)
             {
-                throw new NotImplementedException();
+                throw new InvalidOperationException("Cannot make a move while not At Hand");
+            }
+
+            public override Player Register(string name, Cell.Marker mark)
+            {
+                throw new InvalidOperationException("Cannot register player while active");
+            }
+
+            public override Player Turn()
+            {
+                return new PlayerStateAtHand(Parent);
             }
         }
     }
