@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Tw.Ing.Challenge2.Tests
 {
-    public class BoardgameBoardTests
+    public class BoardTests
     {
         [Fact]
         public void Board_State_BlancToDrawn_Success()
