@@ -20,24 +20,22 @@ namespace Tw.Ing.Challenge2
         }
         public BoardContext()
         {
-            _state = (Board)new BoardStateBlanco(Matrix);
+            _state = (Board)new BoardStateBlanco(this);
         }
 
         public void Initialize()
         {
-            _state.Initialize();
-            _state = (Board)new BoardStatePlaying(Matrix);
+            _state = _state.Initialize();
         }
 
         public void Play(char columnName, int rowNumber, Cell.Marker mark)
         {
-            _state.Play(columnName, rowNumber, mark);
+            _state = _state.Play(columnName, rowNumber, mark);
         }
 
         public void End()
         {
-            _state.End();
-            _state = (Board)new BoardStateFinished(Matrix);
+            _state = _state.End();
         }
 
         IEnumerable<ICommand> IGameServiceInterface.AvailableCommands()

@@ -11,27 +11,25 @@ namespace Tw.Ing.Challenge2
     {
         public class BoardStatePlaying : Board
         {
-            private readonly IDictionary<Pair<char, int>, Cell> _matrix;
-
-            public BoardStatePlaying(IDictionary<Pair<char, int>, Cell> matrix)
+            public BoardStatePlaying(BoardContext parent) : base(parent)
             {
-                _matrix = matrix;
             }
 
-            public override void End()
+            public override Board End()
             {
-                // don't have to do anything here.
+                return new BoardStateFinished(Parent);
             }
 
-            public override void Initialize()
+            public override Board Initialize()
             {
                 throw new InvalidOperationException("Initialize not supported on Board 'draws' (we are playing it)");
             }
 
-            public override void Play(char columnName, int rowNumber, Cell.Marker mark)
+            public override Board Play(char columnName, int rowNumber, Cell.Marker mark)
             {
                 var cellCoordinate = new Pair<char, int>(columnName, rowNumber);
-                _matrix[cellCoordinate].Mark = mark;
+                Parent.Matrix[cellCoordinate].Mark = mark;
+                return this;
             }
         }
     }

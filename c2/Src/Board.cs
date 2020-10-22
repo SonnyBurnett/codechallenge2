@@ -8,9 +8,15 @@ namespace Tw.Ing.Challenge2
     {
         public abstract class Board
         {
-            public abstract void End();
-            public abstract void Initialize();
-            public abstract void Play(char columnName, int rowNumber, Cell.Marker mark);
+            public BoardContext Parent { get; private set; }
+
+            public Board(BoardContext parent)
+            {
+                Parent = parent;
+            }
+            public abstract Board End();
+            public abstract Board Initialize();
+            public abstract Board Play(char columnName, int rowNumber, Cell.Marker mark);
         }
     }
 }
