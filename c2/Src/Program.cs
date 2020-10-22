@@ -2,7 +2,6 @@
 using System;
 using System.Diagnostics;
 using System.Reflection;
-using System.Threading.Tasks;
 using Tw.Ing.Challenge2.Extensions;
 
 namespace Tw.Ing.Challenge2

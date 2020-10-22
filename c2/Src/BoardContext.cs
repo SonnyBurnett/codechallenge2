@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
-using Tw.Ing.Challenge2.Plumbing;
+
 
 namespace Tw.Ing.Challenge2
 {
     internal partial class BoardContext: IBoardContext, IGameServiceInterface
     {
         public Board _state;
-        public Dictionary<Pair<char,int>,Cell> Matrix { get; } = new Dictionary<Pair<char, int>, Cell>();
+        public Dictionary<Coordinate,Cell> Matrix { get; } = new Dictionary<Coordinate, Cell>();
 
         public bool IsInitialized
         {
@@ -28,10 +27,10 @@ namespace Tw.Ing.Challenge2
             _state = _state.Initialize();
         }
 
-        public Cell Draw(char columnName, int rowNumber, Cell.Marker mark)
+        public Cell Draw(Coordinate coordinate, Cell.Marker mark)
         {
-            _state = _state.Draw(columnName, rowNumber, mark);
-            return Matrix[new Pair<char, int>(columnName, rowNumber)];
+            _state = _state.Draw(coordinate, mark);
+            return Matrix[coordinate];
         }
 
         public void End()

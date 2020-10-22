@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Diagnostics.Tracing;
 using System.Linq;
-using System.Text;
 
 namespace Tw.Ing.Challenge2
 {
@@ -19,13 +15,13 @@ namespace Tw.Ing.Challenge2
                 }
             }
 
-            public override Player Move(char columnName, int rowNumber)
+            public override Player Move(Coordinate coordinate)
             {
                 if (Parent.Moves.Count > 5)
                 {
                     throw new InvalidOperationException("Already more then 5 moves made");
                 }
-                var cell = Parent.Board.Draw(columnName, rowNumber, Parent.Mark);
+                var cell = Parent.Board.Draw(coordinate, Parent.Mark);
                 Parent.Moves.Add(cell);
 
                 if (DidIWin())

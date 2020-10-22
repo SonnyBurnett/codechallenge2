@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Numerics;
-using System.Text;
-using System.Windows.Input;
-using Tw.Ing.Challenge2.Plumbing;
 
 namespace Tw.Ing.Challenge2
 {
@@ -25,10 +20,9 @@ namespace Tw.Ing.Challenge2
                 throw new InvalidOperationException("Initialize not supported on Board 'draws' (we are playing it)");
             }
 
-            public override Board Draw(char columnName, int rowNumber, Cell.Marker mark)
+            public override Board Draw(Coordinate coordinate, Cell.Marker mark)
             {
-                var cellCoordinate = new Pair<char, int>(columnName, rowNumber);
-                Parent.Matrix[cellCoordinate].Mark = mark;
+                Parent.Matrix[coordinate].Mark = mark;
                 return this;
             }
         }

@@ -1,7 +1,5 @@
 ﻿using Moq;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Tw.Ing.Challenge2.Tests
@@ -49,7 +47,8 @@ namespace Tw.Ing.Challenge2.Tests
             player.GiveTurn();
 
             // ACT
-            player.MakeMove('A', 1);
+            var cellCoordinate = new Coordinate('A', 1);
+            player.MakeMove(cellCoordinate);
 
             // ASSESS
             Assert.False(player.IsPlaying);
@@ -69,7 +68,8 @@ namespace Tw.Ing.Challenge2.Tests
 
             // ACT
             player.GiveTurn();
-            player.MakeMove('C', 1);
+            var cellCoordinate = new Coordinate('C', 1);
+            player.MakeMove(cellCoordinate);
 
             // ASSESS
             Assert.True(player.HasWon);
@@ -91,7 +91,8 @@ namespace Tw.Ing.Challenge2.Tests
             player.GiveTurn();
 
             // ACT
-            player.MakeMove('A', 3);
+            var cellCoordinate = new Coordinate('A', 3);
+            player.MakeMove(cellCoordinate);
 
             // ASSESS
             Assert.True(player.HasDraw);
@@ -103,13 +104,14 @@ namespace Tw.Ing.Challenge2.Tests
             //// ARRANGE
             var boardMock = new Mock<IBoardContext>();
             boardMock
-                .Setup(m => m.Draw(It.IsAny<char>(), It.IsAny<int>(), It.IsAny<Cell.Marker>()))
+                .Setup(m => m.Draw(It.IsAny<Coordinate>(), It.IsAny<Cell.Marker>()))
                 .Throws(new InvalidOperationException());
             var player = new PlayerContext(boardMock.Object);
 
             // ACT / ASSERT
             Assert.Throws<InvalidOperationException>(() => player.GiveTurn());
-            Assert.Throws<InvalidOperationException>(() => player.MakeMove('A', 1));
+            var cellCoordinate = new Coordinate('A', 1);
+            Assert.Throws<InvalidOperationException>(() => player.MakeMove(cellCoordinate));
         }
 
         [Fact]
@@ -122,7 +124,8 @@ namespace Tw.Ing.Challenge2.Tests
 
             // ACT / ASSERT
             Assert.Throws<InvalidOperationException>(() => player.Register("A", Cell.Marker.Circle));
-            Assert.Throws<InvalidOperationException>(() => player.MakeMove('A', 1));
+            var cellCoordinate = new Coordinate('A', 1);
+            Assert.Throws<InvalidOperationException>(() => player.MakeMove(cellCoordinate));
         }
 
         [Fact]
@@ -155,7 +158,8 @@ namespace Tw.Ing.Challenge2.Tests
             // ACT / ASSERT
             Assert.Throws<InvalidOperationException>(() => player.Register("A", Cell.Marker.Circle));
             Assert.Throws<InvalidOperationException>(() => player.GiveTurn());
-            Assert.Throws<InvalidOperationException>(() => player.MakeMove('A', 1));
+            var cellCoordinate = new Coordinate('A', 1);
+            Assert.Throws<InvalidOperationException>(() => player.MakeMove(cellCoordinate));
         }
 
         [Fact]
@@ -175,23 +179,24 @@ namespace Tw.Ing.Challenge2.Tests
             // ACT / ASSERT
             Assert.Throws<InvalidOperationException>(() => player.Register("A", Cell.Marker.Circle));
             Assert.Throws<InvalidOperationException>(() => player.GiveTurn());
-            Assert.Throws<InvalidOperationException>(() => player.MakeMove('A', 1));
+            Assert.Throws<InvalidOperationException>(() => player.MakeMove(new Coordinate('A', 1)));
         }
 
-        private void PlayCell(PlayerContext player, char columnName, int rowNumber)
+        private void PlayCell(PlayerContext player, char columName, int rowNumber)
         {
+            var cellCoordinate = new Coordinate(columName, rowNumber);
             player.GiveTurn();
-            player.MakeMove(columnName, rowNumber);
+            player.MakeMove(cellCoordinate);
         }
 
         private Mock<IBoardContext> CreateBoardMock()
         {
             var boardMock = new Mock<IBoardContext>();
             boardMock
-                .Setup(m => m.Draw(It.IsAny<char>(), It.IsAny<int>(), It.IsAny<Cell.Marker>()))
-                .Returns((char col, int row, Cell.Marker mark) =>
+                .Setup(m => m.Draw(It.IsAny<Coordinate>(), It.IsAny<Cell.Marker>()))
+                .Returns((Coordinate coordinate, Cell.Marker mark) =>
                 {
-                    var cell = new Cell(col, row);
+                    var cell = new Cell(coordinate);
                     cell.Mark = mark;
                     return cell;
                 });

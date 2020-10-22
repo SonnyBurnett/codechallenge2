@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tw.Ing.Challenge2
+﻿namespace Tw.Ing.Challenge2
 {
     internal partial class BoardContext
     {
@@ -16,7 +12,7 @@ namespace Tw.Ing.Challenge2
             }
             public abstract Board End();
             public abstract Board Initialize();
-            public abstract Board Draw(char columnName, int rowNumber, Cell.Marker mark);
+            public abstract Board Draw(Coordinate coordinate, Cell.Marker mark);
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tw.Ing.Challenge2
+﻿namespace Tw.Ing.Challenge2
 {
     internal partial class PlayerContext
     {
@@ -18,7 +14,7 @@ namespace Tw.Ing.Challenge2
             public abstract Player Register(string name, Cell.Marker mark);
             public abstract Player Turn();
 
-            public abstract Player Move(char columnName, int rowNumber);
+            public abstract Player Move(Coordinate coordinate);
         }
     }
 }

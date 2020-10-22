@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Tw.Ing.Challenge2
 {
@@ -16,7 +14,7 @@ namespace Tw.Ing.Challenge2
                 }
             }
 
-            public override Player Move(char columnName, int rowNumber)
+            public override Player Move(Coordinate coordinate)
             {
                 throw new InvalidOperationException("Cannot make a move while not At Hand");
             }

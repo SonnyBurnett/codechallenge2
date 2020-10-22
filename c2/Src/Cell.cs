@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Tw.Ing.Challenge2
 {
@@ -8,10 +6,10 @@ namespace Tw.Ing.Challenge2
     {
         private Marker _mark = Marker.Empty;
 
-        public Cell(char column, int row)
+        public Cell(Coordinate coordinate)
         {
-            Column = column;
-            Row = row;
+            Column = coordinate.ColumnName;
+            Row = coordinate.RowNumber;
         }
         public char Column { get; private set; }
         public int Row { get; private set; }

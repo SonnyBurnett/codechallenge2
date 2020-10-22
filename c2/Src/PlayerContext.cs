@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Tw.Ing.Challenge2
 {
@@ -65,9 +63,9 @@ namespace Tw.Ing.Challenge2
             _state = _state.Turn();
         }
 
-        public void MakeMove(char columnName, int rowNumber)
+        public void MakeMove(Coordinate coordinate)
         {
-            _state = _state.Move(columnName, rowNumber);
+            _state = _state.Move(coordinate);
         }
     }
 }

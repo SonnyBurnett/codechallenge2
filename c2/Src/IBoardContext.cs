@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Tw.Ing.Challenge2.Plumbing;
+﻿using System.Collections.Generic;
 
 namespace Tw.Ing.Challenge2
 {
     interface IBoardContext
     {
         public bool IsInitialized { get; }
-        Dictionary<Pair<char, int>, Cell> Matrix { get; }
+        Dictionary<Coordinate, Cell> Matrix { get; }
         void End();
         void Initialize();
-        Cell Draw(char columnName, int rowNumber, Cell.Marker mark);
+        Cell Draw(Coordinate coordinate, Cell.Marker mark);
     }
 }

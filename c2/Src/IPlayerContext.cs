@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Tw.Ing.Challenge2
+﻿namespace Tw.Ing.Challenge2
 {
     interface IPlayerContext
     {
@@ -13,6 +9,6 @@ namespace Tw.Ing.Challenge2
 
         public void Register(string name, Cell.Marker mark);
         public void GiveTurn();
-        public void MakeMove(char columnName, int rowNumber);
+        public void MakeMove(Coordinate coordinate);
     }
 }
