@@ -11,6 +11,6 @@ namespace Tw.Ing.Challenge2
         Dictionary<Pair<char, int>, Cell> Matrix { get; }
         void End();
         void Initialize();
-        void Play(char columnName, int rowNumber, Cell.Marker mark);
+        Cell Draw(char columnName, int rowNumber, Cell.Marker mark);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Moq;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
@@ -11,7 +12,8 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_State_NewToActive_Success()
         {
             // ARRANGE
-            var player = new PlayerContext();
+            var boardMock = CreateBoardMock();
+            var player = new PlayerContext(boardMock.Object);
 
             // ACT
             player.Register("A", Cell.Marker.Circle);
@@ -26,7 +28,8 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_State_ActiveToAtHand_Success()
         {
             // ARRANGE
-            var player = new PlayerContext();
+            var boardMock = CreateBoardMock();
+            var player = new PlayerContext(boardMock.Object);
             player.Register("A", Cell.Marker.Circle);
 
             // ACT
@@ -40,12 +43,13 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_State_AtHandToActive_Success()
         {
             // ARRANGE
-            var player = new PlayerContext();
+            var boardMock = CreateBoardMock();
+            var player = new PlayerContext(boardMock.Object);
             player.Register("A", Cell.Marker.Circle);
             player.GiveTurn();
-            var cell = new Cell('A', 1);
+
             // ACT
-            player.MakeMove(cell);
+            player.MakeMove('A', 1);
 
             // ASSESS
             Assert.False(player.IsPlaying);
@@ -55,7 +59,8 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_State_AtHandToWin_Success()
         {
             // ARRANGE
-            var player = new PlayerContext();
+            var boardMock = CreateBoardMock();
+            var player = new PlayerContext(boardMock.Object);
             player.Register("A", Cell.Marker.Circle);
 
             PlayCell(player, 'A', 1);
@@ -64,8 +69,7 @@ namespace Tw.Ing.Challenge2.Tests
 
             // ACT
             player.GiveTurn();
-            var cell = new Cell('C', 1);
-            player.MakeMove(cell);
+            player.MakeMove('C', 1);
 
             // ASSESS
             Assert.True(player.HasWon);
@@ -75,7 +79,8 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_State_AtHandToDraw_Success()
         {
             // ARRANGE
-            var player = new PlayerContext();
+            var boardMock = CreateBoardMock();
+            var player = new PlayerContext(boardMock.Object);
             player.Register("A", Cell.Marker.Circle);
 
             PlayCell(player, 'A', 1);
@@ -84,10 +89,9 @@ namespace Tw.Ing.Challenge2.Tests
             PlayCell(player, 'C', 2);
 
             player.GiveTurn();
-            var cell = new Cell('A', 3);
 
             // ACT
-            player.MakeMove(cell);
+            player.MakeMove('A', 3);
 
             // ASSESS
             Assert.True(player.HasDraw);
@@ -97,32 +101,36 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_InvalidStates_New()
         {
             //// ARRANGE
-            var player = new PlayerContext();
-            var cell1 = new Cell('A', 1);
+            var boardMock = new Mock<IBoardContext>();
+            boardMock
+                .Setup(m => m.Draw(It.IsAny<char>(), It.IsAny<int>(), It.IsAny<Cell.Marker>()))
+                .Throws(new InvalidOperationException());
+            var player = new PlayerContext(boardMock.Object);
 
             // ACT / ASSERT
             Assert.Throws<InvalidOperationException>(() => player.GiveTurn());
-            Assert.Throws<InvalidOperationException>(() => player.MakeMove(cell1));
+            Assert.Throws<InvalidOperationException>(() => player.MakeMove('A', 1));
         }
 
         [Fact]
         public void Player_InvalidStates_Active()
         {
             //// ARRANGE
-            var player = new PlayerContext();
+            var boardMock = CreateBoardMock();
+            var player = new PlayerContext(boardMock.Object);
             player.Register("A", Cell.Marker.Circle);
-            var cell1 = new Cell('A', 1);
 
             // ACT / ASSERT
             Assert.Throws<InvalidOperationException>(() => player.Register("A", Cell.Marker.Circle));
-            Assert.Throws<InvalidOperationException>(() => player.MakeMove(cell1));
+            Assert.Throws<InvalidOperationException>(() => player.MakeMove('A', 1));
         }
 
         [Fact]
         public void Player_InvalidStates_AtHand()
         {
             //// ARRANGE
-            var player = new PlayerContext();
+            var boardMock = CreateBoardMock();
+            var player = new PlayerContext(boardMock.Object);
             player.Register("A", Cell.Marker.Circle);
             player.GiveTurn();
 
@@ -136,7 +144,8 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_InvalidStates_Win()
         {
             //// ARRANGE
-            var player = new PlayerContext();
+            var boardMock = CreateBoardMock();
+            var player = new PlayerContext(boardMock.Object);
             player.Register("A", Cell.Marker.Circle);
 
             PlayCell(player, 'A', 1);
@@ -146,15 +155,15 @@ namespace Tw.Ing.Challenge2.Tests
             // ACT / ASSERT
             Assert.Throws<InvalidOperationException>(() => player.Register("A", Cell.Marker.Circle));
             Assert.Throws<InvalidOperationException>(() => player.GiveTurn());
-            var cell = new Cell('A', 1);
-            Assert.Throws<InvalidOperationException>(() => player.MakeMove(cell));
+            Assert.Throws<InvalidOperationException>(() => player.MakeMove('A', 1));
         }
 
         [Fact]
         public void Player_InvalidStates_Draw()
         {
             //// ARRANGE
-            var player = new PlayerContext();
+            var boardMock = CreateBoardMock();
+            var player = new PlayerContext(boardMock.Object);
             player.Register("A", Cell.Marker.Circle);
 
             PlayCell(player, 'A', 1);
@@ -166,15 +175,27 @@ namespace Tw.Ing.Challenge2.Tests
             // ACT / ASSERT
             Assert.Throws<InvalidOperationException>(() => player.Register("A", Cell.Marker.Circle));
             Assert.Throws<InvalidOperationException>(() => player.GiveTurn());
-            var cell = new Cell('A', 1);
-            Assert.Throws<InvalidOperationException>(() => player.MakeMove(cell));
+            Assert.Throws<InvalidOperationException>(() => player.MakeMove('A', 1));
         }
 
         private void PlayCell(PlayerContext player, char columnName, int rowNumber)
         {
             player.GiveTurn();
-            var cell = new Cell(columnName, rowNumber);
-            player.MakeMove(cell);
+            player.MakeMove(columnName, rowNumber);
+        }
+
+        private Mock<IBoardContext> CreateBoardMock()
+        {
+            var boardMock = new Mock<IBoardContext>();
+            boardMock
+                .Setup(m => m.Draw(It.IsAny<char>(), It.IsAny<int>(), It.IsAny<Cell.Marker>()))
+                .Returns((char col, int row, Cell.Marker mark) =>
+                {
+                    var cell = new Cell(col, row);
+                    cell.Mark = mark;
+                    return cell;
+                });
+            return boardMock;
         }
     }
 }

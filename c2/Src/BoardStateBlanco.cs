@@ -35,7 +35,7 @@ namespace Tw.Ing.Challenge2
                 return new BoardStatePlaying(Parent);
             }
 
-            public override Board Play(char columnName, int rowNumber, Cell.Marker mark)
+            public override Board Draw(char columnName, int rowNumber, Cell.Marker mark)
             {
                 throw new InvalidOperationException("Cannot play on a Blanco board. Initialize before playing");
             }

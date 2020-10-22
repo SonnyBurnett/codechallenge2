@@ -12,15 +12,15 @@ namespace Tw.Ing.Challenge2.Tests
         {
             // ARRANGE
             IGameContext game = new GameContext();
-            PlayerContext p1 = new PlayerContext();
-            PlayerContext p2 = new PlayerContext();
-            BoardContext b1 = new BoardContext();
+            BoardContext board = new BoardContext();
+            PlayerContext p1 = new PlayerContext(board);
+            PlayerContext p2 = new PlayerContext(board);
             p1.Register("CrossPlayer", Cell.Marker.Cross);
             p2.Register("CirclePlayer", Cell.Marker.Circle);
-            b1.Initialize();
+            board.Initialize();
 
             // ACT
-            game.Start(p2, p1, b1);
+            game.Start(p2, p1, board);
 
 
             // ASSESS

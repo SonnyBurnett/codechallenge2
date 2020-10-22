@@ -14,7 +14,7 @@ namespace Tw.Ing.Challenge2
                 Parent.Mark = Cell.Marker.Empty;
             }
 
-            public override Player Move(Cell cellToPlay)
+            public override Player Move(char columnName, int rowNumber)
             {
                 throw new InvalidOperationException("Register player before making a move.");
             }

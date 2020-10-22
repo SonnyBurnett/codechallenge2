@@ -13,6 +13,6 @@ namespace Tw.Ing.Challenge2
 
         public void Register(string name, Cell.Marker mark);
         public void GiveTurn();
-        public void MakeMove(Cell cellToPlay);
+        public void MakeMove(char columnName, int rowNumber);
     }
 }

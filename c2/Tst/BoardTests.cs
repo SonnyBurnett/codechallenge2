@@ -35,7 +35,7 @@ namespace Tw.Ing.Challenge2.Tests
             gameBoard.Initialize();
 
             // ACT
-            gameBoard.Play('A', 1, Cell.Marker.Circle);
+            gameBoard.Draw('A', 1, Cell.Marker.Circle);
 
             // ASSERT
             var cellCoordinate = new Plumbing.Pair<char, int>('A', 1);
@@ -49,10 +49,10 @@ namespace Tw.Ing.Challenge2.Tests
             // ARRANGE
             var gameBoard = new BoardContext();
             gameBoard.Initialize();
-            gameBoard.Play('A', 1, Cell.Marker.Circle);
+            gameBoard.Draw('A', 1, Cell.Marker.Circle);
 
             // ACT
-            Action act = () => gameBoard.Play('A', 1, Cell.Marker.Cross);
+            Action act = () => gameBoard.Draw('A', 1, Cell.Marker.Cross);
 
             // ASSERT
             Assert.Throws<InvalidOperationException>(act);
@@ -69,7 +69,7 @@ namespace Tw.Ing.Challenge2.Tests
             gameBoard.Initialize();
 
             // ACT
-            gameBoard.Play('A', 1, Cell.Marker.Circle);
+            gameBoard.Draw('A', 1, Cell.Marker.Circle);
 
             // ASSERT
             var cellCoordinate = new Plumbing.Pair<char, int>('A', 1);
@@ -113,7 +113,7 @@ namespace Tw.Ing.Challenge2.Tests
             var gameBoard = new BoardContext();
 
             // ACT / ASSERT
-            Assert.Throws<InvalidOperationException>(() => gameBoard.Play('A', 1, Cell.Marker.Circle));
+            Assert.Throws<InvalidOperationException>(() => gameBoard.Draw('A', 1, Cell.Marker.Circle));
             Assert.Throws<InvalidOperationException>(() => gameBoard.End());
         }
 
@@ -137,7 +137,7 @@ namespace Tw.Ing.Challenge2.Tests
             gameBoard.End();
 
             // ACT / ASSERT
-            Assert.Throws<InvalidOperationException>(() => gameBoard.Play('A', 1, Cell.Marker.Circle));
+            Assert.Throws<InvalidOperationException>(() => gameBoard.Draw('A', 1, Cell.Marker.Circle));
             Assert.Throws<InvalidOperationException>(() => gameBoard.End());
         }
     }

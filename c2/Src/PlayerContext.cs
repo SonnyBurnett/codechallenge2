@@ -7,6 +7,8 @@ namespace Tw.Ing.Challenge2
     internal partial class PlayerContext : IPlayerContext
     {
         private Player _state;
+
+        protected IBoardContext Board {get;private set;}
         
         public string Name { get; set; }
         public bool IsPlaying
@@ -47,9 +49,10 @@ namespace Tw.Ing.Challenge2
 
         public List<Cell> Moves { get; set; } = new List<Cell>();
 
-        public PlayerContext()
+        public PlayerContext(IBoardContext board)
         {
             _state = new PlayerStateNew(this);
+            Board = board;
         }
 
         public void Register(string name, Cell.Marker mark)
@@ -62,9 +65,9 @@ namespace Tw.Ing.Challenge2
             _state = _state.Turn();
         }
 
-        public void MakeMove(Cell cellToPlay)
+        public void MakeMove(char columnName, int rowNumber)
         {
-            _state = _state.Move(cellToPlay);
+            _state = _state.Move(columnName, rowNumber);
         }
     }
 }

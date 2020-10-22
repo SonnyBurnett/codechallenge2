@@ -16,7 +16,7 @@ namespace Tw.Ing.Challenge2
             }
             public abstract Board End();
             public abstract Board Initialize();
-            public abstract Board Play(char columnName, int rowNumber, Cell.Marker mark);
+            public abstract Board Draw(char columnName, int rowNumber, Cell.Marker mark);
         }
     }
 }

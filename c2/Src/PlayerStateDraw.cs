@@ -16,7 +16,7 @@ namespace Tw.Ing.Challenge2
                 }
             }
 
-            public override Player Move(Cell cellToPlay)
+            public override Player Move(char columnName, int rowNumber)
             {
                 throw new InvalidOperationException("Cannot move, game ended with a draw");
             }

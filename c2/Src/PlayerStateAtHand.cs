@@ -19,33 +19,26 @@ namespace Tw.Ing.Challenge2
                 }
             }
 
-            public override Player Move(Cell cellToPlay)
+            public override Player Move(char columnName, int rowNumber)
             {
-                if (cellToPlay.Mark == Cell.Marker.Empty)
+                if (Parent.Moves.Count > 5)
                 {
-                    if (Parent.Moves.Count > 5)
-                    {
-                        throw new InvalidOperationException("Already more then 5 moves made");
-                    }
-                    cellToPlay.Mark = Parent.Mark;
-                    Parent.Moves.Add(cellToPlay);
+                    throw new InvalidOperationException("Already more then 5 moves made");
+                }
+                var cell = Parent.Board.Draw(columnName, rowNumber, Parent.Mark);
+                Parent.Moves.Add(cell);
 
-                    if (DidIWin())
-                    {
-                        return new PlayerStateWin(Parent);
-                    }
-                    else if (DoINeedToDraw())
-                    {
-                        return new PlayerStateDraw(Parent);
-                    }
-                    else
-                    {
-                        return new PlayerStateActive(Parent);
-                    }
+                if (DidIWin())
+                {
+                    return new PlayerStateWin(Parent);
+                }
+                else if (DoINeedToDraw())
+                {
+                    return new PlayerStateDraw(Parent);
                 }
                 else
                 {
-                    throw new InvalidOperationException($"Cell '{cellToPlay.Column}{cellToPlay.Row}' already played by {cellToPlay.Mark}");
+                    return new PlayerStateActive(Parent);
                 }
             }
 

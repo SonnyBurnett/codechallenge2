@@ -28,9 +28,10 @@ namespace Tw.Ing.Challenge2
             _state = _state.Initialize();
         }
 
-        public void Play(char columnName, int rowNumber, Cell.Marker mark)
+        public Cell Draw(char columnName, int rowNumber, Cell.Marker mark)
         {
-            _state = _state.Play(columnName, rowNumber, mark);
+            _state = _state.Draw(columnName, rowNumber, mark);
+            return Matrix[new Pair<char, int>(columnName, rowNumber)];
         }
 
         public void End()
