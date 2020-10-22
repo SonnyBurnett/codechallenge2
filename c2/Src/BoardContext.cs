@@ -11,7 +11,13 @@ namespace Tw.Ing.Challenge2
         public Board _state;
         public Dictionary<Pair<char,int>,Cell> Matrix { get; } = new Dictionary<Pair<char, int>, Cell>();
 
-
+        public bool IsInitialized
+        {
+            get
+            {
+                return (_state.GetType() == typeof(BoardStatePlaying));
+            }
+        }
         public BoardContext()
         {
             _state = (Board)new BoardStateBlanco(Matrix);

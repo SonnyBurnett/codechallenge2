@@ -7,6 +7,7 @@ namespace Tw.Ing.Challenge2
 {
     interface IBoardContext
     {
+        public bool IsInitialized { get; }
         Dictionary<Pair<char, int>, Cell> Matrix { get; }
         void End();
         void Initialize();
