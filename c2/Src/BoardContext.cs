@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace Tw.Ing.Challenge2
 {
-    internal partial class BoardContext: IBoardContext, IGameServiceInterface
+    internal partial class BoardContext: IBoardContext
     {
         public Board _state;
         public Dictionary<Coordinate,Cell> Matrix { get; } = new Dictionary<Coordinate, Cell>();
@@ -36,12 +36,6 @@ namespace Tw.Ing.Challenge2
         public void End()
         {
             _state = _state.End();
-        }
-
-        IEnumerable<ICommand> IGameServiceInterface.AvailableCommands()
-        {
-            throw new NotImplementedException();
-            //return ((IGameServiceInterface)CurrentState).AvailableCommands();
         }
     }
 }

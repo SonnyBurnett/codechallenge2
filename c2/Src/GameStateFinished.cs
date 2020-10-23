@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using Tw.Ing.Challenge2.Commands;
 
 namespace Tw.Ing.Challenge2
 {
@@ -25,6 +28,15 @@ namespace Tw.Ing.Challenge2
                 throw new NotImplementedException();
             }
 
+            public override IEnumerable<IGameCommand> GetActionCommands()
+            {
+                throw new NotImplementedException();
+            }
+
+            public override void Draw()
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

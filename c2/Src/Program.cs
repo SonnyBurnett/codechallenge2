@@ -1,7 +1,10 @@
 ﻿using Microsoft.Extensions.CommandLineUtils;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using Tw.Ing.Challenge2.Commands;
 using Tw.Ing.Challenge2.Extensions;
 
 namespace Tw.Ing.Challenge2
@@ -38,16 +41,48 @@ namespace Tw.Ing.Challenge2
             }
             else
             {
-                // execute command
                 try
                 {
-                    // Game Loop
-                    return 1;
+                    // initialize
+                    
+                    const int REFRESH_TIME_MS = 500;
+                    var game = (IGameEngine)new GameContext();
+                    Console.Clear();
+
+                    var nextLoopTime = DateTime.UtcNow.AddMilliseconds(REFRESH_TIME_MS);
+                    //Game loop
+                    do
+                        if (nextLoopTime < DateTime.UtcNow)
+                        {
+                            game.Draw();
+                            nextLoopTime = DateTime.UtcNow.AddMilliseconds(REFRESH_TIME_MS);
+
+                            var commandList = game.GetActionCommands();
+                            DoAction(commandList);
+                        }
+                    while (game.CanContinue);
+                    return 0;
                 }
                 catch (Exception)
                 {
                     TraceExtensions.DoError($"Something fishy happened, exiting.");
                     throw;
+                }
+            }
+        }
+
+        private static void DoAction(IEnumerable<IGameCommand> commandList)
+        {
+            if (Console.KeyAvailable)
+            {
+                foreach(var cmd in commandList)
+                {
+                    var keyPressed = Console.ReadKey(true).KeyChar;
+                    if (cmd.Key == keyPressed)
+                    {
+                        cmd.Execute();
+                        return;
+                    }
                 }
             }
         }

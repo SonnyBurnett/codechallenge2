@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Tw.Ing.Challenge2.Commands;
 
 namespace Tw.Ing.Challenge2
 {
@@ -25,6 +27,19 @@ namespace Tw.Ing.Challenge2
                 throw new NotImplementedException();
             }
 
+            public override IEnumerable<IGameCommand> GetActionCommands()
+            {
+                var commandList = new List<IGameCommand>();
+                return commandList;
+            }
+
+            public override void Draw()
+            {
+                Console.SetCursorPosition(0, 8);
+                Console.Write($"Player {Parent.ActivePlayer.Name} is next.");
+                Console.SetCursorPosition(0, 9);
+                Console.Write("Press (Q) to quit the Game");
+            }
         }
     }
 }

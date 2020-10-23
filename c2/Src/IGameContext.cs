@@ -2,6 +2,7 @@
 {
     interface IGameContext
     {
+        public PlayerContext ActivePlayer { get; }
         public PlayerContext PlayerCircle { get; set; }
         public PlayerContext PlayerCross { get; set; }
         public BoardContext Board { get; set; }

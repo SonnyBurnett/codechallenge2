@@ -1,5 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows.Input;
+using Tw.Ing.Challenge2.Commands;
 
 namespace Tw.Ing.Challenge2
 {
@@ -35,6 +39,20 @@ namespace Tw.Ing.Challenge2
                 throw new InvalidOperationException("Cannot end a game which is not started");
             }
 
+            public override IEnumerable<IGameCommand> GetActionCommands()
+            {
+                var commandList = new List<IGameCommand>();
+                commandList.Add(new StartGameCommand(Parent));
+                return commandList;
+            }
+
+            public override void Draw()
+            {
+                Console.SetCursorPosition(0, 8);
+                Console.Write("Press (S) to start the Game");
+                Console.SetCursorPosition(0, 9);
+                Console.Write("Press (Q) to quit the Game");
+            }
         }
     }
 }
