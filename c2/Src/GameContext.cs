@@ -2,14 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using Tw.Ing.Challenge2.Commands;
+using Tw.Ing.Challenge2.Services;
 
 namespace Tw.Ing.Challenge2
 {
-    internal partial class GameContext : IGameContext, IGameEngine
+    internal partial class GameContext : ContextBase,IGameContext
     {
         private Game _state;
         protected Game State { get => _state; set => _state = value; }
-        protected IGameEngine Engine { get => (IGameEngine)this; }
         protected IGameEngineState EngineGameState { get => (IGameEngineState)_state; }
 
         public PlayerContext PlayerCircle{ get; set; }
@@ -53,10 +53,7 @@ namespace Tw.Ing.Challenge2
             } 
         }
 
-        bool IGameEngine.IsDirty { get; set; } = true;
-        bool IGameEngine.CanContinue { get; set; } = true;
-
-        public GameContext()
+        public GameContext(IGameService gameService):base(gameService)
         {
             State = new GameStateNew(this);
         }
@@ -79,12 +76,12 @@ namespace Tw.Ing.Challenge2
             Engine.IsDirty = true;
         }
 
-        IEnumerable<IGameCommand> IGameEngine.GetActionCommands()
+        public override IEnumerable<GameCommandBase> GetActionCommands()
         {
             return EngineGameState.GetActionCommands();
         }
 
-        void IGameEngine.Draw()
+        public override void Draw()
         {
             if (Engine.IsDirty)
             {

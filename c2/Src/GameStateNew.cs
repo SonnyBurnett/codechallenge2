@@ -39,10 +39,10 @@ namespace Tw.Ing.Challenge2
                 throw new InvalidOperationException("Cannot end a game which is not started");
             }
 
-            public override IEnumerable<IGameCommand> GetActionCommands()
+            public override IEnumerable<GameCommandBase> GetActionCommands()
             {
-                var commandList = new List<IGameCommand>();
-                commandList.Add(new StartGameCommand(Parent));
+                var commandList = new List<GameCommandBase>();
+                commandList.Add(new StartGameCommand(Parent.Service, Parent));
                 return commandList;
             }
 

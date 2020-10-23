@@ -19,7 +19,7 @@ namespace Tw.Ing.Challenge2
             public abstract Game Quit();
             public abstract Game End();
 
-            public abstract IEnumerable<IGameCommand> GetActionCommands();
+            public abstract IEnumerable<GameCommandBase> GetActionCommands();
             public abstract void Draw();
         }
     }

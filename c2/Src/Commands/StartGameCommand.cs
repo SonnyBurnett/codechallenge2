@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Windows.Input;
+using Tw.Ing.Challenge2.Services;
 
 namespace Tw.Ing.Challenge2.Commands
 {
-    internal class StartGameCommand : IGameCommand
+    internal class StartGameCommand : GameCommandBase
     {
         private readonly GameContext _game;
-        public StartGameCommand(GameContext game) => _game = game;
+        public StartGameCommand(IGameService gameService, GameContext game):base(gameService) => _game = game;
 
-        public char Key { get => 'S'; }
+        public override char Key { get => 'S'; }
 
-        public void Execute()
+        public override void Execute()
         {
             var board = new BoardContext();
             board.Initialize();

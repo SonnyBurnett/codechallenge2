@@ -6,7 +6,7 @@ namespace Tw.Ing.Challenge2
 {
     interface IGameEngineState
     {
-        public IEnumerable<IGameCommand> GetActionCommands();
+        public IEnumerable<GameCommandBase> GetActionCommands();
         public void Draw();
     }
 }

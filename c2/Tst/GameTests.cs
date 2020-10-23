@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Moq;
+using System;
+using Tw.Ing.Challenge2.Services;
 using Xunit;
 
 namespace Tw.Ing.Challenge2.Tests
@@ -9,7 +11,8 @@ namespace Tw.Ing.Challenge2.Tests
         public void Game_State_NewToActive_Success()
         {
             // ARRANGE
-            IGameContext game = new GameContext();
+            var gameServiceMock = new Mock<IGameService>();
+            IGameContext game = new GameContext(gameServiceMock.Object);
             BoardContext board = new BoardContext();
             PlayerContext p1 = new PlayerContext(board);
             PlayerContext p2 = new PlayerContext(board);
@@ -29,7 +32,8 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_InvalidStates_New()
         {
             //// ARRANGE
-            IGameContext game = new GameContext();
+            var gameServiceMock = new Mock<IGameService>();
+            IGameContext game = new GameContext(gameServiceMock.Object);
 
             // ACT / ASSERT
             Assert.Throws<InvalidOperationException>(() => game.End());

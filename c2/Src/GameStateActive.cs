@@ -27,9 +27,9 @@ namespace Tw.Ing.Challenge2
                 throw new NotImplementedException();
             }
 
-            public override IEnumerable<IGameCommand> GetActionCommands()
+            public override IEnumerable<GameCommandBase> GetActionCommands()
             {
-                var commandList = new List<IGameCommand>();
+                var commandList = new List<GameCommandBase>();
                 return commandList;
             }
 

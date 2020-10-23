@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Reflection;
 using Tw.Ing.Challenge2.Commands;
 using Tw.Ing.Challenge2.Extensions;
+using Tw.Ing.Challenge2.Services;
 
 namespace Tw.Ing.Challenge2
 {
@@ -46,7 +47,8 @@ namespace Tw.Ing.Challenge2
                     // initialize
                     
                     const int REFRESH_TIME_MS = 500;
-                    var game = (IGameEngine)new GameContext();
+                    var gameService = new GameService();
+                    var game = (IGameEngine)new GameContext(gameService);
                     Console.Clear();
 
                     var nextLoopTime = DateTime.UtcNow.AddMilliseconds(REFRESH_TIME_MS);
@@ -54,35 +56,19 @@ namespace Tw.Ing.Challenge2
                     do
                         if (nextLoopTime < DateTime.UtcNow)
                         {
-                            game.Draw();
+                            gameService.Draw();
                             nextLoopTime = DateTime.UtcNow.AddMilliseconds(REFRESH_TIME_MS);
 
-                            var commandList = game.GetActionCommands();
-                            DoAction(commandList);
+                            var commandList = gameService.GetActionCommands();
+                            gameService.DoAction(commandList);
                         }
-                    while (game.CanContinue);
+                    while (gameService.CanContinue);
                     return 0;
                 }
                 catch (Exception)
                 {
                     TraceExtensions.DoError($"Something fishy happened, exiting.");
                     throw;
-                }
-            }
-        }
-
-        private static void DoAction(IEnumerable<IGameCommand> commandList)
-        {
-            if (Console.KeyAvailable)
-            {
-                foreach(var cmd in commandList)
-                {
-                    var keyPressed = Console.ReadKey(true).KeyChar;
-                    if (cmd.Key == keyPressed)
-                    {
-                        cmd.Execute();
-                        return;
-                    }
                 }
             }
         }

@@ -4,11 +4,10 @@ using Tw.Ing.Challenge2.Commands;
 
 namespace Tw.Ing.Challenge2
 {
-    interface IGameEngine
+    internal interface IGameEngine
     {
         public bool IsDirty { get; set; }
-        public bool CanContinue { get; set; }
-        public IEnumerable<IGameCommand> GetActionCommands();
+        public IEnumerable<GameCommandBase> GetActionCommands();
         public void Draw();
     }
 }
