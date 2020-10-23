@@ -9,12 +9,20 @@ public class Rectangle implements Figure2D {
 
     @Override
     public double getArea() {
-        return this.length * this.width;
+        return calculateArea(this.length, this.width);
     }
 
     @Override
     public double getCircumference() {
-        return 2*this.length + 2*this.width;
+        return calculateCircumference(this.length, this.width);
+    }
+
+    public static double calculateArea(double length, double width) {
+        return length * width;
+    }
+
+    public static double calculateCircumference(double length, double width) {
+        return 2*length + 2*width;
     }
 
     public double getLength() {
