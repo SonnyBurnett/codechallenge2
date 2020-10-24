@@ -17,4 +17,5 @@ pluginManagement {
 rootProject.name = 'code_challenge'
 include 'challenge_1'
 include 'challenge_1K'
+include 'challenge_2'
 
