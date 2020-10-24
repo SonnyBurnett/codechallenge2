@@ -22,7 +22,20 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fb2ea14-ffc3-48c0-a824-32a5d99699e8" name="Default Changelist" comment="" />
+    <list default="true" id="7fb2ea14-ffc3-48c0-a824-32a5d99699e8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Pants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Pants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ProductInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ProductInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ProductProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ProductProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Shirt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Shirt.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/CSVReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/CSVReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PantsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PantsTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ProductTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ProductTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ShirtTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ShirtTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,43 +88,30 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CSVReaderTest.formatLines" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="challenge1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="util" />
-      <option name="MAIN_CLASS_NAME" value="util.CSVReaderTest" />
-      <option name="METHOD_NAME" value="formatLines" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CSVReaderTest.setLines" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="challenge1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="util.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="util" />
-      <option name="MAIN_CLASS_NAME" value="util.CSVReaderTest" />
-      <option name="METHOD_NAME" value="setLines" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProductProcessorTest.filterBelowPrice" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CurrencyConverterTest.convert" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="challenge1" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="ProductProcessorTest" />
-      <option name="METHOD_NAME" value="filterBelowPrice" />
+      <option name="MAIN_CLASS_NAME" value="CurrencyConverterTest" />
+      <option name="METHOD_NAME" value="convert" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="challenge1" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ProductTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductTest.changePrice" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="challenge1" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ProductTest" />
+      <option name="METHOD_NAME" value="changePrice" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -124,10 +124,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Application" />
+        <item itemvalue="JUnit.CurrencyConverterTest.convert" />
+        <item itemvalue="JUnit.ProductTest" />
+        <item itemvalue="JUnit.ProductTest.changePrice" />
         <item itemvalue="JAR Application.challenge1-1.0-SNAPSHOT.jar" />
-        <item itemvalue="JUnit.CSVReaderTest.formatLines" />
-        <item itemvalue="JUnit.CSVReaderTest.setLines" />
-        <item itemvalue="JUnit.ProductProcessorTest.filterBelowPrice" />
       </list>
     </recent_temporary>
   </component>
@@ -184,6 +184,10 @@
       <screen x="0" y="0" width="3072" height="1240" />
     </state>
     <state x="840" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.3072.1240@0.0.3072.1240" timestamp="1603037614850" />
+    <state x="1061" y="323" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1603208434215">
+      <screen x="0" y="0" width="3072" height="1240" />
+    </state>
+    <state x="1061" y="323" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.3072.1240@0.0.3072.1240" timestamp="1603208434215" />
     <state x="951" y="326" key="#xdebugger.evaluate" timestamp="1603027879896">
       <screen x="0" y="0" width="3072" height="1240" />
     </state>
@@ -192,50 +196,50 @@
       <screen x="0" y="0" width="3072" height="1240" />
     </state>
     <state x="1439" y="391" key="FileChooserDialogImpl/0.0.3072.1240@0.0.3072.1240" timestamp="1603023349201" />
-    <state width="2509" height="272" key="GridCell.Tab.0.bottom" timestamp="1603041658009">
+    <state width="2064" height="183" key="GridCell.Tab.0.bottom" timestamp="1603552608887">
       <screen x="0" y="0" width="3072" height="1240" />
     </state>
     <state width="1017" height="243" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1602957168229" />
-    <state width="2509" height="272" key="GridCell.Tab.0.bottom/0.0.3072.1240@0.0.3072.1240" timestamp="1603041658009" />
+    <state width="2064" height="183" key="GridCell.Tab.0.bottom/0.0.3072.1240@0.0.3072.1240" timestamp="1603552608887" />
     <state width="1019" height="207" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1602945603835" />
     <state width="2340" height="314" key="GridCell.Tab.0.bottom/0.23.3840.1512@0.23.3840.1512" timestamp="1602854302771" />
-    <state width="2509" height="272" key="GridCell.Tab.0.center" timestamp="1603041658009">
+    <state width="2064" height="183" key="GridCell.Tab.0.center" timestamp="1603552608886">
       <screen x="0" y="0" width="3072" height="1240" />
     </state>
     <state width="1017" height="243" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1602957168227" />
-    <state width="2509" height="272" key="GridCell.Tab.0.center/0.0.3072.1240@0.0.3072.1240" timestamp="1603041658009" />
+    <state width="2064" height="183" key="GridCell.Tab.0.center/0.0.3072.1240@0.0.3072.1240" timestamp="1603552608886" />
     <state width="1019" height="207" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1602945603834" />
     <state width="2340" height="314" key="GridCell.Tab.0.center/0.23.3840.1512@0.23.3840.1512" timestamp="1602854302770" />
-    <state width="2509" height="272" key="GridCell.Tab.0.left" timestamp="1603041658009">
+    <state width="2064" height="183" key="GridCell.Tab.0.left" timestamp="1603552608886">
       <screen x="0" y="0" width="3072" height="1240" />
     </state>
     <state width="1017" height="243" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1602957168226" />
-    <state width="2509" height="272" key="GridCell.Tab.0.left/0.0.3072.1240@0.0.3072.1240" timestamp="1603041658009" />
+    <state width="2064" height="183" key="GridCell.Tab.0.left/0.0.3072.1240@0.0.3072.1240" timestamp="1603552608886" />
     <state width="1019" height="207" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1602945603834" />
     <state width="2340" height="314" key="GridCell.Tab.0.left/0.23.3840.1512@0.23.3840.1512" timestamp="1602854302769" />
-    <state width="2509" height="272" key="GridCell.Tab.0.right" timestamp="1603041658009">
+    <state width="2064" height="183" key="GridCell.Tab.0.right" timestamp="1603552608886">
       <screen x="0" y="0" width="3072" height="1240" />
     </state>
     <state width="1017" height="243" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1602957168228" />
-    <state width="2509" height="272" key="GridCell.Tab.0.right/0.0.3072.1240@0.0.3072.1240" timestamp="1603041658009" />
+    <state width="2064" height="183" key="GridCell.Tab.0.right/0.0.3072.1240@0.0.3072.1240" timestamp="1603552608886" />
     <state width="1019" height="207" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1602945603835" />
     <state width="2340" height="314" key="GridCell.Tab.0.right/0.23.3840.1512@0.23.3840.1512" timestamp="1602854302771" />
-    <state width="2509" height="369" key="GridCell.Tab.1.bottom" timestamp="1603038945412">
+    <state width="2064" height="170" key="GridCell.Tab.1.bottom" timestamp="1603552563988">
       <screen x="0" y="0" width="3072" height="1240" />
     </state>
-    <state width="2509" height="369" key="GridCell.Tab.1.bottom/0.0.3072.1240@0.0.3072.1240" timestamp="1603038945412" />
-    <state width="2509" height="369" key="GridCell.Tab.1.center" timestamp="1603038945412">
+    <state width="2064" height="170" key="GridCell.Tab.1.bottom/0.0.3072.1240@0.0.3072.1240" timestamp="1603552563988" />
+    <state width="2064" height="170" key="GridCell.Tab.1.center" timestamp="1603552563987">
       <screen x="0" y="0" width="3072" height="1240" />
     </state>
-    <state width="2509" height="369" key="GridCell.Tab.1.center/0.0.3072.1240@0.0.3072.1240" timestamp="1603038945412" />
-    <state width="2509" height="369" key="GridCell.Tab.1.left" timestamp="1603038945412">
+    <state width="2064" height="170" key="GridCell.Tab.1.center/0.0.3072.1240@0.0.3072.1240" timestamp="1603552563987" />
+    <state width="2064" height="170" key="GridCell.Tab.1.left" timestamp="1603552563987">
       <screen x="0" y="0" width="3072" height="1240" />
     </state>
-    <state width="2509" height="369" key="GridCell.Tab.1.left/0.0.3072.1240@0.0.3072.1240" timestamp="1603038945412" />
-    <state width="2509" height="369" key="GridCell.Tab.1.right" timestamp="1603038945412">
+    <state width="2064" height="170" key="GridCell.Tab.1.left/0.0.3072.1240@0.0.3072.1240" timestamp="1603552563987" />
+    <state width="2064" height="170" key="GridCell.Tab.1.right" timestamp="1603552563987">
       <screen x="0" y="0" width="3072" height="1240" />
     </state>
-    <state width="2509" height="369" key="GridCell.Tab.1.right/0.0.3072.1240@0.0.3072.1240" timestamp="1603038945412" />
+    <state width="2064" height="170" key="GridCell.Tab.1.right/0.0.3072.1240@0.0.3072.1240" timestamp="1603552563987" />
     <state x="1029" y="332" key="SettingsEditor" timestamp="1603023490646">
       <screen x="0" y="0" width="3072" height="1240" />
     </state>
@@ -251,10 +255,30 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Application.java</url>
-          <line>6</line>
+          <line>7</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ProductProcessor.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/util/CSVReader.java</url>
+          <line>54</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/ProductProcessor.java</url>
+          <line>67</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="reader" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

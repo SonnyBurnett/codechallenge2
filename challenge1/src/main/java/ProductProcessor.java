@@ -1,19 +1,23 @@
 import util.CSVReader;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class ProductProcessor extends CSVReader {
+public class ProductProcessor {
+    private CSVReader reader;
     private List<Product> products;
 
     public ProductProcessor(String path) {
-        super(path);
+        reader = new CSVReader(path);
         this.products = this.parseLinesToProducts();
     }
 
     public List<Product> parseLinesToProducts() {
-        return lines.stream().map(line -> parseStringToProduct(line)).collect(Collectors.toList());
+        return reader.getLines().stream().map(line -> parseStringToProduct(line)).collect(Collectors.toList());
     }
 
     public List<Product> getProducts() {
@@ -25,29 +29,42 @@ public class ProductProcessor extends CSVReader {
 
         switch(type) {
             case "shirts":
-                return new Shirt(input[0], input[1], input[2], Integer.parseInt(input[3]));
+                return new Shirt(input[0], input[1], input[2], new BigDecimal(input[3]));
             case "pants":
-                return new Pants(input[0], input[1], input[2], Integer.parseInt(input[3]));
+                return new Pants(input[0], input[1], input[2], new BigDecimal(input[3]));
             default:
                 throw new IllegalArgumentException();
         }
     }
 
     private void setProductsAsLines() {
-        this.lines = products.stream().map(product -> parseProductToString(product)).collect(Collectors.toList());
+        List<String[]> mutatedList = products.stream().map(product -> parseProductToString(product)).collect(Collectors.toList());
+        reader.setLines(mutatedList);
     }
 
     private String[] parseProductToString(Product product) {
-        return new String[]{product.getProductId(), product.getName(), product.getDescription(), Integer.toString(product.getPrice()), product.getCategory()};
+        return new String[]{product.getProductId(), product.getName(), product.getDescription(), product.getPrice().setScale(1, RoundingMode.HALF_UP).toString(), product.getCategory()};
     }
 
     public ProductProcessor filterBelowPrice(int priceThreshold) {
-        this.products = this.products.stream().filter(product -> product.getPrice() > priceThreshold).collect(Collectors.toList());
+        Predicate<Product> isLargerThanThreshold = p -> p.getPrice().compareTo(new BigDecimal(priceThreshold)) > 0;
+
+        this.products = this.products.stream()
+                .filter(isLargerThanThreshold)
+                .collect(Collectors.toList());
+        return this;
+    }
+
+    public ProductProcessor convertPrices(CurrencyConverter converter) {
+        this.products = this.products.stream().map(product -> {
+            product.convertPrice(converter);
+            return product;
+        }).collect(Collectors.toList());
         return this;
     }
 
     public void save(String filePath) {
         this.setProductsAsLines();
-        super.save(filePath);
+        reader.save(filePath);
     }
 }

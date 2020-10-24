@@ -2,6 +2,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -10,7 +12,7 @@ public class PantsTest {
 
     @BeforeEach
     void setup() {
-        this.pants = new Pants("2", "pants", "some pants", 9);
+        this.pants = new Pants("2", "pants", "some pants", new BigDecimal(9));
     }
 
     @DisplayName("should be able to instantiate pants class")

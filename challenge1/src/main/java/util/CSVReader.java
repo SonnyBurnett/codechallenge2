@@ -11,8 +11,8 @@ public class CSVReader {
     private String headers;
     protected List<String[]> lines;
 
-    public CSVReader(String path) {
-        this.path = path;
+    public CSVReader(String providedPath) {
+        path = providedPath;
         this.setLines();
     }
 
@@ -21,13 +21,13 @@ public class CSVReader {
 
         ClassLoader loader = getClass().getClassLoader();
 
-        try (InputStream input = loader.getResourceAsStream(this.path)) {
+        try (InputStream input = loader.getResourceAsStream(path)) {
             InputStreamReader streamReader = new InputStreamReader(input, StandardCharsets.UTF_8);
             BufferedReader bufferedReader = new BufferedReader(streamReader);
 
             // Save first line as header for output file.
-            this.headers = bufferedReader.readLine();
-            this.lines = bufferedReader.lines()
+            headers = bufferedReader.readLine();
+            lines = bufferedReader.lines()
                 .map(line -> trimLines(line))
                 .collect(Collectors.toList());
         } catch (IOException e) {
@@ -41,6 +41,14 @@ public class CSVReader {
 
     protected String formatLine(String[] fields) {
         return String.join(", ", fields);
+    }
+
+    public List<String[]> getLines() {
+        return lines;
+    }
+
+    public void setLines(List<String[]> newLines) {
+        lines = newLines;
     }
 
     public void save(String outputFile) {
