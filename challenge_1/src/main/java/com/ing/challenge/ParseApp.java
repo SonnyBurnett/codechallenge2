@@ -8,6 +8,8 @@ import com.ing.challenge.converter.ProductConverter;
 import com.ing.challenge.model.Product;
 import com.ing.challenge.parser.CsvProductParser;
 import com.ing.challenge.parser.Parser;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -16,13 +18,12 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ParseApp {
-
+    private static final Logger logger = LogManager.getLogger(ParseApp.class);
     public static void main(String[] args) throws URISyntaxException, IOException {
         Path source = pathToOutputFile("999-test.csv");
 
@@ -30,18 +31,19 @@ public class ParseApp {
         Converter<Product> converter = new ProductConverter();
 
         List<Product> products = csvParser.read(getFile("001-experts-inputs.csv"));
-
-        System.out.println("\nCurrent products in US dollars: [");
-        products.forEach(product -> System.out.println("        " + product.toString()));
-        System.out.println("]\n");
+        var text = new StringBuilder();
+        text.append("Output:\nCurrent products in US dollars: [\n");
+        products.forEach(product -> text.append("        ").append(product.toString()).append("\n"));
+        text.append("]\n\n");
 
         List<Product> filteredProducts = products.stream().filter(p -> converter.filterPrice(p,10.0))
                 .map(p -> converter.convertCurrency(p,0.85))
                 .collect(Collectors.toList());
 
-        System.out.println("Filtered products in Euros: [");
-        filteredProducts.forEach(product -> System.out.println("        " + product.toString()));
-        System.out.println("]");
+        text.append("Filtered products in Euros: [\n");
+        filteredProducts.forEach(product -> text.append("        ").append(product.toString()).append("\n"));
+        text.append("]");
+        logger.info(() -> text);
 
         File f = Files.createFile(source).toFile();
         csvParser.write(f, filteredProducts);
