@@ -22,4 +22,17 @@ public class RectangleTest {
         // Act + assert
         assertEquals(expected, Rectangle.calculateCircumference(length, width));
     }
+
+    @Test
+    public void testToString() {
+        // assign
+        double length = 2, width = 3;
+        String expected = "Rectangle: " + length + "x" + width;
+
+        Rectangle rectangle = new Rectangle(length, width);
+
+        // act + assert
+        assertEquals(expected, rectangle.toString());
+
+    }
 }

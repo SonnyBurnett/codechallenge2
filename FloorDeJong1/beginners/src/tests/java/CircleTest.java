@@ -22,4 +22,17 @@ public class CircleTest {
         // Act + assert
         assertEquals(expected, Circle.calculateCircumference(radius));
     }
+
+    @Test
+    public void testToString() {
+        // assign
+        double radius = 2;
+        String expected = "Circle: r=" + radius;
+
+        Circle circle = new Circle(radius);
+
+        // act + assert
+        assertEquals(expected, circle.toString());
+
+    }
 }
