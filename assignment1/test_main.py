@@ -1,4 +1,4 @@
-import challenge1 as ch1
+import main as ch1
 import unittest
 from math import pi
 
