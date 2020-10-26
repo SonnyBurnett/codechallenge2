@@ -30,13 +30,39 @@ namespace Tw.Ing.Challenge2
             public override IEnumerable<GameCommandBase> GetActionCommands()
             {
                 var commandList = new List<GameCommandBase>();
+                PlayerContext nextPlayer = null;
+
+                if ((!Parent.PlayerCircle.IsPlaying) && (!Parent.PlayerCross.IsPlaying))
+                {
+                    if (Parent.PlayerCircle.Moves.Count <= Parent.PlayerCross.Moves.Count)
+                    {
+                        nextPlayer = Parent.PlayerCircle;
+                    }
+                    else
+                    {
+                        nextPlayer = Parent.PlayerCross;
+                    }
+                }
+
+                if (nextPlayer != null)
+                {
+                    commandList.Add(new SwitchPlayerCommand(Parent.Service, nextPlayer));
+                    Parent.IsDirty = true;
+                }
                 return commandList;
             }
 
             public override void Draw()
             {
                 Console.SetCursorPosition(0, 8);
-                Console.Write($"Player {Parent.ActivePlayer.Name} is next.");
+                if (Parent.ActivePlayer == null)
+                {
+                    Console.Write($"...Next Player...");
+                }
+                else
+                {
+                    Console.Write($"Player {Parent.ActivePlayer.Name} is next.");
+                }
             }
         }
     }

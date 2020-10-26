@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Tw.Ing.Challenge2.Commands;
 
@@ -29,16 +30,26 @@ namespace Tw.Ing.Challenge2.Services
             if (commandList == null)
                 throw new ArgumentNullException(nameof(commandList), "Need a command list");
 
+            var autoCommands = commandList.Where(c => c.Key.Length == 0).ToList();
+            foreach (var cmd in autoCommands)
+            {
+                cmd.Execute(char.MinValue);
+            }
+
             while (Console.KeyAvailable)
             {
                 var keyPressed = Console.ReadKey(true).KeyChar;
                 bool keyFound = false;
-                foreach (var cmd in commandList)
+
+
+
+                var keyCommands = commandList.Where(c => c.Key.Length > 0).ToList();
+                foreach (var cmd in keyCommands)
                 {
-                    char key = cmd.Key;
-                    if (key == keyPressed)
+                    bool hasKeyMatch = cmd.Key.Where(k => k == keyPressed).Any();
+                    if (hasKeyMatch)
                     {
-                        cmd.Execute(key);
+                        cmd.Execute(keyPressed);
                         return;
                     }
                 }

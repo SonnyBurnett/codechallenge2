@@ -57,9 +57,9 @@ namespace Tw.Ing.Challenge2
                 if (RowCount(3) == 3) return true;
 
                 // Check the columns
-                if (ColumnCount('A') == 3) return true;
-                if (ColumnCount('B') == 3) return true;
-                if (ColumnCount('C') == 3) return true;
+                if (ColumnCount('a') == 3) return true;
+                if (ColumnCount('b') == 3) return true;
+                if (ColumnCount('c') == 3) return true;
 
                 return false;
             }

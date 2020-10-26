@@ -12,7 +12,7 @@ namespace Tw.Ing.Challenge2.Commands
             _player = player; 
         }
 
-        public override char Key { get => 'a'; }
+        public override char[] Key { get; } = { 'a', 'b', 'c' };
         public override string Title { get => "Press 'a,b,c' to select a column."; }
         public override void Execute(char key)
         {
