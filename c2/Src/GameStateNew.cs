@@ -48,10 +48,6 @@ namespace Tw.Ing.Challenge2
 
             public override void Draw()
             {
-                Console.SetCursorPosition(0, 8);
-                Console.Write("Press (S) to start the Game");
-                Console.SetCursorPosition(0, 9);
-                Console.Write("Press (Q) to quit the Game");
             }
         }
     }

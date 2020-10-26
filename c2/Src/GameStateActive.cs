@@ -37,8 +37,6 @@ namespace Tw.Ing.Challenge2
             {
                 Console.SetCursorPosition(0, 8);
                 Console.Write($"Player {Parent.ActivePlayer.Name} is next.");
-                Console.SetCursorPosition(0, 9);
-                Console.Write("Press (Q) to quit the Game");
             }
         }
     }

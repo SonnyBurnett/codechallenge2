@@ -10,7 +10,7 @@ namespace Tw.Ing.Challenge2.Commands
         public GameCommandBase(IGameService gameService) => GameService = gameService;
 
         public abstract char Key { get; }
-
+        public abstract string Title { get; }
         public abstract void Execute();
     }
 }
