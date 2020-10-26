@@ -104,7 +104,7 @@ namespace Tw.Ing.Challenge2.Tests
             //// ARRANGE
             var boardMock = new Mock<IBoardContext>();
             boardMock
-                .Setup(m => m.Draw(It.IsAny<Coordinate>(), It.IsAny<Cell.Marker>()))
+                .Setup(m => m.Play(It.IsAny<Coordinate>(), It.IsAny<Cell.Marker>()))
                 .Throws(new InvalidOperationException());
             var player = new PlayerContext(boardMock.Object);
 
@@ -193,7 +193,7 @@ namespace Tw.Ing.Challenge2.Tests
         {
             var boardMock = new Mock<IBoardContext>();
             boardMock
-                .Setup(m => m.Draw(It.IsAny<Coordinate>(), It.IsAny<Cell.Marker>()))
+                .Setup(m => m.Play(It.IsAny<Coordinate>(), It.IsAny<Cell.Marker>()))
                 .Returns((Coordinate coordinate, Cell.Marker mark) =>
                 {
                     var cell = new Cell(coordinate);

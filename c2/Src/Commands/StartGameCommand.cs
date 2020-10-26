@@ -13,7 +13,7 @@ namespace Tw.Ing.Challenge2.Commands
 
         public override void Execute()
         {
-            var board = new BoardContext();
+            var board = new BoardContext(GameService);
             board.Initialize();
             var p1 = new PlayerContext(board);
             p1.Register("I", Cell.Marker.Circle);

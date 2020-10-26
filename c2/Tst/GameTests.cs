@@ -13,7 +13,7 @@ namespace Tw.Ing.Challenge2.Tests
             // ARRANGE
             var gameServiceMock = new Mock<IGameService>();
             IGameContext game = new GameContext(gameServiceMock.Object);
-            BoardContext board = new BoardContext();
+            BoardContext board = new BoardContext(gameServiceMock.Object);
             PlayerContext p1 = new PlayerContext(board);
             PlayerContext p2 = new PlayerContext(board);
             p1.Register("CrossPlayer", Cell.Marker.Cross);

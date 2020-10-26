@@ -9,8 +9,7 @@ namespace Tw.Ing.Challenge2
     internal partial class GameContext : ContextBase,IGameContext
     {
         private Game _state;
-        protected Game State { get => _state; set => _state = value; }
-        protected IGameEngineState EngineGameState { get => (IGameEngineState)_state; }
+        private IGameEngineState EngineState { get => (IGameEngineState)_state; }
 
         public PlayerContext PlayerCircle{ get; set; }
         public PlayerContext PlayerCross { get; set; }
@@ -20,7 +19,7 @@ namespace Tw.Ing.Challenge2
         {
             get
             {
-                var stateType = State.GetType();
+                var stateType = _state.GetType();
                 if (stateType == typeof(GameStateActive))
                 { 
                     return true;
@@ -36,7 +35,7 @@ namespace Tw.Ing.Challenge2
         {
             get
             {
-                return (State.GetType() == typeof(GameStateFinished));
+                return (_state.GetType() == typeof(GameStateFinished));
             }
         }
 
@@ -55,7 +54,7 @@ namespace Tw.Ing.Challenge2
 
         public GameContext(IGameService gameService):base(gameService)
         {
-            State = new GameStateNew(this);
+            _state = new GameStateNew(this);
         }
 
         public void Start(PlayerContext p1, PlayerContext p2, BoardContext board)
@@ -66,26 +65,26 @@ namespace Tw.Ing.Challenge2
 
         public void Quit()
         {
-            State = State.Quit();
+            _state = _state.Quit();
             Engine.IsDirty = true;
         }
 
         public void End()
         {
-            State = State.End();
+            _state = _state.End();
             Engine.IsDirty = true;
         }
 
         public override IEnumerable<GameCommandBase> GetActionCommands()
         {
-            return EngineGameState.GetActionCommands();
+            return EngineState.GetActionCommands();
         }
 
         public override void Draw()
         {
             if (Engine.IsDirty)
             {
-                EngineGameState.Draw();
+                EngineState.Draw();
                 Engine.IsDirty = false;
             }
         }

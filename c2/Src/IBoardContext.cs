@@ -8,6 +8,6 @@ namespace Tw.Ing.Challenge2
         Dictionary<Coordinate, Cell> Matrix { get; }
         void End();
         void Initialize();
-        Cell Draw(Coordinate coordinate, Cell.Marker mark);
+        Cell Play(Coordinate coordinate, Cell.Marker mark);
     }
 }

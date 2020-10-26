@@ -21,7 +21,7 @@ namespace Tw.Ing.Challenge2
                 {
                     throw new InvalidOperationException("Already more then 5 moves made");
                 }
-                var cell = Parent.Board.Draw(coordinate, Parent.Mark);
+                var cell = Parent.Board.Play(coordinate, Parent.Mark);
                 Parent.Moves.Add(cell);
 
                 if (DidIWin())

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Tw.Ing.Challenge2.Commands;
 
 namespace Tw.Ing.Challenge2
 {
@@ -30,9 +32,20 @@ namespace Tw.Ing.Challenge2
                 return new BoardStatePlaying(Parent);
             }
 
-            public override Board Draw(Coordinate coordinate, Cell.Marker mark)
+            public override Board Play(Coordinate coordinate, Cell.Marker mark)
             {
                 throw new InvalidOperationException("Play on a finished board");
+            }
+
+            public override IEnumerable<GameCommandBase> GetActionCommands()
+            {
+                var commandList = new List<GameCommandBase>();
+                return commandList;
+            }
+
+            public override void Draw()
+            {
+                throw new NotImplementedException();
             }
         }
     }

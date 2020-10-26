@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Moq;
+using System;
+using Tw.Ing.Challenge2.Services;
 using Xunit;
 
 namespace Tw.Ing.Challenge2.Tests
@@ -9,7 +11,8 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_State_BlancToDrawn_Success()
         {
             // ARRANGE
-            var gameBoard = new BoardContext();
+            var gameServiceMock = new Mock<IGameService>();
+            var gameBoard = new BoardContext(gameServiceMock.Object);
 
             // ACT
             gameBoard.Initialize();
@@ -25,12 +28,13 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_Play_Success()
         {
             // ARRANGE
-            var gameBoard = new BoardContext();
+            var gameServiceMock = new Mock<IGameService>();
+            var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
 
             // ACT
             var cellCoordinate = new Coordinate('A', 1);
-            gameBoard.Draw(cellCoordinate, Cell.Marker.Circle);
+            gameBoard.Play(cellCoordinate, Cell.Marker.Circle);
 
             // ASSERT
             var cell = gameBoard.Matrix[cellCoordinate];
@@ -41,13 +45,14 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_Play_TwiceError()
         {
             // ARRANGE
-            var gameBoard = new BoardContext();
+            var gameServiceMock = new Mock<IGameService>();
+            var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
             var cellCoordinate = new Coordinate('A', 1);
-            gameBoard.Draw(cellCoordinate, Cell.Marker.Circle);
+            gameBoard.Play(cellCoordinate, Cell.Marker.Circle);
 
             // ACT
-            Action act = () => gameBoard.Draw(cellCoordinate, Cell.Marker.Cross);
+            Action act = () => gameBoard.Play(cellCoordinate, Cell.Marker.Cross);
 
             // ASSERT
             Assert.Throws<InvalidOperationException>(act);
@@ -59,12 +64,13 @@ namespace Tw.Ing.Challenge2.Tests
         public void PlayBoard_Success()
         {
             // ARRANGE
-            var gameBoard = new BoardContext();
+            var gameServiceMock = new Mock<IGameService>();
+            var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
 
             // ACT
             var cellCoordinate = new Coordinate('A', 1);
-            gameBoard.Draw(cellCoordinate, Cell.Marker.Circle);
+            gameBoard.Play(cellCoordinate, Cell.Marker.Circle);
 
             // ASSERT
             var cell = gameBoard.Matrix[cellCoordinate];
@@ -75,7 +81,8 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_State_DrawnToFinished_Success()
         {
             // ARRANGE
-            var gameBoard = new BoardContext();
+            var gameServiceMock = new Mock<IGameService>();
+            var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
 
             // ACT
@@ -89,7 +96,8 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_State_FinishedToBlanco_Success()
         {
             // ARRANGE
-            var gameBoard = new BoardContext();
+            var gameServiceMock = new Mock<IGameService>();
+            var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
             gameBoard.End();
 
@@ -104,11 +112,12 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_InvalidStates_Blanco()
         {
             //// ARRANGE
-            var gameBoard = new BoardContext();
+            var gameServiceMock = new Mock<IGameService>();
+            var gameBoard = new BoardContext(gameServiceMock.Object);
 
             // ACT / ASSERT
             var cellCoordinate = new Coordinate('A', 1);
-            Assert.Throws<InvalidOperationException>(() => gameBoard.Draw(cellCoordinate, Cell.Marker.Circle));
+            Assert.Throws<InvalidOperationException>(() => gameBoard.Play(cellCoordinate, Cell.Marker.Circle));
             Assert.Throws<InvalidOperationException>(() => gameBoard.End());
         }
 
@@ -116,7 +125,8 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_InvalidStates_Drawn()
         {
             //// ARRANGE
-            var gameBoard = new BoardContext();
+            var gameServiceMock = new Mock<IGameService>();
+            var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
 
             // ACT / ASSERT
@@ -127,13 +137,14 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_InvalidStates_Finished()
         {
             //// ARRANGE
-            var gameBoard = new BoardContext();
+            var gameServiceMock = new Mock<IGameService>();
+            var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
             gameBoard.End();
 
             // ACT / ASSERT
             var cellCoordinate = new Coordinate('A', 1);
-            Assert.Throws<InvalidOperationException>(() => gameBoard.Draw(cellCoordinate, Cell.Marker.Circle));
+            Assert.Throws<InvalidOperationException>(() => gameBoard.Play(cellCoordinate, Cell.Marker.Circle));
             Assert.Throws<InvalidOperationException>(() => gameBoard.End());
         }
     }
