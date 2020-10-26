@@ -15,6 +15,7 @@ namespace Tw.Ing.Challenge2.Services
         public bool CanContinue { get; private set; } = true;
         public List<IGameEngine> GameObjects { get; } = new List<IGameEngine>();
         public List<GameCommandBase> CommandList { get; } = new List<GameCommandBase>();
+        public string ErrorMessage { get; private set; }
         public void RegisterGameObject(IGameEngine theObject)
         {
             GameObjects.Add(theObject);
@@ -49,7 +50,14 @@ namespace Tw.Ing.Challenge2.Services
                     bool hasKeyMatch = cmd.Key.Where(k => k == keyPressed).Any();
                     if (hasKeyMatch)
                     {
-                        cmd.Execute(keyPressed);
+                        try
+                        {
+                            cmd.Execute(keyPressed);
+                        }
+                        catch(InvalidOperationException iox)
+                        {
+                            ErrorMessage = iox.Message;
+                        }
                         return;
                     }
                 }
@@ -83,17 +91,27 @@ namespace Tw.Ing.Challenge2.Services
             for(var i =  0; i < 3; i++)
             {
                 Console.SetCursorPosition(0, 9 + offset);
-                Console.Write("                              ");
-                offset++;
-            }
-            offset = 0;
-            foreach (var cmd in CommandList)
-            {
-                Console.SetCursorPosition(0, 9 + offset);
-                Console.Write(cmd.Title);
+                Console.Write("                                            ");
                 offset++;
             }
 
+            if (String.IsNullOrWhiteSpace(ErrorMessage))
+            {
+                offset = 0;
+                foreach (var cmd in CommandList)
+                {
+                    Console.SetCursorPosition(0, 10 + offset);
+                    Console.Write(cmd.Title);
+                    offset++;
+                }
+            }
+            else
+            {
+                Console.Beep();
+                Console.SetCursorPosition(0, 9);
+                Console.Write(ErrorMessage);
+                ErrorMessage = "";
+            }
         }
     }
 }

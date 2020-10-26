@@ -13,7 +13,7 @@ namespace Tw.Ing.Challenge2.Commands
         }
 
         public override char[] Key { get; } = { '1', '2', '3' };
-        public override string Title { get => "Press '1' to select row."; }
+        public override string Title { get => "Press '1', '2', '3' to select row."; }
         public override void Execute(char key)
         {
             _player.SelectRow(key - 48);

@@ -28,21 +28,32 @@ namespace Tw.Ing.Challenge2
                     throw new InvalidOperationException("Already more then 5 moves made");
                 }
                 var coordinate = new Coordinate(_selectedColumnName, _selectedRowNumber);
-                var cell = Parent.Board.Play(coordinate, Parent.Mark);
-                Parent.Moves.Add(cell);
+                try
+                {
+                    var cell = Parent.Board.Play(coordinate, Parent.Mark);
+                    Parent.Moves.Add(cell);
 
-                if (DidIWin())
-                {
-                    return new PlayerStateWin(Parent);
+                    if (DidIWin())
+                    {
+                        return new PlayerStateWin(Parent);
+                    }
+                    else if (DoINeedToDraw())
+                    {
+                        return new PlayerStateDraw(Parent);
+                    }
+                    else
+                    {
+                        return new PlayerStateActive(Parent);
+                    }
                 }
-                else if (DoINeedToDraw())
+                catch (InvalidOperationException)
                 {
-                    return new PlayerStateDraw(Parent);
+                    Parent.SelectColumn(char.MinValue);
+                    throw;
                 }
-                else
-                {
-                    return new PlayerStateActive(Parent);
-                }
+
+
+
             }
 
             private bool DidIWin()
