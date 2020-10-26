@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Tw.Ing.Challenge2.Commands;
 
 namespace Tw.Ing.Challenge2
 {
@@ -14,7 +16,7 @@ namespace Tw.Ing.Challenge2
                 }
             }
 
-            public override Player Move(Coordinate coordinate)
+            public override Player Move()
             {
                 throw new InvalidOperationException("Cannot Turn, game ended with a Win");
             }
@@ -27,6 +29,26 @@ namespace Tw.Ing.Challenge2
             public override Player Turn()
             {
                 throw new InvalidOperationException("Cannot Turn, game ended with a Win");
+            }
+
+            public override Player SelectColumn(char columnName)
+            {
+                throw new InvalidOperationException("Cannot select a column, game ended with a Win");
+            }
+
+            public override Player SelectRow(int rowNumber)
+            {
+                throw new InvalidOperationException("Cannot select a row, game ended with a Win");
+            }
+
+            public override IEnumerable<GameCommandBase> GetActionCommands()
+            {
+                var commandList = new List<GameCommandBase>();
+                return commandList;
+            }
+
+            public override void Draw()
+            {
             }
         }
     }

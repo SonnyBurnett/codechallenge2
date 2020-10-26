@@ -10,7 +10,7 @@ namespace Tw.Ing.Challenge2.Commands
 
         public override char Key { get => 'q'; }
         public override string Title { get => "Press 'q' to end the game"; }
-        public override void Execute()
+        public override void Execute(char key)
         {
             GameService.Quit();
         }

@@ -22,7 +22,7 @@ namespace Tw.Ing.Challenge2
                 Parent.Matrix.Clear();
                 for (var rowNo = 1; rowNo <= 3; rowNo++)
                 {
-                    for (var columnName = 'A'; columnName <= 'C'; columnName++)
+                    for (var columnName = 'a'; columnName <= 'c'; columnName++)
                     {
                         var cellCoordinate = new Coordinate(columnName, rowNo);
                         var cell = new Cell(cellCoordinate);
@@ -45,7 +45,12 @@ namespace Tw.Ing.Challenge2
 
             public override void Draw()
             {
-                throw new NotImplementedException();
+                Console.SetCursorPosition(3, 2);
+                Console.WriteLine("     ");
+                Console.WriteLine("     ");
+                Console.WriteLine("     ");
+                Console.WriteLine("     ");
+                Console.WriteLine("     ");
             }
         }
     }

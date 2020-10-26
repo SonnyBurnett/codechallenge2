@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using Tw.Ing.Challenge2.Commands;
+using Tw.Ing.Challenge2.Services;
 
 namespace Tw.Ing.Challenge2
 {
@@ -7,6 +10,9 @@ namespace Tw.Ing.Challenge2
     {
         class PlayerStateAtHand : Player
         {
+            private char _selectedColumnName = char.MinValue;
+            private int _selectedRowNumber = int.MinValue;
+
             public PlayerStateAtHand(PlayerContext parent) : base(parent)
             {
                 if (parent.Mark == Cell.Marker.Empty)
@@ -15,12 +21,13 @@ namespace Tw.Ing.Challenge2
                 }
             }
 
-            public override Player Move(Coordinate coordinate)
+            public override Player Move()
             {
                 if (Parent.Moves.Count > 5)
                 {
                     throw new InvalidOperationException("Already more then 5 moves made");
                 }
+                var coordinate = new Coordinate(_selectedColumnName, _selectedRowNumber);
                 var cell = Parent.Board.Play(coordinate, Parent.Mark);
                 Parent.Moves.Add(cell);
 
@@ -66,8 +73,8 @@ namespace Tw.Ing.Challenge2
             {
                 var moveCount = 0;
                 var rowNumber = 1;
-                var columnName = 'C';
-                if (isForward) columnName = 'A';
+                var columnName = 'c';
+                if (isForward) columnName = 'a';
                 for (var i = 1; i <= 3; i++)
                 {
                     moveCount += Parent.Moves.Where(c => c.Column == columnName && c.Row == rowNumber).Count();
@@ -83,7 +90,7 @@ namespace Tw.Ing.Challenge2
             private int RowCount(int rowNumber)
             {
                 var moveCount = 0;
-                for (var columnName = 'A'; columnName <= 'C'; columnName ++)
+                for (var columnName = 'a'; columnName <= 'c'; columnName ++)
                 {
                     moveCount += Parent.Moves.Where(c => c.Column == columnName && c.Row == rowNumber).Count();
                 }
@@ -108,6 +115,37 @@ namespace Tw.Ing.Challenge2
             public override Player Turn()
             {
                 throw new InvalidOperationException("Already your turn");
+            }
+
+            public override IEnumerable<GameCommandBase> GetActionCommands()
+            {
+                var commandList = new List<GameCommandBase>();
+                if (_selectedColumnName == char.MinValue)
+                {
+                    commandList.Add(new PlayColumnCommand(Parent.Service, Parent));
+                }
+                else
+                {
+                    commandList.Add(new PlayRowCommand(Parent.Service, Parent));
+                }
+                return commandList;
+            }
+
+            public override void Draw()
+            {
+            }
+
+            public override Player SelectColumn(char columnName)
+            {
+                
+                _selectedColumnName = columnName;
+                return this;
+            }
+
+            public override Player SelectRow(int rowNumber)
+            {
+                _selectedRowNumber = rowNumber;
+                return this;
             }
         }
     }

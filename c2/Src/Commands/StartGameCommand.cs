@@ -11,13 +11,13 @@ namespace Tw.Ing.Challenge2.Commands
 
         public override char Key { get => 's'; }
         public override string Title { get => "Press 's' to start playing."; }
-        public override void Execute()
+        public override void Execute(char key)
         {
             var board = new BoardContext(GameService);
             board.Initialize();
-            var p1 = new PlayerContext(board);
+            var p1 = new PlayerContext(GameService, board);
             p1.Register("I", Cell.Marker.Circle);
-            var p2 = new PlayerContext(board);
+            var p2 = new PlayerContext(GameService, board);
             p2.Register("II", Cell.Marker.Cross);
 
             p1.GiveTurn();

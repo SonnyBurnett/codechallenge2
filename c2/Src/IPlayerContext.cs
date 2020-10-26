@@ -9,6 +9,8 @@
 
         public void Register(string name, Cell.Marker mark);
         public void GiveTurn();
-        public void MakeMove(Coordinate coordinate);
+        public void MakeMove();
+        public void SelectColumn(char columnName);
+        public void SelectRow(int rowNumber);
     }
 }

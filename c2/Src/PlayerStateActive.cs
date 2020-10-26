@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Tw.Ing.Challenge2.Commands;
 
 namespace Tw.Ing.Challenge2
 {
@@ -14,7 +16,7 @@ namespace Tw.Ing.Challenge2
                 }
             }
 
-            public override Player Move(Coordinate coordinate)
+            public override Player Move()
             {
                 throw new InvalidOperationException("Cannot make a move while not At Hand");
             }
@@ -28,6 +30,27 @@ namespace Tw.Ing.Challenge2
             {
                 return new PlayerStateAtHand(Parent);
             }
+
+            public override void Draw()
+            {
+
+            }
+
+            public override IEnumerable<GameCommandBase> GetActionCommands()
+            {
+                var commandList = new List<GameCommandBase>();
+                return commandList;
+            }
+
+            public override Player SelectColumn(char columnName)
+            {
+                throw new InvalidOperationException("Cannot make a move while not At Hand");
+            }
+
+            public override Player SelectRow(int rowNumber)
+            {
+                throw new InvalidOperationException("Cannot make a move while not At Hand");
+            }       
         }
     }
 }

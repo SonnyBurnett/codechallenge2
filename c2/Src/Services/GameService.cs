@@ -35,9 +35,10 @@ namespace Tw.Ing.Challenge2.Services
                 bool keyFound = false;
                 foreach (var cmd in commandList)
                 {
-                    if (cmd.Key == keyPressed)
+                    char key = cmd.Key;
+                    if (key == keyPressed)
                     {
-                        cmd.Execute();
+                        cmd.Execute(key);
                         return;
                     }
                 }

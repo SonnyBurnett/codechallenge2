@@ -21,7 +21,7 @@ namespace Tw.Ing.Challenge2
             {
                 for (var rowNo = 1; rowNo <= 3; rowNo++)
                 {
-                    for (var columnName = 'A'; columnName <= 'C'; columnName++)
+                    for (var columnName = 'a'; columnName <= 'c'; columnName++)
                     {
                         var coordinate = new Coordinate(columnName, rowNo);
                         var cell = new Cell(coordinate);

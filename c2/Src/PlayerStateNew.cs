@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Tw.Ing.Challenge2.Commands;
 
 namespace Tw.Ing.Challenge2
 {
@@ -12,7 +14,7 @@ namespace Tw.Ing.Challenge2
                 Parent.Mark = Cell.Marker.Empty;
             }
 
-            public override Player Move(Coordinate coordinate)
+            public override Player Move()
             {
                 throw new InvalidOperationException("Register player before making a move.");
             }
@@ -27,6 +29,26 @@ namespace Tw.Ing.Challenge2
             public override Player Turn()
             {
                 throw new InvalidOperationException("Register player before it is your turn");
+            }
+
+            public override Player SelectColumn(char columnName)
+            {
+                throw new InvalidOperationException("Register player before selecting a column");
+            }
+
+            public override Player SelectRow(int rowNumber)
+            {
+                throw new InvalidOperationException("Register player before selecting a row");
+            }
+
+            public override void Draw()
+            {
+            }
+
+            public override IEnumerable<GameCommandBase> GetActionCommands()
+            {
+                var commandList = new List<GameCommandBase>();
+                return commandList;
             }
         }
     }

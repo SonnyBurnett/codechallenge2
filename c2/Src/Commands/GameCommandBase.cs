@@ -11,6 +11,6 @@ namespace Tw.Ing.Challenge2.Commands
 
         public abstract char Key { get; }
         public abstract string Title { get; }
-        public abstract void Execute();
+        public abstract void Execute(char key);
     }
 }

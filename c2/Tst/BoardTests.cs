@@ -19,8 +19,8 @@ namespace Tw.Ing.Challenge2.Tests
 
             // ASSESS
             Assert.Equal(9, gameBoard.Matrix.Count);
-            var a1 = gameBoard.Matrix[new Coordinate('A', 1)];
-            Assert.Equal('A', a1.Column);
+            var a1 = gameBoard.Matrix[new Coordinate('a', 1)];
+            Assert.Equal('a', a1.Column);
             Assert.Equal(1, a1.Row);
         }
 
@@ -33,7 +33,7 @@ namespace Tw.Ing.Challenge2.Tests
             gameBoard.Initialize();
 
             // ACT
-            var cellCoordinate = new Coordinate('A', 1);
+            var cellCoordinate = new Coordinate('a', 1);
             gameBoard.Play(cellCoordinate, Cell.Marker.Circle);
 
             // ASSERT
@@ -48,7 +48,7 @@ namespace Tw.Ing.Challenge2.Tests
             var gameServiceMock = new Mock<IGameService>();
             var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
-            var cellCoordinate = new Coordinate('A', 1);
+            var cellCoordinate = new Coordinate('a', 1);
             gameBoard.Play(cellCoordinate, Cell.Marker.Circle);
 
             // ACT
@@ -69,7 +69,7 @@ namespace Tw.Ing.Challenge2.Tests
             gameBoard.Initialize();
 
             // ACT
-            var cellCoordinate = new Coordinate('A', 1);
+            var cellCoordinate = new Coordinate('a', 1);
             gameBoard.Play(cellCoordinate, Cell.Marker.Circle);
 
             // ASSERT
@@ -116,7 +116,7 @@ namespace Tw.Ing.Challenge2.Tests
             var gameBoard = new BoardContext(gameServiceMock.Object);
 
             // ACT / ASSERT
-            var cellCoordinate = new Coordinate('A', 1);
+            var cellCoordinate = new Coordinate('a', 1);
             Assert.Throws<InvalidOperationException>(() => gameBoard.Play(cellCoordinate, Cell.Marker.Circle));
             Assert.Throws<InvalidOperationException>(() => gameBoard.End());
         }
@@ -143,7 +143,7 @@ namespace Tw.Ing.Challenge2.Tests
             gameBoard.End();
 
             // ACT / ASSERT
-            var cellCoordinate = new Coordinate('A', 1);
+            var cellCoordinate = new Coordinate('a', 1);
             Assert.Throws<InvalidOperationException>(() => gameBoard.Play(cellCoordinate, Cell.Marker.Circle));
             Assert.Throws<InvalidOperationException>(() => gameBoard.End());
         }
