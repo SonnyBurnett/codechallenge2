@@ -11,7 +11,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_State_BlancToDrawn_Success()
         {
             // ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var gameBoard = new BoardContext(gameServiceMock.Object);
 
             // ACT
@@ -28,7 +28,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_Play_Success()
         {
             // ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
 
@@ -45,7 +45,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_Play_TwiceError()
         {
             // ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
             var cellCoordinate = new Coordinate('a', 1);
@@ -64,7 +64,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void PlayBoard_Success()
         {
             // ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
 
@@ -81,7 +81,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_State_DrawnToFinished_Success()
         {
             // ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
 
@@ -96,7 +96,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_State_FinishedToBlanco_Success()
         {
             // ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
             gameBoard.End();
@@ -112,7 +112,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_InvalidStates_Blanco()
         {
             //// ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var gameBoard = new BoardContext(gameServiceMock.Object);
 
             // ACT / ASSERT
@@ -125,7 +125,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_InvalidStates_Drawn()
         {
             //// ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
 
@@ -137,7 +137,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Board_InvalidStates_Finished()
         {
             //// ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var gameBoard = new BoardContext(gameServiceMock.Object);
             gameBoard.Initialize();
             gameBoard.End();

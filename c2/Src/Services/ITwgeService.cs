@@ -5,12 +5,12 @@ using Tw.Ing.Challenge2.Commands;
 
 namespace Tw.Ing.Challenge2.Services
 {
-    internal interface IGameService
+    internal interface ITwgeService
     {
         public bool CanContinue { get; }
-        public List<IGameEngine> GameObjects { get; }
-        public void RegisterGameObject(IGameEngine theObject);
-        public void UnRegisterGameObject(IGameEngine theObject);
+        public List<ITweContext> GameObjects { get; }
+        public void RegisterGameObject(ITweContext theObject);
+        public void UnRegisterGameObject(ITweContext theObject);
         public IEnumerable<GameCommandBase> GetActionCommands();
         public void Quit();
         public void DoAction(IEnumerable<GameCommandBase> commandList);

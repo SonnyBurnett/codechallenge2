@@ -11,7 +11,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_State_NewToActive_Success()
         {
             // ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var boardMock = CreateBoardMock();
             var player = new PlayerContext(gameServiceMock.Object, boardMock.Object);
 
@@ -28,7 +28,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_State_ActiveToAtHand_Success()
         {
             // ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var boardMock = CreateBoardMock();
             var player = new PlayerContext(gameServiceMock.Object, boardMock.Object);
             player.Register("a", Cell.Marker.Circle);
@@ -44,7 +44,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_State_AtHandToActive_Success()
         {
             // ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var boardMock = CreateBoardMock();
             var player = new PlayerContext(gameServiceMock.Object, boardMock.Object);
             player.Register("A", Cell.Marker.Circle);
@@ -63,7 +63,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_State_AtHandToWin_Success()
         {
             // ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var boardMock = CreateBoardMock();
             var player = new PlayerContext(gameServiceMock.Object, boardMock.Object);
             player.Register("A", Cell.Marker.Circle);
@@ -86,7 +86,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_InvalidStates_New()
         {
             //// ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var boardMock = new Mock<IBoardContext>();
             boardMock
                 .Setup(m => m.Play(It.IsAny<Coordinate>(), It.IsAny<Cell.Marker>()))
@@ -103,7 +103,7 @@ namespace Tw.Ing.Challenge2.Tests
         [Fact]
         public void Player_InvalidStates_Active()
         {
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             //// ARRANGE
             var boardMock = CreateBoardMock();
             var player = new PlayerContext(gameServiceMock.Object, boardMock.Object);
@@ -120,7 +120,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_InvalidStates_AtHand()
         {
             //// ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var boardMock = CreateBoardMock();
             var player = new PlayerContext(gameServiceMock.Object, boardMock.Object);
             player.Register("A", Cell.Marker.Circle);
@@ -136,7 +136,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_InvalidStates_Win()
         {
             //// ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             var boardMock = CreateBoardMock();
             var player = new PlayerContext(gameServiceMock.Object, boardMock.Object);
             player.Register("A", Cell.Marker.Circle);

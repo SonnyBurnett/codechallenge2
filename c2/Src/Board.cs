@@ -5,7 +5,7 @@ namespace Tw.Ing.Challenge2
 {
     internal partial class BoardContext
     {
-        public abstract class Board: IGameEngineState
+        public abstract class Board: ITweContextState
         {
             public BoardContext Parent { get; private set; }
 

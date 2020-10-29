@@ -7,7 +7,7 @@ namespace Tw.Ing.Challenge2
     internal partial class PlayerContext : ContextBase, IPlayerContext
     {
         private Player _state;
-        private IGameEngineState EngineState { get => (IGameEngineState)_state; }
+        private ITweContextState EngineState { get => (ITweContextState)_state; }
 
         protected IBoardContext Board {get;private set;}
 
@@ -42,7 +42,7 @@ namespace Tw.Ing.Challenge2
 
         public List<Cell> Moves { get; set; } = new List<Cell>();
 
-        public PlayerContext(IGameService gameService, IBoardContext board):base(gameService)
+        public PlayerContext(ITwgeService gameService, IBoardContext board):base(gameService)
         {
             _state = new PlayerStateNew(this);
             Board = board;

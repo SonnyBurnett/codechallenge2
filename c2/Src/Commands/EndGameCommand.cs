@@ -7,7 +7,7 @@ namespace Tw.Ing.Challenge2.Commands
     internal class EndGameCommand : GameCommandBase
     {
         private readonly GameContext _game;
-        public EndGameCommand(IGameService gameService, GameContext game):base(gameService) => _game = game;
+        public EndGameCommand(ITwgeService gameService, GameContext game):base(gameService) => _game = game;
 
         public override char[] Key { get; } = Array.Empty<char>();
         public override string Title { get => ""; }

@@ -6,14 +6,14 @@ using Tw.Ing.Challenge2.Services;
 
 namespace Tw.Ing.Challenge2
 {
-    internal abstract class ContextBase : IGameEngine
+    internal abstract class ContextBase : ITweContext
     {
-        protected IGameEngine Engine { get => (IGameEngine)this; }
-        protected IGameService Service { get; }
+        protected ITweContext Engine { get => (ITweContext)this; }
+        protected ITwgeService Service { get; }
 
         public bool IsDirty { get; set; } = true;
 
-        public ContextBase(IGameService gameService)
+        public ContextBase(ITwgeService gameService)
         {
             Service = gameService;
             gameService.RegisterGameObject(this);

@@ -6,8 +6,8 @@ namespace Tw.Ing.Challenge2.Commands
 {
     internal abstract class GameCommandBase
     {
-        protected readonly IGameService GameService;
-        public GameCommandBase(IGameService gameService) => GameService = gameService;
+        protected readonly ITwgeService GameService;
+        public GameCommandBase(ITwgeService gameService) => GameService = gameService;
 
         public abstract char[] Key { get; }
         public abstract string Title { get; }

@@ -7,7 +7,7 @@ namespace Tw.Ing.Challenge2.Commands
     internal class SwitchPlayerCommand : GameCommandBase
     {
         private readonly PlayerContext _player;
-        public SwitchPlayerCommand(IGameService gameService, PlayerContext player) : base(gameService) 
+        public SwitchPlayerCommand(ITwgeService gameService, PlayerContext player) : base(gameService) 
         { 
             _player = player; 
         }

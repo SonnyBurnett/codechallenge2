@@ -6,7 +6,7 @@ namespace Tw.Ing.Challenge2.Commands
 {
     internal class QuitGameCommand : GameCommandBase
     {
-        public QuitGameCommand(IGameService gameService) : base(gameService) { }
+        public QuitGameCommand(ITwgeService gameService) : base(gameService) { }
 
         public override char[] Key { get; } = { 'q' };
         public override string Title { get => "Press 'q' to end the game"; }

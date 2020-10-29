@@ -5,7 +5,7 @@ namespace Tw.Ing.Challenge2
 {
     internal partial class PlayerContext
     {
-        protected abstract class Player: IGameEngineState
+        protected abstract class Player: ITweContextState
         {
             public PlayerContext Parent { get; private set; }
 

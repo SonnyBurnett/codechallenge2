@@ -6,22 +6,22 @@ using Tw.Ing.Challenge2.Commands;
 
 namespace Tw.Ing.Challenge2.Services
 {
-    internal class GameService:IGameService
+    internal class TwgeService:ITwgeService
     {
-        public GameService()
+        public TwgeService()
         {
         }
 
         public bool CanContinue { get; private set; } = true;
-        public List<IGameEngine> GameObjects { get; } = new List<IGameEngine>();
+        public List<ITweContext> GameObjects { get; } = new List<ITweContext>();
         public List<GameCommandBase> CommandList { get; } = new List<GameCommandBase>();
         public string ErrorMessage { get; private set; }
-        public void RegisterGameObject(IGameEngine theObject)
+        public void RegisterGameObject(ITweContext theObject)
         {
             GameObjects.Add(theObject);
         }
 
-        public void UnRegisterGameObject(IGameEngine theObject)
+        public void UnRegisterGameObject(ITweContext theObject)
         {
             GameObjects.Remove(theObject);
         }

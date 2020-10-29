@@ -9,7 +9,7 @@ namespace Tw.Ing.Challenge2
     internal partial class GameContext : ContextBase,IGameContext
     {
         private Game _state;
-        private IGameEngineState EngineState { get => (IGameEngineState)_state; }
+        private ITweContextState EngineState { get => (ITweContextState)_state; }
 
         public PlayerContext PlayerCircle{ get; set; }
         public PlayerContext PlayerCross { get; set; }
@@ -52,7 +52,7 @@ namespace Tw.Ing.Challenge2
             } 
         }
 
-        public GameContext(IGameService gameService):base(gameService)
+        public GameContext(ITwgeService gameService):base(gameService)
         {
             _state = new GameStateNew(this);
         }

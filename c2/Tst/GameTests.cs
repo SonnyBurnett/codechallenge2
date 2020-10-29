@@ -11,7 +11,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Game_State_NewToActive_Success()
         {
             // ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             IGameContext game = new GameContext(gameServiceMock.Object);
 
             // ACT
@@ -26,7 +26,7 @@ namespace Tw.Ing.Challenge2.Tests
         public void Player_InvalidStates_New()
         {
             //// ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
+            var gameServiceMock = new Mock<ITwgeService>();
             IGameContext game = new GameContext(gameServiceMock.Object);
 
             // ACT / ASSERT

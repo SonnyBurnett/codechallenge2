@@ -47,7 +47,7 @@ namespace Tw.Ing.Challenge2
                     // initialize
                     
                     const int REFRESH_TIME_MS = 500;
-                    var gameService = new GameService();
+                    var gameService = new TwgeService();
                     var game = new ResetGameCommand(gameService, null);
                     game.Execute(char.MinValue);
 

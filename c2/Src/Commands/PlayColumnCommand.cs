@@ -7,7 +7,7 @@ namespace Tw.Ing.Challenge2.Commands
     internal class PlayColumnCommand : GameCommandBase
     {
         private readonly PlayerContext _player;
-        public PlayColumnCommand(IGameService gameService, PlayerContext player) : base(gameService) 
+        public PlayColumnCommand(ITwgeService gameService, PlayerContext player) : base(gameService) 
         { 
             _player = player; 
         }

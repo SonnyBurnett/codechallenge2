@@ -10,7 +10,7 @@ namespace Tw.Ing.Challenge2
     internal partial class BoardContext : ContextBase, IBoardContext
     {
         public Board _state;
-        private IGameEngineState EngineState { get => (IGameEngineState)_state; }
+        private ITweContextState EngineState { get => (ITweContextState)_state; }
         
         public Dictionary<Coordinate,Cell> Matrix { get; } = new Dictionary<Coordinate, Cell>();
 
@@ -29,7 +29,7 @@ namespace Tw.Ing.Challenge2
                 return !Matrix.Select(c => c.Value.Mark == Cell.Marker.Empty).Any();
             }
         }
-        public BoardContext(IGameService gameService):base(gameService)
+        public BoardContext(ITwgeService gameService):base(gameService)
         {
             _state = (Board)new BoardStateBlanco(this);
         }
