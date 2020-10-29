@@ -10,6 +10,7 @@
       \_____|_| |_|\__,_|_|_|\___|_| |_|\__, |\___|          |____|
                                          __/ |                     
                                         |___/                     
+![Game Play](c2/Doc/Challenge2.gif)
 
 ## For the Reviewer:
 
@@ -207,9 +208,9 @@ Data collector 'Code Coverage' message: No code coverage data available. Code co
 
 ### Code Coverage
 
-![Code Coverage](c1/Doc/CodeCoverage.png)
+![Code Coverage](c2/Doc/CodeCoverage.png)
 
 
 ### Code Analysis
 
-![Code Analysis](c1/Doc/CodeAnalysis.png)
+![Code Analysis](c2/Doc/CodeAnalysis.png)
