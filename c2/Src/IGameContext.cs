@@ -10,7 +10,6 @@
         public bool HasEnded { get; }
 
         public void Start();
-        public void Quit();
         public void End();
     }
 }

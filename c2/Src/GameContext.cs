@@ -63,12 +63,6 @@ namespace Tw.Ing.Challenge2
             Engine.IsDirty = true;
         }
 
-        public void Quit()
-        {
-            _state = _state.Quit();
-            Engine.IsDirty = true;
-        }
-
         public void End()
         {
             _state = _state.End();
