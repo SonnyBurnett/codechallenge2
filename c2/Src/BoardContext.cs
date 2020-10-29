@@ -37,6 +37,7 @@ namespace Tw.Ing.Challenge2
         public void Initialize()
         {
             _state = _state.Initialize();
+            IsDirty = true;
         }
 
         public Cell Play(Coordinate coordinate, Cell.Marker mark)
@@ -49,6 +50,7 @@ namespace Tw.Ing.Challenge2
         public void End()
         {
             _state = _state.End();
+            IsDirty = true;
         }
 
         public override IEnumerable<GameCommandBase> GetActionCommands()

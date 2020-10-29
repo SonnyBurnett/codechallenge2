@@ -15,7 +15,7 @@ namespace Tw.Ing.Challenge2
                 Parent = parent;
             }
 
-            public abstract Game Start(PlayerContext p1, PlayerContext p2, BoardContext board);
+            public abstract Game Start();
             public abstract Game Quit();
             public abstract Game End();
 

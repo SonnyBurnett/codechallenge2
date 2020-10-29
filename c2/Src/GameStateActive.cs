@@ -12,7 +12,7 @@ namespace Tw.Ing.Challenge2
             {
             }
 
-            public override Game Start(PlayerContext p1, PlayerContext p2, BoardContext board)
+            public override Game Start()
             {
                 throw new NotImplementedException();
             }
@@ -67,7 +67,7 @@ namespace Tw.Ing.Challenge2
 
             public override void Draw()
             {
-                Console.SetCursorPosition(0, 8);
+                Console.SetCursorPosition(0, 12);
                 if (Parent.ActivePlayer == null)
                 {
                     Console.Write($"...Next Player...");

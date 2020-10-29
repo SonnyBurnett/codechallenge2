@@ -13,7 +13,7 @@ namespace Tw.Ing.Challenge2
             {
             }
 
-            public override Game Start(PlayerContext p1, PlayerContext p2, BoardContext board)
+            public override Game Start()
             {
                 throw new NotImplementedException();
             }

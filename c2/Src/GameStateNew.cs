@@ -13,19 +13,14 @@ namespace Tw.Ing.Challenge2
         {
             public GameStateNew(GameContext parent) : base(parent)
             {
+                parent.Board = new BoardContext(Parent.Service);
+                parent.PlayerCross = new PlayerContext(Parent.Service, parent.Board);
+                parent.PlayerCircle = new PlayerContext(Parent.Service, parent.Board);
+
             }
 
-            public override Game Start(PlayerContext p1, PlayerContext p2, BoardContext board)
+            public override Game Start()
             {
-                Trace.Assert(p1.Mark == Cell.Marker.Circle, "Player 1 always plays the Circle mark");
-                Trace.Assert(!String.IsNullOrWhiteSpace(p1.Name), "Player 1 does not have a name");
-                Parent.PlayerCircle = p1;
-                Trace.Assert(p2.Mark == Cell.Marker.Cross, "Player 2 always plays the Cross mark");
-                Trace.Assert(!String.IsNullOrWhiteSpace(p2.Name), "Player 2 does not have a name");
-                Parent.PlayerCross = p2;
-                Trace.Assert(board.IsInitialized, "Cannot play on an empty board, draw first.");
-                Parent.Board = board;
-
                 return new GameStateActive(Parent);
             }
 

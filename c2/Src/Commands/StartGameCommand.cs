@@ -13,14 +13,11 @@ namespace Tw.Ing.Challenge2.Commands
         public override string Title { get => "Press 's' to start playing."; }
         public override void Execute(char key)
         {
-            var board = new BoardContext(GameService);
-            board.Initialize();
-            var p1 = new PlayerContext(GameService, board);
-            p1.Register("I", Cell.Marker.Circle);
-            var p2 = new PlayerContext(GameService, board);
-            p2.Register("II", Cell.Marker.Cross);
+            _game.Board.Initialize();
+            _game.PlayerCircle.Register("I", Cell.Marker.Circle);
+            _game.PlayerCross.Register("II", Cell.Marker.Cross);
 
-            _game.Start(p1, p2, board);
+            _game.Start();
         }
     }
 }

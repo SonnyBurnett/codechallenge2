@@ -57,9 +57,9 @@ namespace Tw.Ing.Challenge2
             _state = new GameStateNew(this);
         }
 
-        public void Start(PlayerContext p1, PlayerContext p2, BoardContext board)
+        public void Start()
         {
-            _state = _state.Start(p1, p2, board);
+            _state = _state.Start();
             Engine.IsDirty = true;
         }
 

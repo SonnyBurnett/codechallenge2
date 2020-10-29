@@ -10,7 +10,7 @@ namespace Tw.Ing.Challenge2.Extensions
         {
             return mark switch
             {
-                Cell.Marker.Empty => "",
+                Cell.Marker.Empty => " ",
                 Cell.Marker.Circle => "O",
                 Cell.Marker.Cross => "X",
                 _ => throw new ArgumentOutOfRangeException(nameof(mark), $"Invalid enum value {mark}"),

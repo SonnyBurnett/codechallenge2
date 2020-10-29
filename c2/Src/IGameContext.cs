@@ -9,7 +9,7 @@
         public bool IsActive { get;  }
         public bool HasEnded { get; }
 
-        public void Start(PlayerContext playerCircle, PlayerContext playerCross, BoardContext board);
+        public void Start();
         public void Quit();
         public void End();
     }

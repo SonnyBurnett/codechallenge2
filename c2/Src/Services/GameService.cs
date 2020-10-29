@@ -90,7 +90,7 @@ namespace Tw.Ing.Challenge2.Services
             int offset = 0;
             for(var i =  0; i < 3; i++)
             {
-                Console.SetCursorPosition(0, 9 + offset);
+                Console.SetCursorPosition(0, 13 + offset);
                 Console.Write("                                            ");
                 offset++;
             }
@@ -100,7 +100,7 @@ namespace Tw.Ing.Challenge2.Services
                 offset = 0;
                 foreach (var cmd in CommandList)
                 {
-                    Console.SetCursorPosition(0, 10 + offset);
+                    Console.SetCursorPosition(0, 14 + offset);
                     Console.Write(cmd.Title);
                     offset++;
                 }
@@ -108,7 +108,7 @@ namespace Tw.Ing.Challenge2.Services
             else
             {
                 Console.Beep();
-                Console.SetCursorPosition(0, 9);
+                Console.SetCursorPosition(0, 13);
                 Console.Write(ErrorMessage);
                 ErrorMessage = "";
             }

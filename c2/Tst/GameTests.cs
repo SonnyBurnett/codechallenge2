@@ -13,15 +13,9 @@ namespace Tw.Ing.Challenge2.Tests
             // ARRANGE
             var gameServiceMock = new Mock<IGameService>();
             IGameContext game = new GameContext(gameServiceMock.Object);
-            BoardContext board = new BoardContext(gameServiceMock.Object);
-            PlayerContext p1 = new PlayerContext(gameServiceMock.Object, board);
-            PlayerContext p2 = new PlayerContext(gameServiceMock.Object, board);
-            p1.Register("CrossPlayer", Cell.Marker.Cross);
-            p2.Register("CirclePlayer", Cell.Marker.Circle);
-            board.Initialize();
 
             // ACT
-            game.Start(p2, p1, board);
+            game.Start();
 
 
             // ASSESS

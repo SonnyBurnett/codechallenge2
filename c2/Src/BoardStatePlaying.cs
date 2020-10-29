@@ -39,13 +39,21 @@ namespace Tw.Ing.Challenge2
             public override void Draw()
             {
                 Console.SetCursorPosition(3, 2);
-                Console.Write(" ABC");
+                Console.Write($"  |  A  B  C");
                 Console.SetCursorPosition(3, 3);
-                Console.Write($"1{GetCell('a', 1)}{GetCell('b', 1)}{GetCell('c', 1)}");
+                Console.Write($"--+---------");
                 Console.SetCursorPosition(3, 4);
-                Console.Write($"2{GetCell('a', 2)}{GetCell('b', 2)}{GetCell('c', 2)}");
+                Console.Write($"  |         ");
                 Console.SetCursorPosition(3, 5);
-                Console.Write($"3{GetCell('a', 3)}{GetCell('b', 3)}{GetCell('c', 3)}");
+                Console.Write($"1 |  {GetCell('a', 1)}  {GetCell('b', 1)}  {GetCell('c', 1)}");
+                Console.SetCursorPosition(3, 6);
+                Console.Write($"  |         ");
+                Console.SetCursorPosition(3, 7);
+                Console.Write($"2 |  {GetCell('a', 2)}  {GetCell('b', 2)}  {GetCell('c', 2)}");
+                Console.SetCursorPosition(3, 8);
+                Console.Write($"  |         ");
+                Console.SetCursorPosition(3, 9);
+                Console.Write($"3 |  {GetCell('a', 3)}  {GetCell('b', 3)}  {GetCell('c', 3)}");
             }
 
             private string GetCell(char columnName, int rowNumber)
