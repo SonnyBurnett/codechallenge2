@@ -48,7 +48,9 @@ namespace Tw.Ing.Challenge2
                     
                     const int REFRESH_TIME_MS = 500;
                     var gameService = new GameService();
-                    var game = (IGameEngine)new GameContext(gameService);
+                    var game = new ResetGameCommand(gameService, null);
+                    game.Execute(char.MinValue);
+
                     Console.Clear();
 
                     var nextLoopTime = DateTime.UtcNow.AddMilliseconds(REFRESH_TIME_MS);

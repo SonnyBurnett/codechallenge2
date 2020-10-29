@@ -19,7 +19,6 @@ namespace Tw.Ing.Challenge2
                 var stateType = _state.GetType();
                 if (    (stateType == typeof(PlayerStateAtHand))
                      || (stateType == typeof(PlayerStateWin))
-                     || (stateType == typeof(PlayerStateDraw))
                      )
                 { 
                     return true;
@@ -36,13 +35,6 @@ namespace Tw.Ing.Challenge2
             get
             {
                 return (_state.GetType() == typeof(PlayerStateWin));
-            }
-        }
-        public bool HasDraw
-        {
-            get
-            {
-                return (_state.GetType() == typeof(PlayerStateDraw));
             }
         }
 

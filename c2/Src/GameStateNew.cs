@@ -13,10 +13,6 @@ namespace Tw.Ing.Challenge2
         {
             public GameStateNew(GameContext parent) : base(parent)
             {
-                parent.Board = new BoardContext(Parent.Service);
-                parent.PlayerCross = new PlayerContext(Parent.Service, parent.Board);
-                parent.PlayerCircle = new PlayerContext(Parent.Service, parent.Board);
-
             }
 
             public override Game Start()

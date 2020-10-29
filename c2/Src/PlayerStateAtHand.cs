@@ -37,10 +37,6 @@ namespace Tw.Ing.Challenge2
                     {
                         return new PlayerStateWin(Parent);
                     }
-                    else if (DoINeedToDraw())
-                    {
-                        return new PlayerStateDraw(Parent);
-                    }
                     else
                     {
                         return new PlayerStateActive(Parent);
@@ -73,11 +69,6 @@ namespace Tw.Ing.Challenge2
                 if (ColumnCount('c') == 3) return true;
 
                 return false;
-            }
-
-            private bool DoINeedToDraw()
-            {
-                return (Parent.Moves.Count >= 5);
             }
 
             private int DiagonalCount(bool isForward)

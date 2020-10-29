@@ -15,7 +15,7 @@ namespace Tw.Ing.Challenge2
 
             public override Game Start()
             {
-                throw new NotImplementedException();
+                return new GameStateNew(Parent);
             }
 
             public override Game End()
@@ -27,13 +27,22 @@ namespace Tw.Ing.Challenge2
             {
                 var commandList = new List<GameCommandBase>
                 {
-                    new StartGameCommand(Parent.Service, Parent)
+                    new ResetGameCommand(Parent.Service, Parent)
                 };
                 return commandList;
             }
 
             public override void Draw()
             {
+                Console.SetCursorPosition(0, 12);
+                if (Parent.ActivePlayer.HasWon)
+                {
+                    Console.Write($"!!!! Player '{Parent.ActivePlayer.Name}' is a Winner !!!!");
+                }
+                else
+                {
+                    Console.Write($"Game ended in a draw...");
+                }
             }
         }
     }

@@ -27,7 +27,6 @@ namespace Tw.Ing.Challenge2
                 var commandList = new List<GameCommandBase>();
 
                 if  (   Parent.PlayerCircle.HasWon || Parent.PlayerCross.HasWon
-                    ||  Parent.PlayerCircle.HasDraw || Parent.PlayerCross.HasDraw
                     ||  Parent.Board.NoMoreMoves
                     )
                 {

@@ -21,6 +21,11 @@ namespace Tw.Ing.Challenge2.Services
             GameObjects.Add(theObject);
         }
 
+        public void UnRegisterGameObject(IGameEngine theObject)
+        {
+            GameObjects.Remove(theObject);
+        }
+
         public void Quit()
         {
             CanContinue = false;
@@ -88,7 +93,7 @@ namespace Tw.Ing.Challenge2.Services
             }
 
             int offset = 0;
-            for(var i =  0; i < 3; i++)
+            for(var i =  0; i < 4; i++)
             {
                 Console.SetCursorPosition(0, 13 + offset);
                 Console.Write("                                            ");

@@ -83,30 +83,6 @@ namespace Tw.Ing.Challenge2.Tests
         }
 
         [Fact]
-        public void Player_State_AtHandToDraw_Success()
-        {
-            // ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
-            var boardMock = CreateBoardMock();
-            var player = new PlayerContext(gameServiceMock.Object, boardMock.Object);
-            player.Register("A", Cell.Marker.Circle);
-
-            PlayCell(player, 'a', 1);
-            PlayCell(player, 'b', 1);
-            PlayCell(player, 'b', 2);
-            PlayCell(player, 'c', 2);
-
-            player.GiveTurn();
-
-            // ACT
-            player.SelectColumn('a');
-            player.SelectRow(3);
-            player.MakeMove();
-            // ASSESS
-            Assert.True(player.HasDraw);
-        }
-
-        [Fact]
         public void Player_InvalidStates_New()
         {
             //// ARRANGE
@@ -168,29 +144,6 @@ namespace Tw.Ing.Challenge2.Tests
             PlayCell(player, 'a', 1);
             PlayCell(player, 'b', 1);
             PlayCell(player, 'c', 1);
-
-            // ACT / ASSERT
-            Assert.Throws<InvalidOperationException>(() => player.Register("A", Cell.Marker.Circle));
-            Assert.Throws<InvalidOperationException>(() => player.GiveTurn());
-            Assert.Throws<InvalidOperationException>(() => player.SelectColumn('a'));
-            Assert.Throws<InvalidOperationException>(() => player.SelectRow(1));
-            Assert.Throws<InvalidOperationException>(() => player.MakeMove());
-        }
-
-        [Fact]
-        public void Player_InvalidStates_Draw()
-        {
-            //// ARRANGE
-            var gameServiceMock = new Mock<IGameService>();
-            var boardMock = CreateBoardMock();
-            var player = new PlayerContext(gameServiceMock.Object, boardMock.Object);
-            player.Register("A", Cell.Marker.Circle);
-
-            PlayCell(player, 'a', 1);
-            PlayCell(player, 'b', 1);
-            PlayCell(player, 'b', 2);
-            PlayCell(player, 'c', 2);
-            PlayCell(player, 'a', 3);
 
             // ACT / ASSERT
             Assert.Throws<InvalidOperationException>(() => player.Register("A", Cell.Marker.Circle));
