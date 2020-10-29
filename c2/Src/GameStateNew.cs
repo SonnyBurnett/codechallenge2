@@ -24,11 +24,6 @@ namespace Tw.Ing.Challenge2
                 return new GameStateActive(Parent);
             }
 
-            public override Game Quit()
-            {
-                return new GameStateFinished(Parent);
-            }
-
             public override Game End()
             {
                 throw new InvalidOperationException("Cannot end a game which is not started");

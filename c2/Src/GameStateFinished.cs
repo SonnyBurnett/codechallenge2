@@ -18,14 +18,9 @@ namespace Tw.Ing.Challenge2
                 throw new NotImplementedException();
             }
 
-            public override Game Quit()
-            {
-                throw new NotImplementedException();
-            }
-
             public override Game End()
             {
-                throw new NotImplementedException();
+                throw new InvalidOperationException("Cannot end a game which is already finished");
             }
 
             public override IEnumerable<GameCommandBase> GetActionCommands()

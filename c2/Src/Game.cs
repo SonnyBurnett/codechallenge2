@@ -16,7 +16,6 @@ namespace Tw.Ing.Challenge2
             }
 
             public abstract Game Start();
-            public abstract Game Quit();
             public abstract Game End();
 
             public abstract IEnumerable<GameCommandBase> GetActionCommands();

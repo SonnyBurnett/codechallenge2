@@ -14,17 +14,12 @@ namespace Tw.Ing.Challenge2
 
             public override Game Start()
             {
-                throw new NotImplementedException();
-            }
-
-            public override Game Quit()
-            {
-                throw new NotImplementedException();
+                throw new InvalidOperationException("Cannot start a game already started");
             }
 
             public override Game End()
             {
-                throw new NotImplementedException();
+                return new GameStateFinished(Parent);
             }
 
             public override IEnumerable<GameCommandBase> GetActionCommands()
