@@ -1,35 +1,44 @@
 # IngBytes
 
-![Build Status](https://github.com/teamwildenberg/IngBytes/workflows/Build%20C1/badge.svg)
+![Build Status](https://github.com/teamwildenberg/IngBytes/workflows/Build%20C2/badge.svg)
 
-       _____ _           _ _                                  __
-      / ____| |         | | |                                /_ |
-     | |    | |__   __ _| | | ___ _ __   __ _  ___   ______   | |
-     | |    | '_ \ / _` | | |/ _ \ '_ \ / _` |/ _ \ |______|  | |
-     | |____| | | | (_| | | |  __/ | | | (_| |  __/           | |
-      \_____|_| |_|\__,_|_|_|\___|_| |_|\__, |\___|           |_|
-                                         __/ |
-                                         |___/
-
+       _____ _           _ _                                  ___  
+      / ____| |         | | |                                |__ \ 
+     | |    | |__   __ _| | | ___ _ __   __ _  ___   ______     ) |
+     | |    | '_ \ / _` | | |/ _ \ '_ \ / _` |/ _ \ |______|   / / 
+     | |____| | | | (_| | | |  __/ | | | (_| |  __/           / /_ 
+      \_____|_| |_|\__,_|_|_|\___|_| |_|\__, |\___|          |____|
+                                         __/ |                     
+                                        |___/                     
 
 ## For the Reviewer:
 
 Some tips for the reviewer:
-- [ChallengeCommand.cs](https://github.com/teamwildenberg/IngBytes/blob/main/Src/Commands/ChallengeCommand.cs) is the start of the implemention, following the command pattern.
-- [Command Line](https://github.com/teamwildenberg/IngBytes/suites/1322330937/artifacts/21071581) can be downloaded from the build (Win-X64)
-- [Test Report](https://github.com/teamwildenberg/IngBytes/suites/1322330937/artifacts/21071582) is part of the build (and copied below)
-
-
-## Test Run for PR # (62)
+- The [Program.cs](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Program.cs) game-loop together with the [TwgeService.cs](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Services/TwgeService.cs) controls the game
+- The [CommandObjects](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Commands) control the flow of the game. For example:
+  - [ResetGameCommand.cs](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Commands/ResetGameCommand.cs)
+- Each GameObject (Game, Board and Player) has it's own state engine
+  - The [Context](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Model/ContextBase.cs) contains the state of the Object. For example:
+    - [GameContext](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Model/ContextBase.cs)
+  - The State objects determine the behaviour of the Object and when to transition state. For example:
+    - [GameStateNew](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Model/GameStateNew.cs)
+    - [GameStateActive](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Model/GameStateActive.cs)
+    - [GameStateFinished](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Model/GameStateFinished.cs)
+- Each GameState Object determines
+  - Which Actions they have represented by the Commands (executed by the TwgeService()). For example:
+    - [ITweContext.GetActionCommands implemented in GameStateActive.cs](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Model/GameStateActive.cs)
+  - How to render their current state (Draw())
+    - [ITweContext.Draw implemented in BoardStatePlaying.cs](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Model/BoardStatePlaying.cs)
+## Test Run for PR # (23)
 ### Run Summary
 
 <p>
 <strong>Overall Result:</strong> ✔️ Pass <br />
 <strong>Pass Rate:</strong> 100% <br />
-<strong>Run Duration:</strong> 2s 259ms <br />
-<strong>Date:</strong> 2020-10-10 21:08:17 - 2020-10-10 21:08:19 <br />
+<strong>Run Duration:</strong> 2s 156ms <br />
+<strong>Date:</strong> 2020-10-29 20:36:40 - 2020-10-29 20:36:42 <br />
 <strong>Framework:</strong> .NETCoreApp,Version=v3.1 <br />
-<strong>Total Tests:</strong> 11 <br />
+<strong>Total Tests:</strong> 19 <br />
 </p>
 
 <table>
@@ -42,7 +51,7 @@ Some tips for the reviewer:
 </thead>
 <tbody>
 <tr>
-<td>11</td>
+<td>19</td>
 <td>0</td>
 <td>0</td>
 </tr>
@@ -55,7 +64,7 @@ Some tips for the reviewer:
 </table>
 
 ### Result Sets
-#### TwIngChallenge.Tests.dll - 100%
+#### Tw.Ing.Challenge2.Tests.dll - 100%
 <details>
 <summary>Full Results</summary>
 <table>
@@ -68,58 +77,98 @@ Some tips for the reviewer:
 </thead>
 <tr>
 <td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge.Tests.CsvServiceDownloadTests.Load_Fail_NotFound</td>
-<td>150ms</td>
+<td>Tw.Ing.Challenge2.Tests.GameTests.Player_InvalidStates_New</td>
+<td>101ms</td>
 </tr>
 <tr>
 <td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge.Tests.CsvServiceSaveTests.Save_Success</td>
-<td>184ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge.Tests.CsvConversionTests.ConvertFromTo_Price_UsdToEur</td>
-<td>5ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge.Tests.CsvConversionTests.ConvertFromTo_ProductList_SameCurrency</td>
-<td>8ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge.Tests.CsvConversionTests.ConvertFromTo_Price_SameCurrency</td>
+<td>Tw.Ing.Challenge2.Tests.GameTests.Game_State_NewToActive_Success</td>
 <td>< 1ms</td>
 </tr>
 <tr>
 <td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge.Tests.CsvServiceDownloadTests.Load_Success_UnknownCategory</td>
-<td>56ms</td>
+<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_Play_Success</td>
+<td>123ms</td>
 </tr>
 <tr>
 <td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge.Tests.CsvServiceDownloadTests.Load_Fail_InvalidFileContent</td>
+<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_State_FinishedToBlanco_Success</td>
+<td>1ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_State_DrawnToFinished_Success</td>
+<td>< 1ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_InvalidStates_Finished</td>
+<td>< 1ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_InvalidStates_Drawn</td>
+<td>< 1ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.BoardTests.PlayBoard_Success</td>
+<td>< 1ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_InvalidStates_Blanco</td>
+<td>< 1ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_State_BlancToDrawn_Success</td>
+<td>4ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_Play_TwiceError</td>
+<td>< 1ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_State_AtHandToActive_Success</td>
+<td>34ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_State_NewToActive_Success</td>
+<td>1ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_InvalidStates_Active</td>
+<td>1ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_State_ActiveToAtHand_Success</td>
+<td>1ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_InvalidStates_Win</td>
+<td>1ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_State_AtHandToWin_Success</td>
+<td>< 1ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_InvalidStates_AtHand</td>
+<td>< 1ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_InvalidStates_New</td>
 <td>2ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge.Tests.CsvServiceDownloadTests.Load_Success</td>
-<td>8ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge.Tests.CsvServiceDownloadTests.Load_Warning_InvalidRecord</td>
-<td>7ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge.Tests.CsvServiceDownloadTests.Load_Success_InvalidPrice</td>
-<td>3ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge.Tests.CsvServiceDownloadTests.Load_Success_WithOutCurrency</td>
-<td>3ms</td>
 </tr>
 </tbody>
 </table>
@@ -130,10 +179,10 @@ Some tips for the reviewer:
 <summary>Informational</summary>
 <pre><code>
 [xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.0 (64-bit .NET Core 3.1.5)
-[xUnit.net 00:00:00.47]   Discovering: TwIngChallenge.Tests
-[xUnit.net 00:00:00.51]   Discovered:  TwIngChallenge.Tests
-[xUnit.net 00:00:00.52]   Starting:    TwIngChallenge.Tests
-[xUnit.net 00:00:00.86]   Finished:    TwIngChallenge.Tests
+[xUnit.net 00:00:00.45]   Discovering: Tw.Ing.Challenge2.Tests
+[xUnit.net 00:00:00.50]   Discovered:  Tw.Ing.Challenge2.Tests
+[xUnit.net 00:00:00.50]   Starting:    Tw.Ing.Challenge2.Tests
+[xUnit.net 00:00:00.76]   Finished:    Tw.Ing.Challenge2.Tests
 </code></pre>
 </details>
 
@@ -154,8 +203,7 @@ Data collector 'Code Coverage' message: No code coverage data available. Code co
 
 ----
 
-[Created using Liquid Test Reports](https://github.com/kurtmkurtm/LiquidTestReports)                                    
-
+[Created using Liquid Test Reports](https://github.com/kurtmkurtm/LiquidTestReports)
 
 ### Code Coverage
 
