@@ -41,8 +41,10 @@ namespace Tw.Ing.Challenge2
 
             public override IEnumerable<GameCommandBase> GetActionCommands()
             {
-                var commandList = new List<GameCommandBase>();
-                commandList.Add(new StartGameCommand(Parent.Service, Parent));
+                var commandList = new List<GameCommandBase>
+                {
+                    new StartGameCommand(Parent.Service, Parent)
+                };
                 return commandList;
             }
 

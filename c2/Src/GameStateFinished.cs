@@ -30,12 +30,15 @@ namespace Tw.Ing.Challenge2
 
             public override IEnumerable<GameCommandBase> GetActionCommands()
             {
-                throw new NotImplementedException();
+                var commandList = new List<GameCommandBase>
+                {
+                    new StartGameCommand(Parent.Service, Parent)
+                };
+                return commandList;
             }
 
             public override void Draw()
             {
-                throw new NotImplementedException();
             }
         }
     }

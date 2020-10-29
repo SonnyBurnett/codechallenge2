@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Input;
 using Tw.Ing.Challenge2.Commands;
 using Tw.Ing.Challenge2.Services;
@@ -20,6 +21,14 @@ namespace Tw.Ing.Challenge2
                 return (_state.GetType() == typeof(BoardStatePlaying));
             }
         }
+
+        public bool NoMoreMoves
+        {
+            get
+            {
+                return !Matrix.Select(c => c.Value.Mark == Cell.Marker.Empty).Any();
+            }
+        }
         public BoardContext(IGameService gameService):base(gameService)
         {
             _state = (Board)new BoardStateBlanco(this);
@@ -33,6 +42,7 @@ namespace Tw.Ing.Challenge2
         public Cell Play(Coordinate coordinate, Cell.Marker mark)
         {
             _state = _state.Play(coordinate, mark);
+            IsDirty = true;
             return Matrix[coordinate];
         }
 

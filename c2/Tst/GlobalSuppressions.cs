@@ -5,4 +5,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Style", "IDE0039:Use local function", Justification = "<Pending>", Scope = "member", Target = "~M:Tw.Ing.Challenge2.Tests.BoardServiceTests.Board_Play_TwiceError")]
+[assembly: SuppressMessage("Style", "IDE0039:Use local function", Justification = "<Pending>", Scope = "module")]

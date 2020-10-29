@@ -202,7 +202,6 @@ namespace Tw.Ing.Challenge2.Tests
 
         private void PlayCell(PlayerContext player, char columName, int rowNumber)
         {
-            var cellCoordinate = new Coordinate(columName, rowNumber);
             player.GiveTurn();
 
             player.SelectColumn(columName);
@@ -217,8 +216,10 @@ namespace Tw.Ing.Challenge2.Tests
                 .Setup(m => m.Play(It.IsAny<Coordinate>(), It.IsAny<Cell.Marker>()))
                 .Returns((Coordinate coordinate, Cell.Marker mark) =>
                 {
-                    var cell = new Cell(coordinate);
-                    cell.Mark = mark;
+                    var cell = new Cell(coordinate)
+                    {
+                        Mark = mark
+                    };
                     return cell;
                 });
             return boardMock;

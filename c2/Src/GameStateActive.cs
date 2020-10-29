@@ -30,10 +30,17 @@ namespace Tw.Ing.Challenge2
             public override IEnumerable<GameCommandBase> GetActionCommands()
             {
                 var commandList = new List<GameCommandBase>();
-                PlayerContext nextPlayer = null;
 
-                if ((!Parent.PlayerCircle.IsPlaying) && (!Parent.PlayerCross.IsPlaying))
+                if  (   Parent.PlayerCircle.HasWon || Parent.PlayerCross.HasWon
+                    ||  Parent.PlayerCircle.HasDraw || Parent.PlayerCross.HasDraw
+                    ||  Parent.Board.NoMoreMoves
+                    )
                 {
+                    commandList.Add(new EndGameCommand(Parent.Service, Parent));
+                }             
+                else if ((!Parent.PlayerCircle.IsPlaying) && (!Parent.PlayerCross.IsPlaying))
+                {
+                    PlayerContext nextPlayer;
                     if (Parent.PlayerCircle.Moves.Count <= Parent.PlayerCross.Moves.Count)
                     {
                         nextPlayer = Parent.PlayerCircle;
@@ -42,13 +49,19 @@ namespace Tw.Ing.Challenge2
                     {
                         nextPlayer = Parent.PlayerCross;
                     }
+
+                    if (nextPlayer != null)
+                    {
+                        commandList.Add(new SwitchPlayerCommand(Parent.Service, nextPlayer));
+                        Parent.IsDirty = true;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Game has come to a halt. Cannot decided who plays");
+                    }
                 }
 
-                if (nextPlayer != null)
-                {
-                    commandList.Add(new SwitchPlayerCommand(Parent.Service, nextPlayer));
-                    Parent.IsDirty = true;
-                }
+
                 return commandList;
             }
 
