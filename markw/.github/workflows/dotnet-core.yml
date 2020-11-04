@@ -1,0 +1,86 @@
+name: Build C1
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+    - 'c1/**'
+  pull_request:
+    branches: [ main ]
+    paths: 
+    - 'c1/**'
+
+env:
+  configuration: Release
+  solution: c1/c1.sln
+  project: c1/Src/TwIngChallenge.csproj
+  runtime: win-x64
+  testProject: c1/Tst/TwIngChallenge.Tests.csproj
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v0.9.4
+      with:
+        versionSpec: '5.3.x'
+    - name: Use GitVersion
+      id: gitversion # step id used as reference for output values
+      uses: gittools/actions/gitversion/execute@v0.9.4
+      with: 
+        targetPath: c1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.301
+    - name: Install dependencies
+      run: dotnet restore ${{ env.solution }} --runtime ${{ env.runtime }}
+    - name: Build
+      run: dotnet build ${{ env.project }} --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} /warnaserror --no-restore /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+    - name: Set Test Title
+      run: | 
+            if ${{ github.event_name == 'pull_request' }}
+            then
+              echo "::set-env name=title::Test Run for PR #${{steps.PRNUMBER.outputs.pr}} (${{github.run_number}})"
+              echo "::set-env name=file_name::TestReport.${{steps.PRNUMBER.outputs.pr}}.${{github.run_number}}.md"
+            else
+              echo "::set-env name=title::Test Run ${{github.run_number}}"
+              echo "::set-env name=file_name::TestReport.${{github.run_number}}.md"
+            fi
+    - name: Test
+      run: dotnet test ${{ env.testProject }} --no-restore --verbosity normal --configuration ${{ env.configuration }} /p:AssemblyVersion=${{ steps.gitversion.outputs.majorMinorPatch }}  --collect "Code coverage" /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }} --collect "XPlat Code Coverage" --logger "liquid.md;LogFileName=${{github.workspace}}/${{env.file_name}};Title=${{env.title}};"
+    - name: Publish
+      run: dotnet publish ${{ env.project }} --no-build --configuration ${{ env.configuration }} --runtime ${{ env.runtime }} --output publishOutput
+    - name: Upload DotNet Console App
+      uses: actions/upload-artifact@v2
+      with:
+        name: console
+        path: publishOutput
+      if:
+        contains('
+          refs/heads/main
+        ', github.ref)
+    - name: comment PR
+      uses: machine-learning-apps/pr-comment@master
+      if: ${{ github.event_name == 'pull_request' }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        path: ${{env.file_name}}
+    - name: Upload Test Report
+      uses: actions/upload-artifact@v2
+      if: ${{always()}}
+      with:
+        name: 'Test Run'
+        path: ${{github.workspace}}/${{env.file_name}}
+    - name: Upload Code Coverage Report
+      uses: actions/upload-artifact@v2
+      if: ${{always()}}
+      with:
+        name: 'Code Coverage'
+        path: ${{github.workspace}}/**/coverage.cobertura.xml
+      
