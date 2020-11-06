@@ -16,10 +16,9 @@ public class ProductFilter {
     static final Logger LOGGER = LoggerFactory.getLogger(ProductFilter .class);
 
     public void readProductFile(String fileLocation) {
-        try {
+        File file = new File(fileLocation);
+        try (Scanner scanner = new Scanner(file)) {
             inputList.clear();
-            File file = new File(fileLocation);
-            Scanner scanner = new Scanner(file);
             if (Product.checkProductInfo(scanner.nextLine())) {
                 while (scanner.hasNextLine()) {
                     String[] data = scanner.nextLine().split(",");
@@ -27,7 +26,6 @@ public class ProductFilter {
                             Double.parseDouble(data[3]), data[4].strip()));
                 }
             }
-            scanner.close();
         } catch (FileNotFoundException e){
             LOGGER.error(e.toString());
         }
@@ -63,13 +61,11 @@ public class ProductFilter {
     // TODO: option: check whether a file already exists
     // ToDo: use FileWriterFactory for not using new FileWriter...
     public void writeProductFile(List<Product> productList, String fileLocation) {
-        try {
-            FileWriter writer = new FileWriter(fileLocation);
+        try (FileWriter writer = new FileWriter(fileLocation)) {
             writer.write(Product.PRODUCT_INFO);
             for (Product product: productList) {
                 writer.write(product.toString() + "\n");
             }
-            writer.close();
             LOGGER.info("Successfully wrote to file: " + fileLocation);
         } catch (IOException e) {
             LOGGER.error(e.toString());
