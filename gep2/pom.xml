@@ -10,6 +10,8 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>sre-gep2-ex01</module>
+        <module>sre-gep2-ex02</module>
+        <module>sre-gep2-ex03</module>
     </modules>
 
     <properties>

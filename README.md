@@ -24,7 +24,7 @@ Object Oriented Programing OOP principles.
 
 ### Prerequisites
 
-In the [pom.xml](gep2/pom.xml) all specific dependencies are listed as code, the maven framework will install those.
+In the [pom.xml](gep2/pom.xml) all specific dependencies have been listed as code, the maven framework will install those.
 
 ### Installing
 
@@ -44,7 +44,7 @@ The readme files of the root modules contain the explanation for the expert assi
 1. [Expert Assignment 1](gep2/sre-gep2-ex01/README.md): 'gep2/sre-gep2-ex01/README.md'
     is guiding you through the solution for the Object Oriented setup for assignment 1.
 2. [Expert Assignment 2](gep2/sre-gep2-ex02/README.md): 'gep2/sre-gep2-ex02/README.md'
-    <TBD> for assignment 2.
+    is guiding you through the solution for the Object Oriented setup for assignment 2.
 2. [Expert Assignment 3](gep2/sre-gep2-ex03/README.md): 'gep2/sre-gep2-ex03/README.md'
     <TBD> for assignment 3.
 
