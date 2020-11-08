@@ -27,6 +27,15 @@ public class TicTacToeGame {
         return "";
     }
 
+    public TicTacToePlayer determineNextPlayer() {
+        int nrTurnsPlayed = board.getNumberOccupiedPositions();
+        if (nrTurnsPlayed % 2 == 0) {
+            return players.get("X");
+        } else {
+            return players.get("O");
+        }
+    }
+
     public Map<String, TicTacToePlayer> getPlayers() {
         return players;
     }

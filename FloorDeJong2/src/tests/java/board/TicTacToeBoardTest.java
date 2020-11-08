@@ -1,5 +1,6 @@
+package board;
+
 import Exceptions.IllegalMoveException;
-import board.TicTacToeBoard;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

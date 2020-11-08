@@ -77,4 +77,15 @@ public class TicTacToeBoard extends Board2D {
 
         return true;
     }
+
+    public int getNumberOccupiedPositions() {
+        int occupiedPositions = 0;
+        for (int positionNr: positions.keySet()) {
+            if (positions.get(positionNr).isOccupied()) {
+                occupiedPositions ++;
+            }
+        }
+
+        return occupiedPositions;
+    }
 }

@@ -1,4 +1,5 @@
-import board.BoardPosition;
+package board;
+
 import directions.Directions2D;
 import org.junit.jupiter.api.Test;
 
@@ -39,5 +40,26 @@ public class BoardPositionTest {
         // Assert
         assertFalse(position1.isOccupied());
         assertTrue(position2.isOccupied());
+    }
+
+    @Test
+    public void testGetNumberOccupiedPositionsEmptyBoard() {
+        // Assign
+        TicTacToeBoard board = new TicTacToeBoard();
+
+        // Act + assert
+        assertEquals(0, board.getNumberOccupiedPositions());
+    }
+
+    @Test
+    public void testGetNumberOccupiedPositionsNonEmptyBoard() {
+        // Assign
+        TicTacToeBoard board = new TicTacToeBoard();
+        board.setPositionValue(1, "X");
+        board.setPositionValue(8, "O");
+
+
+        // Act + assert
+        assertEquals(2, board.getNumberOccupiedPositions());
     }
 }
