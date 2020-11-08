@@ -1,4 +1,5 @@
-import board.Board;
+import board.TicTacToeBoard;
+import board.TicTacToeBoardFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,10 +7,23 @@ import java.util.Scanner;
 
 public class Reader {
 
-    public Board readFile(String fileLocation, Board board) throws FileNotFoundException {
-        File file = new File(fileLocation);
+    private final ScannerFactory scannerFactory;
+    private final TicTacToeBoardFactory boardFactory;
 
-        try (Scanner scanner = new Scanner(file)) {
+    public Reader(ScannerFactory scannerFactory, TicTacToeBoardFactory boardFactory) {
+        this.scannerFactory = scannerFactory;
+        this.boardFactory = boardFactory;
+    }
+
+    public Reader() {
+        this(new ScannerFactory(), new TicTacToeBoardFactory());
+    }
+
+    public TicTacToeBoard readFile(String fileLocation) throws FileNotFoundException {
+        File file = new File(fileLocation);
+        TicTacToeBoard board = boardFactory.createBoard();
+
+        try (Scanner scanner = scannerFactory.createScanner(file)) {
             int positionCount = -1;
 
             while (scanner.hasNextLine()) {

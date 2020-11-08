@@ -8,8 +8,7 @@ public class Assignment2 {
         String inputFile = "FloordeJong2/src/main/resources/input.txt";
         String outputFile = "FloordeJong2/src/main/resources/output.csv";
 
-        TicTacToeBoard board = new TicTacToeBoard();
-        new Reader().readFile(inputFile, board);
+        TicTacToeBoard board = new Reader().readFile(inputFile);
         String nextMove = new TicTacToeGame(board).nextTurn();
         new Writer().writeNextMove(outputFile, nextMove);
     }
