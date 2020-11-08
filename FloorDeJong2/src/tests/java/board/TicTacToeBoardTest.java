@@ -79,4 +79,24 @@ public class TicTacToeBoardTest {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
+    @Test
+    public void testGetNumberOccupiedPositionsEmptyBoard() {
+        // Assign
+        TicTacToeBoard board = new TicTacToeBoard();
+
+        // Act + assert
+        assertEquals(0, board.getNumberOccupiedPositions());
+    }
+
+    @Test
+    public void testGetNumberOccupiedPositionsNonEmptyBoard() {
+        // Assign
+        TicTacToeBoard board = new TicTacToeBoard();
+        board.setPositionValue(1, "X");
+        board.setPositionValue(8, "O");
+
+
+        // Act + assert
+        assertEquals(2, board.getNumberOccupiedPositions());
+    }
 }
