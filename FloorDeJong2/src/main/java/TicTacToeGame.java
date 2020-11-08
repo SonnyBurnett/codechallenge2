@@ -1,4 +1,6 @@
 import board.TicTacToeBoard;
+import player.TicTacToePlayer;
+import player.TicTacToePlayerFactory;
 
 import java.util.HashMap;
 import java.util.Map;

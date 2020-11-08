@@ -10,13 +10,13 @@ public class Reader {
         File file = new File(fileLocation);
 
         try (Scanner scanner = new Scanner(file)) {
-            int positionCount = 0;
+            int positionCount = -1;
 
             while (scanner.hasNextLine()) {
-                positionCount ++;
                 String data = scanner.nextLine();
 
                 for (int i=0; i<data.length(); i++) {
+                    positionCount ++;
                     if (data.charAt(i)!='.') {
                         board.setPositionValue(positionCount, String.valueOf(data.charAt(i)));
                     }

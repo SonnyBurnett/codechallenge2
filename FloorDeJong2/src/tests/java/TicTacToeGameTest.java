@@ -1,5 +1,7 @@
 import board.TicTacToeBoard;
 import org.junit.jupiter.api.Test;
+import player.TicTacToePlayer;
+import player.TicTacToePlayerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

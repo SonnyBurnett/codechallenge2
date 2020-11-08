@@ -1,3 +1,5 @@
+package player;
+
 import board.BoardPosition;
 import board.TicTacToeBoard;
 
