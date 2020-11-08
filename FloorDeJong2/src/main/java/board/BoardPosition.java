@@ -35,7 +35,10 @@ public class BoardPosition {
     }
 
     public boolean sameValue(BoardPosition position) {
-        return this.value.equals(position.getValue());
+        if (this.value != null) {
+            return this.value.equals(position.getValue());
+        }
+        return false;
     }
 
     public void setValue(String value) {

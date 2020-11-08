@@ -67,13 +67,16 @@ public class BoardPositionTest {
         // Assign
         String value = "X";
         BoardPosition mockPosition = mock(BoardPosition.class);
-        when(mockPosition.getValue()).thenReturn(value).thenReturn("O");
+        when(mockPosition.getValue()).thenReturn(value).thenReturn("O").thenReturn(null);
 
         BoardPosition position1 = new BoardPosition(1);
-        position1.setValue(value);
-
 
         // Act + assert
+        // value of position is null
+        assertFalse(position1.sameValue(mockPosition));
+
+        // value of position is not null
+        position1.setValue(value);
         assertTrue(position1.sameValue(mockPosition));
         assertFalse(position1.sameValue(mockPosition));
     }
