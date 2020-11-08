@@ -26,6 +26,18 @@ public class BoardPosition {
         }
     }
 
+    public BoardPosition getNeighbourAtDirection(String direction) {
+        if (this.neighbours.containsKey(direction)) {
+            return this.neighbours.get(direction);
+        } else {
+            throw new IllegalArgumentException("Position " + this.positionId + " has no neighbour in direction " + direction);
+        }
+    }
+
+    public boolean sameValue(BoardPosition position) {
+        return this.value.equals(position.getValue());
+    }
+
     public void setValue(String value) {
         this.value = value;
     }
@@ -42,4 +54,7 @@ public class BoardPosition {
         return this.value != null;
     }
 
+    public Integer getPositionId() {
+        return positionId;
+    }
 }

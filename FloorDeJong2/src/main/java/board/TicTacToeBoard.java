@@ -4,9 +4,16 @@ import Exceptions.IllegalMoveException;
 
 public class TicTacToeBoard extends Board2D {
 
-    public TicTacToeBoard() {
+    final BoardPositionFactory boardPositionFactory;
+
+    public TicTacToeBoard(BoardPositionFactory boardPositionFactory) {
+        this.boardPositionFactory = boardPositionFactory;
         setAllowedValues();
         createPositions();
+    }
+
+    public TicTacToeBoard(){
+        this(new BoardPositionFactory());
     }
 
     @Override
@@ -19,7 +26,7 @@ public class TicTacToeBoard extends Board2D {
     @Override
     public void createPositions() {
         for (int i=0; i<9; i++) {
-            positions.put(i, new BoardPosition(i));
+            positions.put(i, boardPositionFactory.createBoardPosition(i));
         }
 
         positions.get(1).addNeighbour("L", positions.get(0));
@@ -58,7 +65,6 @@ public class TicTacToeBoard extends Board2D {
                 throw new IllegalMoveException("Position " + positionNr + " is already occupied");
             }
         }
-
     }
 
     @Override
@@ -87,5 +93,54 @@ public class TicTacToeBoard extends Board2D {
         }
 
         return occupiedPositions;
+    }
+
+    public String threeInRow() {
+        String value = threeInRowMiddlePosition();
+        if (value != null) {
+            return value;
+        }
+
+        value = threeInRowOnSides();
+
+        return value;
+    }
+
+    public String threeInRowMiddlePosition() {
+        BoardPosition middlePosition = positions.get(4);
+
+        String[] directionsToCheck = new String[]{"LU", "U", "RU", "L"};
+
+        for (String direction: directionsToCheck) {
+            if (threeInRowInDirection(middlePosition, direction)) {
+                return  middlePosition.getValue();
+            }
+        }
+        return null;
+    }
+
+    public String threeInRowOnSides() {
+        int[] positionsNrToCheck = new int[]{1, 3, 5, 7};
+        String[] directionsToCheck = new String[]{"L", "U", "U", "L"};
+
+        for (int i=0; i<4; i++) {
+            if (threeInRowInDirection(this.positions.get(positionsNrToCheck[i]), directionsToCheck[i])) {
+                return this.positions.get(i).getValue();
+            }
+        }
+
+        return null;
+    }
+
+    public boolean threeInRowInDirection(BoardPosition position, String direction) {
+        BoardPosition position1 = position.getNeighbourAtDirection(direction);
+
+        if (position.sameValue(position1)) {
+            String oppositeDirection = directions.getOppositeDirection(direction);
+            BoardPosition position2 = position.getNeighbourAtDirection(oppositeDirection);
+
+            return position.sameValue(position2);
+        }
+        return false;
     }
 }

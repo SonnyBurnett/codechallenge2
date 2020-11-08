@@ -4,6 +4,8 @@ import directions.Directions2D;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class BoardPositionTest {
 
@@ -43,23 +45,36 @@ public class BoardPositionTest {
     }
 
     @Test
-    public void testGetNumberOccupiedPositionsEmptyBoard() {
+    public void testHasNeighbourAtDirection() {
         // Assign
-        TicTacToeBoard board = new TicTacToeBoard();
+        String direction1 = "LD";
+        String direction2 = "R";
+        BoardPosition position1 = new BoardPosition(1);
+        BoardPosition position2 = new BoardPosition(2);
+        position1.addNeighbour(direction1, position2);
 
         // Act + assert
-        assertEquals(0, board.getNumberOccupiedPositions());
+        assertEquals(position2, position1.getNeighbourAtDirection(direction1));
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> position1.getNeighbourAtDirection(direction2));
+
+        String expectedMessage = "Position " + position1.getPositionId() + " has no neighbour in direction " + direction2;
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
-    public void testGetNumberOccupiedPositionsNonEmptyBoard() {
+    public void testSameValue() {
         // Assign
-        TicTacToeBoard board = new TicTacToeBoard();
-        board.setPositionValue(1, "X");
-        board.setPositionValue(8, "O");
+        String value = "X";
+        BoardPosition mockPosition = mock(BoardPosition.class);
+        when(mockPosition.getValue()).thenReturn(value).thenReturn("O");
+
+        BoardPosition position1 = new BoardPosition(1);
+        position1.setValue(value);
 
 
         // Act + assert
-        assertEquals(2, board.getNumberOccupiedPositions());
+        assertTrue(position1.sameValue(mockPosition));
+        assertFalse(position1.sameValue(mockPosition));
     }
 }
