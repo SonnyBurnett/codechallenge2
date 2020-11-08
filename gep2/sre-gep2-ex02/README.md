@@ -8,7 +8,7 @@ https://www.henrybeen.nl/wpcontent/uploads/2020/10/002-experts.txt
     2. Reads a tic-tac-toe board from the three lines in inputs.txt
     3. Writes a file outputs.csv that contains one line with the one of the following, first applicable:\
         1\. WINNER X &nbsp;&nbsp;&nbsp; 3. NEXTMOVE X\
-        2\. WINNER O &nbsp;&nbsp;&nbsp; 4. NEXTMOVE
+        2\. WINNER O &nbsp;&nbsp;&nbsp; 4. NEXTMOVE O
         
 Remember, the goal of the assignment: write an OO implementation that solves the problem,
 but mostly shows off your OO skills. Do not focus only solving the problem.
