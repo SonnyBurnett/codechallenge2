@@ -4,12 +4,13 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TicTacToeTest {
-    private Game ttt = new TicTacToe();
+    private final Game ttt = new TicTacToe();
 
     @Test
     void test_loadException() {
@@ -76,11 +77,11 @@ class TicTacToeTest {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        String actualLine = "";
 
-        if (scanner.hasNextLine()) {
+        String actualLine = "";
+        while (Objects.requireNonNull(scanner).hasNextLine()) {
             actualLine = scanner.nextLine();
-       };
+       }
         scanner.close();
 
         assertEquals("WINNER X",actualLine);
