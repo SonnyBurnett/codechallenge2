@@ -95,44 +95,43 @@ public class TicTacToeBoard extends Board2D {
         return occupiedPositions;
     }
 
-    public String threeInRow() {
-        String value = threeInRowMiddlePosition();
+    public String hasThreeInRow() {
+        String value = hasThreeInRowMiddlePosition();
         if (value != null) {
             return value;
         }
 
-        value = threeInRowOnSides();
-
-        return value;
+        return hasThreeInRowOnSides();
     }
 
-    public String threeInRowMiddlePosition() {
+    public String hasThreeInRowMiddlePosition() {
         BoardPosition middlePosition = positions.get(4);
 
         String[] directionsToCheck = new String[]{"LU", "U", "RU", "L"};
 
         for (String direction: directionsToCheck) {
-            if (threeInRowInDirection(middlePosition, direction)) {
+            if (hasThreeInRowInDirection(middlePosition, direction)) {
                 return  middlePosition.getValue();
             }
         }
         return null;
     }
 
-    public String threeInRowOnSides() {
+    public String hasThreeInRowOnSides() {
         int[] positionsNrToCheck = new int[]{1, 3, 5, 7};
         String[] directionsToCheck = new String[]{"L", "U", "U", "L"};
 
-        for (int i=0; i<4; i++) {
-            if (threeInRowInDirection(this.positions.get(positionsNrToCheck[i]), directionsToCheck[i])) {
-                return this.positions.get(i).getValue();
+        for (int i=0; i<positionsNrToCheck.length; i++) {
+            BoardPosition position = this.positions.get(positionsNrToCheck[i]);
+            if (hasThreeInRowInDirection(position, directionsToCheck[i])) {
+                return position.getValue();
             }
         }
 
         return null;
     }
 
-    public boolean threeInRowInDirection(BoardPosition position, String direction) {
+    public boolean hasThreeInRowInDirection(BoardPosition position, String direction) {
         BoardPosition position1 = position.getNeighbourAtDirection(direction);
 
         if (position.sameValue(position1)) {
@@ -143,4 +142,67 @@ public class TicTacToeBoard extends Board2D {
         }
         return false;
     }
+
+    public BoardPosition hasTwoInRowForSymbol(String value) {
+        BoardPosition position = hasTwoInRowMiddlePosition(value);
+        if (position != null) {
+            return position;
+        }
+
+        return hasTwoInRowOnSides(value);
+    }
+
+    public BoardPosition hasTwoInRowMiddlePosition(String value) {
+        BoardPosition middlePosition = positions.get(4);
+
+        String[] directionsToCheck = new String[]{"LU", "U", "RU", "L"};
+
+        for (String direction: directionsToCheck) {
+            BoardPosition position = createThreeInRowDirection(middlePosition, direction, value);
+            if (position != null) {
+                return  position;
+            }
+        }
+        return null;
+    }
+
+    public BoardPosition hasTwoInRowOnSides(String value) {
+        int[] positionsNrToCheck = new int[]{1, 3, 5, 7};
+        String[] directionsToCheck = new String[]{"L", "U", "U", "L"};
+
+        for (int i=0; i<positionsNrToCheck.length; i++) {
+            BoardPosition position = createThreeInRowDirection(this.positions.get(positionsNrToCheck[i]), directionsToCheck[i], value);
+
+            if (position != null) {
+                return position;
+            }
+        }
+
+        return null;
+    }
+
+    public BoardPosition createThreeInRowDirection(BoardPosition position, String direction, String value) {
+        String oppositeDirection = directions.getOppositeDirection(direction);
+
+        BoardPosition position1 = position.getNeighbourAtDirection(direction);
+        BoardPosition position2 = position.getNeighbourAtDirection(oppositeDirection);
+
+        if (position.getValue() == null && position1.getValue() != null && position2.getValue() != null) {
+            if (position1.sameValue(position2) && position1.getValue().equals(value)) {
+                return position;
+            }
+        } else if (position.getValue() != null && position1.getValue() == null && position2.getValue() != null) {
+            if (position.sameValue(position2) && position.getValue().equals(value)) {
+                return position1;
+            }
+        } else if (position.getValue() != null && position1.getValue() != null && position2.getValue() == null) {
+            if (position.sameValue(position1) && position.getValue().equals(value)) {
+                return position2;
+            }
+        }
+
+
+        return null;
+    }
+
 }

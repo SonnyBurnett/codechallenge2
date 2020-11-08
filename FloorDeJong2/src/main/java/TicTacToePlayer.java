@@ -1,4 +1,5 @@
-import board.Board;
+import board.BoardPosition;
+import board.TicTacToeBoard;
 
 public class TicTacToePlayer{
     private int id;
@@ -11,9 +12,14 @@ public class TicTacToePlayer{
         this.symbol = symbol;
     }
 
-    // ToDo: board methode check two same in row, with empty
-    public void doMove(Board board) {
+    public void doMove(TicTacToeBoard board) {
+        BoardPosition position = board.hasTwoInRowForSymbol(this.symbol);
 
+        if (position != null) {
+            board.setPositionValue(position.getPositionId(), this.symbol);
+        }
+
+        // Logic for move if not possible to create three in a row.
     }
 
     public String getSymbol() {

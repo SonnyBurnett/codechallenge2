@@ -4,15 +4,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class TicTacToeGame {
+
+    private final TicTacToePlayerFactory playerFactory;
+
     TicTacToeBoard board;
     Map<String, TicTacToePlayer> players = new HashMap<>();
     boolean isFinished;
-    TicTacToePlayer winner;
 
-    public TicTacToeGame(TicTacToeBoard board) {
+    public TicTacToeGame(TicTacToeBoard board, TicTacToePlayerFactory playerFactory) {
         this.isFinished = false;
         this.board = board;
+        this.playerFactory = playerFactory;
         this.createPlayers();
+    }
+
+    public TicTacToeGame(TicTacToeBoard board) {
+        this(board, new TicTacToePlayerFactory());
     }
 
     public TicTacToeGame() {
@@ -20,17 +27,21 @@ public class TicTacToeGame {
     }
 
     public void createPlayers() {
-        this.players.put("X", new TicTacToePlayer(1, "Player1", "X"));
-        this.players.put("O", new TicTacToePlayer(2, "Player2", "O"));
+        this.players.put("X", this.playerFactory.createPlayer(1, "Player1", "X"));
+        this.players.put("O", this.playerFactory.createPlayer(2, "Player2", "O"));
     }
 
     public String nextTurn() {
-        if (hasWinner()) {
-            return "WINNER " + this.winner.getSymbol();
+        TicTacToePlayer nextPlayer = determineNextPlayer();
+        nextPlayer.doMove(this.board);
+
+        TicTacToePlayer winner = hasWinner();
+        if (winner != null) {
+            return "WINNER " + winner.getSymbol();
+        } else {
+            return "NEXTMOVE " + nextPlayer.getSymbol();
         }
 
-        TicTacToePlayer nextPlayer = determineNextPlayer();
-        return "NEXTMOVE " + nextPlayer.getSymbol();
     }
 
     public TicTacToePlayer determineNextPlayer() {
@@ -42,14 +53,13 @@ public class TicTacToeGame {
         }
     }
 
-    public boolean hasWinner() {
-        String winningSymbol = this.board.threeInRow();
+    public TicTacToePlayer hasWinner() {
+        String winningSymbol = this.board.hasThreeInRow();
         if (winningSymbol != null) {
             this.isFinished = true;
-            this.winner = this.players.get(winningSymbol);
-            return true;
+            return this.players.get(winningSymbol);
         }
-        return false;
+        return null;
     }
 
     public Map<String, TicTacToePlayer> getPlayers() {
