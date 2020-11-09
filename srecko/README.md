@@ -24,7 +24,7 @@ Object Oriented Programing OOP principles.
 
 ### Prerequisites
 
-In the [pom.xml](gep2/pom.xml) all specific dependencies are listed as code, the maven framework will install those.
+In the [pom.xml](gep2/pom.xml) all specific dependencies have been listed as code, the maven framework will install those.
 
 ### Installing
 
@@ -44,7 +44,7 @@ The readme files of the root modules contain the explanation for the expert assi
 1. [Expert Assignment 1](gep2/sre-gep2-ex01/README.md): 'gep2/sre-gep2-ex01/README.md'
     is guiding you through the solution for the Object Oriented setup for assignment 1.
 2. [Expert Assignment 2](gep2/sre-gep2-ex02/README.md): 'gep2/sre-gep2-ex02/README.md'
-    <TBD> for assignment 2.
+    is guiding you through the solution for the Object Oriented setup for assignment 2.
 2. [Expert Assignment 3](gep2/sre-gep2-ex03/README.md): 'gep2/sre-gep2-ex03/README.md'
     <TBD> for assignment 3.
 
@@ -92,6 +92,38 @@ sre14-oop
                 └──resources
                     ├── 001-test-inputs.csv
                     └── 001-test-outputs.csv
+
+    └──sre-gep2-ex01
+        ├── README.md               This README for explaining the second assignment.
+        ├── pom.xml
+        └──src
+            ├──main
+            |   ├──java
+            |   |   └──ex02
+            |   |       ├── Board.java
+            |   |       ├── Cell.java
+            |   |       ├── fileLoader.java
+            |   |       ├── fileWriter.java
+            |   |       ├── Game.java
+            |   |       ├── GameStates.java
+            |   |       ├── IllegalGameSetup.java
+            |   |       ├── IllegalMove.java
+            |   |       ├── Player.java
+            |   |       ├── PlayTicTacToe.java
+            |   |       └── TicTacToe.java
+            |   └──resources
+            |       └── inputs.txt
+            └──test
+                └──java
+                |    └──ex02
+                |       ├── BoardTest.java
+                |       ├── CellTest.java
+                |       ├── GameStatesTest.java
+                |       ├── PlayerTest.java
+                |       └── TicTacToeTest.java
+                └──resources
+                    ├── 002-experts.txt
+                    └── 002-experts-example.txt
 ```
 ## Build With
 
@@ -101,11 +133,15 @@ Anything that was used to write, compile, execute and stored for this project:
 * [GitHub](https://github.com/) - A Git repository hosting service.
 * [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) - Continuously build, test,
  and deploy to any platform and cloud.
+* [Junit5](https://junit.org/junit5/) - The new major version of the programmer-friendly testing framework for Java.
 
 ## Tests
 
 The tests where executed with IntelliJ and Maven:
   * All tests are separated into a different directory from the main project files.
+
+The used test framework is JUnit5 (dependencies have been managed by Maven):
+ 
 
 The CI on the unittests is executed by using Azure Pipelines:
 [Pipeline sre14-oop](https://dev.azure.com/SreckoSuznjevic0449/sre14-oop)  
@@ -133,3 +169,19 @@ Building this framework to demonstrate the solutions was a challenge on its own,
 * https://www.jetbrains.com/help/idea/2020.2
 * https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
 * https://dzone.com/articles/never-use-float-and-double-for-monetary-calculation
+* https://www.journaldev.com/20834
+* https://www.markdownguide.org/
+* https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf
+* https://www.baeldung.com/
+    * https://www.baeldung.com/java-collections
+    * https://www.baeldung.com/java-collection-stream-foreach
+    * https://www.baeldung.com/java-lists-difference
+    * https://www.baeldung.com/java-maps-streams
+* https://www.geeksforgeeks.org/map-interface-java-examples/
+* https://www.vogella.com/tutorials/JavaCollections/article.html
+
+Special attention to the advices given in the following pages:
+* https://www.geeksforgeeks.org/difference-between-abstract-class-and-interface-in-java/
+And the simplified explanation by this page:
+* https://medium.com/@alifabdullah/easiest-explanation-of-abstract-class-and-interface-280741bc2daf
+    
