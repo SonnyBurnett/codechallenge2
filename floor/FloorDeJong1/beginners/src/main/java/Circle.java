@@ -15,6 +15,11 @@ public class Circle implements Figure2D {
         return calculateCircumference(this.radius);
     }
 
+    @Override
+    public String toString() {
+        return "Circle: r=" + this.radius;
+    }
+
     public static double calculateArea(double radius) {
         return Math.PI * Math.pow(radius, 2);
     }

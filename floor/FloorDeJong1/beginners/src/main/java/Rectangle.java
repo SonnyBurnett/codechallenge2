@@ -17,6 +17,11 @@ public class Rectangle implements Figure2D {
         return calculateCircumference(this.length, this.width);
     }
 
+    @Override
+    public String toString() {
+        return "Rectangle: " + this.length + "x" + this.width;
+    }
+
     public static double calculateArea(double length, double width) {
         return length * width;
     }
