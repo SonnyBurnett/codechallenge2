@@ -1,0 +1,147 @@
+Program:        euler41.py
+Goal:           Solve Euler challenge 41
+                https://projecteuler.net/problem=41
+Author:         Frank G.M. Nijssen
+Team:           ING – Tech GEP Ops Eng IT4IT / ServiceNow LCM
+Euler ID:       fgmni
+Date created:   05 July 2020
+Description Euler challenge 41:
+                Pandigital prime
+                Problem 41
+                We shall say that an n-digit number is pandigital
+                if it makes use of all the digits 1 to n exactly once.
+                For example, 2143 is a 4-digit pandigital and is also prime.
+                What is the largest n-digit pandigital prime that exists?
+                Answer: 7652413
+                Completed on Thu, 2 Jul 2020, 21:52
+                Congratulations, the answer you gave to problem 41 is correct.
+                You are the 66019th person to have solved this problem.
+                This problem had a difficulty rating of 5%. The highest difficulty rating you have solved remains at 5%.
+IDE used:       IntelliJ IDEA 2020.1
+Input:          -
+Final result:   7652413
+                Execution time:  0:00:14.125872
+
+                Execution program completed.
+                Execution time:  0:14:15.790121
+
+                Process finished with exit code 0
+
+
+Remarks:        Total program execution time is 14m16s, more than the time limit of one minute.
+                Although the correct and final answer shows after less than 15 seconds,
+                it takes almost 15 mintues the complete the loop and test the rest of the numbers to
+                exclude the possibility of perhaps a larger pandigital prime.
+                I have searched for optimalisations but have not been able to find one that shortens durations.
+
+-------------------------------------------------------------------------------------------------------------------
+
+
+Explanation of the global parameters
+------------------------------------
+- max_nbr           :   987654321 is the maximum pandigitial number,
+                        starting with the largest digital 9, followed by digits down until the lowest number 1
+- max_pan_prime     :   the largest pandigital prime number found (so far,
+                        depending on location in the loop)
+- show_exec_time    :   set this value to True in order to time the execution
+- run_test          :   set this value to true in order to only run test cases
+
+
+Explanation of function isPrime
+-------------------------------
+Goal
+    Test if the number provided is a prime number.
+Input
+    - parameter nbr holds the value of the number to be tested.
+Returns
+    True if nbr is a prime, False otherwise.
+Called by
+    This function is called by function main
+
+
+Explanation of function isPanDigital
+------------------------------------
+Goal
+    Test if the number provided is a pandigital number.
+Input
+    - parameter nbr holds the value of the number to be tested.
+Returns
+    True if nbr is pandigital, False otherwise.
+Called by
+    This function is called by function main
+
+
+Explanation of function main
+----------------------------
+Goal
+    Find the largest n-digital pandigital prime number.
+Input
+    No input parameters.
+Output
+    Prints each number (up to maximum value) that is a pandigital prime. The last number printed is the
+    largest pandigital prime.
+Returns
+    No value returned.
+
+
+Explanation of function test
+----------------------------
+Goal
+    Runs a single test.
+    Compares a calculated value with an expected value.
+Input
+    - parameter n contains the value of the length (number of digits) of the pandigital numbers to be tested;
+        for example if n = 3, the numbers generated to be tested are 321, 312, 231, 213, 132, 123
+    - parameter expected_nbr: represents the number that the calculation should produce as a result,
+        the largest pandigital prime number if it exits, and -1 otherwise
+Output
+    Prints output in the format
+    - Expected output: <expected-number>
+    - Calculated output: <calculated-number>
+    <Result>
+    If <expected-number> is equal to <calculated-number>
+        then <result> = "Successful completion of test"
+        else <result> = "Failed: Calculated output <calculated-number> not equal to expected output <expected-number>"
+Returns
+    No value is returned.
+Called by
+    This function is called by function exec_test
+
+
+Explanation of function exec_tests
+----------------------------------
+Goal
+    Runs a series of predefined tests, test data being used are stored in local tuple parameter test_values.
+    Uses function test
+Input
+    - parameter n contains the value of the length (number of digits) of the pandigital numbers to be tested;
+        for example if n = 3, the numbers generated to be tested are 321, 312, 231, 213, 132, 123
+    - parameter expected_nbr: represents the number that the calculation should produce as a result,
+        the largest pandigital prime number if it exits, and -1 otherwise
+Output
+    Prints output in the format
+    - Expected output: <expected-number>
+    - Calculated output: <calculated-number>
+    <Result>
+    If <expected-number> is equal to <calculated-number>
+        then <result> = "Successful completion of test"
+        else <result> = "Failed: Calculated output <calculated-number> not equal to expected output <expected-number>"
+Returns
+    No value is returned.
+Called by
+    This function is called by function exec_test
+
+
+Output program
+--------------
+    When function main is successfully executed with the default values, the output of this program
+    (tests and execution time output excluded) will be:
+        7652413
+        Process finished with exit code 0
+
+
+Code analyzers used
+-------------------
+- InteliJ Code Inspect
+- flake8
+- GitHub DeepSource scan

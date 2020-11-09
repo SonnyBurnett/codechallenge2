@@ -1,0 +1,16 @@
+Main classes
+============
+
+
+ProductGUI
+----------
+The ProductGUI class in package presentation, starts a simple GUI which allows you to select the (downloaded)
+product input file and the output file.
+
+
+ProductMain
+-----------
+The ProductMain class in package domain allows you to run the program without the gui interface. You need to
+set the values for the constants PATH2INFILE and PATH2OUTFILE to direct to the proper and full names of the
+(downloaded) input file and output file respectively.
+
