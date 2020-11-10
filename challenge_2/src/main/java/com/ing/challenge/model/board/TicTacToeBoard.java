@@ -11,14 +11,21 @@ import java.util.Arrays;
 
 public class TicTacToeBoard implements Board, ExternalBoard {
     private static final Logger logger = LogManager.getLogger(TicTacToeBoard.class);
+    protected static final String errorMessage = "Failed to read external board!";
     private char[] gameBoard;
 
     public TicTacToeBoard() {
         gameBoard = new char[9];
         initializeBoard();
     }
+
     public TicTacToeBoard(File file) {
-        boardFromFile(file);
+        try {
+            boardFromFile(file);
+        } catch (IOException e) {
+            logger.error(() -> errorMessage, e);
+            System.exit(1);
+        }
     }
 
     @Override
@@ -32,13 +39,14 @@ public class TicTacToeBoard implements Board, ExternalBoard {
     }
 
     @Override
-    public Board boardFromFile(File file) {
-        GameReader<char[]> reader = new BoardReader();
+    public Board boardFromFile(File file) throws IOException {
         try {
+            GameReader<char[]> reader = new BoardReader();
             gameBoard = reader.read(file);
+            return this;
         } catch (IOException e) {
-            logger.error(() -> "could not read file", e);
+            logger.error(() -> errorMessage, e);
+            throw new IOException(errorMessage,e);
         }
-        return this;
     }
 }

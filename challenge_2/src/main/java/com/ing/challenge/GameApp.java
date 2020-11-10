@@ -28,24 +28,39 @@ public class GameApp {
         withPlayers(x, o);
     }
 
-    public void playGameFromFile(File file) throws IOException {
-        logger.info(() -> "Let the games begin!");
+    public void playGameFromFile(File file) {
+        logger.info("Let the games begin!");
         Board board = new TicTacToeBoard(file);
         Rules rules = new TicTacToeRules();
         GameWriter<Iterable<?>> csvWriter = new CsvWriter();
+        try {
         File output = pathToOutputFile("001-output.csv").toFile();
         Optional<TTTPlayerType> optionalWinner = rules.isWinner(board);
         optionalWinner.ifPresentOrElse(winner -> {
                     var player = getPlayer(winner);
-                    logger.info(() -> (player + " is the winner!"));
-                    csvWriter.write(output, player.toCsv("the winner is"));
+                    logger.info(player + " is the winner!");
+                    writeToFile(csvWriter, output, player, "the winner is");
                 },
                 () -> {
                     var player = getPlayer(rules.whoIsNext(board));
-                    logger.info(() -> (player + " is next!"));
-                    csvWriter.write(output, player.toCsv("next turn for"));
+                    logger.info(player + " is next!");
+                    writeToFile(csvWriter, output, player, "next turn for");
                 });
+        } catch (IOException e) {
+            logger.error(() -> "Failed to open/delete file", e);
+            System.exit(1);
+        }
 
+    }
+
+    protected void writeToFile(GameWriter<Iterable<?>> csvWriter, File output, TTTPlayer player, String s) {
+        try {
+            csvWriter.write(output, player.toCsv(s));
+        } catch (IOException e) {
+            logger.error(() -> "Failed to write to file: " + output.toString(), e);
+            //signal failed state
+            System.exit(1);
+        }
     }
 
     protected TTTPlayer getPlayer(TTTPlayerType type) {
@@ -56,16 +71,11 @@ public class GameApp {
     }
 
     protected Path pathToOutputFile(String fileName) throws IOException {
-        try {
             var source = Paths.get(GameApp.class.getResource("/").getPath(), fileName);
             if (Files.exists(source)) {
                 Files.delete(source);
             }
             return source;
-        } catch (IOException e) {
-            logger.error(() -> "Failed to open file", e);
-            throw e;
-        }
     }
 
     private void withPlayers(TTTPlayer x, TTTPlayer o) {
@@ -73,16 +83,12 @@ public class GameApp {
         this.o = Objects.requireNonNull(o, "Player O can not be null");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws URISyntaxException {
         GameApp game = new GameApp(
                 new TTTPlayer("Steve", TTTPlayerType.X, "Likes coffee", "does not like pickles"),
                 new TTTPlayer("Jan", TTTPlayerType.O, "Likes knitting", "Vegetarian", "Has a cat..")
         );
+        game.playGameFromFile(Path.of(ClassLoader.getSystemResource("002-experts.txt").toURI()).toFile());
 
-        try {
-            game.playGameFromFile(Path.of(ClassLoader.getSystemResource("002-experts.txt").toURI()).toFile());
-        } catch (URISyntaxException | IOException e) {
-            logger.error(() -> "Couldn't play the game due to errors", e);
-        }
     }
 }

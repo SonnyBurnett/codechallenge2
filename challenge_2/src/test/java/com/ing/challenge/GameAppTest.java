@@ -1,5 +1,7 @@
 package com.ing.challenge;
 
+import com.github.stefanbirkner.systemlambda.SystemLambda;
+import com.ing.challenge.io.CsvWriter;
 import com.ing.challenge.model.player.TTTPlayer;
 import com.ing.challenge.model.player.TTTPlayerType;
 import org.junit.jupiter.api.Assertions;
@@ -10,7 +12,6 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -52,13 +53,32 @@ public class GameAppTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"002-experts.txt", "003-O-wins.txt", "004-X-wins.txt", "005-X-wins.txt"})
+    @ValueSource(strings = {"002-experts.txt", "003-O-wins.txt", "004-X-wins.txt", "005-X-wins.txt", "006-O-is-next.txt"})
     void runGames(String fileName) throws URISyntaxException, IOException {
         Path path = Path.of(getClass().getResource("/").toURI());
         assertThat(path.toFile().list()).asList().doesNotContain(fileName);
-        var game = new GameApp(playerX,playerO);
-        File file = Paths.get("src/test/resources",fileName).toFile();
+        var game = new GameApp(playerX, playerO);
+        File file = Paths.get("src/test/resources", fileName).toFile();
         game.playGameFromFile(file);
+    }
+
+    @Test
+    void ioErrorWritingToFile() throws Exception {
+        File file = Paths.get("src/test/resources", "file//failed.txt").toFile();
+        var game = new GameApp(playerX, playerO);
+        var writer = new CsvWriter();
+        int exitCode = SystemLambda.catchSystemExit(() -> game.writeToFile(writer, file, playerO, "fail"));
+        assertThat(exitCode).isEqualTo(1);
+    }
+
+    @Test
+    void runMain() {
+        Assertions.assertDoesNotThrow(() -> GameApp.main(new String[]{}));
+        // Check doesn't work in gradle on commandline. Does work in IDE..
+//        String message = SystemLambda.tapSystemOut(() -> GameApp.main(new String[]{}));
+//        System.out.println(message);
+//        assertThat(message).contains("Let the games begin!");
+//        assertThat(message).contains("Name: Steve, type: X, attributes: [Likes coffee, does not like pickles] is next!");
     }
 
 }

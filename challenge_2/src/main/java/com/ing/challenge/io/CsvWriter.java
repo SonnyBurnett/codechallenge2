@@ -11,15 +11,17 @@ import java.nio.charset.StandardCharsets;
 
 public class CsvWriter implements GameWriter<Iterable<?>> {
     private static final Logger logger = LogManager.getLogger(CsvWriter.class);
+    protected static final String ERROR_MESSAGE = "Failed to write to file";
 
     @Override
-    public void write(File file, Iterable<?> obj) {
+    public void write(File file, Iterable<?> obj) throws IOException {
         try (CSVPrinter csvPrinter = CSVFormat.DEFAULT
                 .withHeader("msg", "name", "type", "attributes")
                 .print(file, StandardCharsets.UTF_8)) {
             csvPrinter.printRecord(obj);
         } catch (IOException e) {
-            logger.error(() -> "Failed to ");
+            logger.error(() -> ERROR_MESSAGE, e);
+            throw new IOException(ERROR_MESSAGE, e);
         }
     }
 }

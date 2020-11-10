@@ -1,6 +1,5 @@
 package com.ing.challenge.model.player;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,10 +17,6 @@ public record TTTPlayer(String name, TTTPlayerType type, String... attributes) {
                 ", " +
                 "attributes: " +
                 Arrays.toString(attributes);
-    }
-
-    public Iterable<String> toCsv() {
-        return List.of("Player", name, type.name(), Arrays.toString(attributes));
     }
 
     public Iterable<String> toCsv(String msg) {
