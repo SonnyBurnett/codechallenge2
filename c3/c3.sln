@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tw.Ing.Challenge3.Tests", "Tst\Tw.Ing.Challenge3.Tests.csproj", "{B1134E82-5F9B-4F16-A717-13D236F5D2CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tw.Ing.Challenge3.Tests", "Tst\Tw.Ing.Challenge3.Tests.csproj", "{B1134E82-5F9B-4F16-A717-13D236F5D2CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tw.Ing.Challenge", "Src\Tw.Ing.Challenge3.csproj", "{7817FA63-26F0-4FE3-BB4D-8415AE6E6033}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tw.Ing.Challenge3", "Src\Tw.Ing.Challenge3.csproj", "{7817FA63-26F0-4FE3-BB4D-8415AE6E6033}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{9064127A-E185-4E82-A418-1F6F7BBB11FB}"
+	ProjectSection(SolutionItems) = preProject
+		Doc\003-experts-inputs.csv = Doc\003-experts-inputs.csv
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +20,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B1134E82-5F9B-4F16-A717-13D236F5D2CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -44,5 +46,11 @@ Global
 		{7817FA63-26F0-4FE3-BB4D-8415AE6E6033}.Release|x64.Build.0 = Release|Any CPU
 		{7817FA63-26F0-4FE3-BB4D-8415AE6E6033}.Release|x86.ActiveCfg = Release|Any CPU
 		{7817FA63-26F0-4FE3-BB4D-8415AE6E6033}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E46C193-8AD4-4147-9ABE-82418E1C361D}
 	EndGlobalSection
 EndGlobal
