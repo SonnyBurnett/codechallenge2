@@ -26,15 +26,23 @@ namespace Tw.Ing.Challenge3.Service
             return order;
         }
 
-        ShippingNote IOrderProcessingService.OrderToShipping(CustomerOrder order)
+        ShippingAssignment IOrderProcessingService.OrderShippingAssignment(CustomerOrder order)
         {
-            var shipping = new ShippingNote()
+            var shipping = new ShippingAssignment()
             {
-                CustomerId = order.CustomerId,
-                Name = order.Name
+                Order = order
             };
 
             return shipping;
+        }
+
+        ShippingNote IOrderProcessingService.ShippingConfirmation(ShippingAssignment shipping)
+        {
+            return new ShippingNote() {
+                Country = shipping.Country,
+                Order = shipping.Order,
+                Shipper = shipping.Shipper
+            };
         }
     }
 }

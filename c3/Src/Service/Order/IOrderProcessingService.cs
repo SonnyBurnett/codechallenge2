@@ -10,6 +10,7 @@ namespace Tw.Ing.Challenge3.Service
     public interface IOrderProcessingService
     {
         public CustomerOrder LineToOrder(CustomerOrder order, OrderLine orderLine);
-        public ShippingNote OrderToShipping(CustomerOrder order);
+        public ShippingAssignment OrderShippingAssignment(CustomerOrder order);
+        public ShippingNote ShippingConfirmation(ShippingAssignment shipping);
     }
 }

@@ -32,7 +32,7 @@ namespace Tw.Ing.Challenge3.Tests
         }
 
         [Fact]
-        public void OrderToShipping_Success()
+        public void OrderToShippingAssignment_Success()
         {
             // ARRANGE
 
@@ -43,11 +43,27 @@ namespace Tw.Ing.Challenge3.Tests
             order.OrderLines.Add(line);
 
             // ACT
-            var shipping = srv.OrderToShipping(order);
+            var shipping = srv.OrderShippingAssignment(order);
 
             // ASSESS
-            Assert.Equal(1, shipping.CustomerId);
-            Assert.Equal(1, shipping.ItemCount);
+            Assert.Equal(1, shipping.Order.CustomerId);
+        }
+
+        [Fact]
+        public void ShippingAssignmentToConfirmation_Success()
+        {
+            // ARRANGE
+
+            IOrderProcessingService srv = new OrderProcessingService();
+
+            var line = new OrderLine() { CustomerId = 1, Weight = 1.1 };
+            var order = new CustomerOrder() { CustomerId = 1, Weight = 1.1 };
+            var assignment = new ShippingAssignment() { Order = order };
+            // ACT
+            var sc = srv.ShippingConfirmation(assignment);
+
+            // ASSESS
+            Assert.Equal(1, sc.Order.CustomerId);
         }
     }
 }
