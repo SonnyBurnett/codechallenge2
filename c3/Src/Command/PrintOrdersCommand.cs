@@ -13,8 +13,8 @@ namespace Tw.Ing.Challenge3.Command
 {
     public class PrintOrdersCommand : ICommandAsync
     {
-        private ICsvFileService _fileService;
-        private IOrderProcessingService _orderProcessingService;
+        private readonly ICsvFileService _fileService;
+        private readonly IOrderProcessingService _orderProcessingService;
 
         public PrintOrdersCommand(ICsvFileService fileService, IOrderProcessingService orderProcessor)
         {
@@ -27,7 +27,7 @@ namespace Tw.Ing.Challenge3.Command
             return true;
         }
 
-        async Task ICommandAsync.Execute()
+        async Task<int> ICommandAsync.Execute()
         {
             var csvUri = new Uri("https://henrybeen.nl/wp-content/uploads/2020/11/003-experts-inputs.csv");
             var orderList = await _fileService.DownloadCsv(csvUri).ConfigureAwait(false);
@@ -41,7 +41,10 @@ namespace Tw.Ing.Challenge3.Command
                     });
                 })
                 .Select(o => _orderProcessingService.OrderToShipping(o))
-                .Subscribe();
+                .Subscribe(s =>
+                    Console.WriteLine($"Order {s.CustomerId} - {s.Name}: ")
+                ) ;
+            return 0;
         }
     }
 }

@@ -3,20 +3,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Reflection;
+using System.Threading.Tasks;
+using Tw.Ing.Challenge3.Command;
 using Tw.Ing.Challenge3.Extensions;
+using Tw.Ing.Challenge3.Service;
 
 namespace Tw.Ing.Challenge3
 {
     class Program
     {
-        static int Main(string[] args)
+        static async Task<int> Main(string[] args)
         {
             var tw = new TextWriterTraceListener(Console.Out);
             tw.TraceOutputOptions |= TraceOptions.None;
             Trace.Listeners.Add(tw);
             Trace.AutoFlush = true;
             Trace.Indent();
+
+            // Setup
+            var httpClient = new HttpClient();
+            var fileService = new CsvFileService(httpClient);
+            var orderProcessor = new OrderProcessingService();
 
             var app = new CommandLineApplication
             {
@@ -32,16 +41,18 @@ namespace Tw.Ing.Challenge3
             });
             app.Execute(args);
 
+            ICommandAsync cmd = null;
+
             if (versionOption.HasValue())
             {
-                var assemblyVersion = Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
-                TraceExtensions.DoMessage($"Version: {assemblyVersion}");
-                return 0;
+                cmd = new AssemblyVersionCommand();
             }
             else
             {
-                return 1;
+                cmd = new PrintOrdersCommand(fileService, orderProcessor);
             }
+
+            return await cmd.Execute().ConfigureAwait(false);
         }
     }
 }
