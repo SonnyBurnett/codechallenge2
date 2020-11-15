@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tw.Ing.Challenge3.Service
 {
-    public class OrderLineCsv
+    public class OrderLine
     {
         public int CustomerId { get; set; }
         public string Name { get; set; }

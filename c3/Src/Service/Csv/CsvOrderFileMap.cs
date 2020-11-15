@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Tw.Ing.Challenge3.Service
 {
-    public class CsvOrderFileMap : ClassMap<OrderLineCsv>
+    public class CsvOrderFileMap : ClassMap<OrderLine>
     {
         public CsvOrderFileMap()
         {

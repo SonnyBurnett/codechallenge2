@@ -20,7 +20,7 @@ namespace Tw.Ing.Challenge3.Service
             _client = client;
         }
 
-        async Task<IEnumerable<OrderLineCsv>> ICsvFileService.DownloadCsv(Uri csvFile)
+        async Task<IEnumerable<OrderLine>> ICsvFileService.DownloadCsv(Uri csvFile)
         {
             TraceExtensions.DoMessage("Loading Order List.");
             using var req = new HttpRequestMessage(HttpMethod.Get, csvFile);
@@ -38,13 +38,13 @@ namespace Tw.Ing.Challenge3.Service
                 csvRdr.Configuration.TrimOptions = TrimOptions.Trim;
                 int rowCount = 0;
 
-                var orderList = new List<OrderLineCsv>();
+                var orderList = new List<OrderLine>();
                 while (csvRdr.Read())
                 {
                     try
                     {
                         rowCount++;
-                        var order = csvRdr.GetRecord<OrderLineCsv>();
+                        var order = csvRdr.GetRecord<OrderLine>();
                         orderList.Add(order);
                         TraceExtensions.DoMessage($"    row {rowCount}: {order.Name}, {order.Price}");
                     }

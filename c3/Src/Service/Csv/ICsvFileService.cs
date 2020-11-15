@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Tw.Ing.Challenge3.Service
 {
-    interface ICsvFileService
+    public interface ICsvFileService
     {
-        Task<IEnumerable<OrderLineCsv>> DownloadCsv(Uri csvFile);
+        Task<IEnumerable<OrderLine>> DownloadCsv(Uri csvFile);
     }
 }

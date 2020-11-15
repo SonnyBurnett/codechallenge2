@@ -13,7 +13,7 @@ namespace Tw.Ing.Challenge3.Tests
     public class CsvServiceTests
     {
         [Fact]
-        public async Task DownloadOrderCsv()
+        public async Task DownloadOrderCsv_Success()
         {
             // ARRANGE
             var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Default);
@@ -31,7 +31,7 @@ namespace Tw.Ing.Challenge3.Tests
             var orderList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
 
             // ASSESS
-            Assert.Single<OrderLineCsv>(orderList);
+            Assert.Single<OrderLine>(orderList);
             var product = orderList.Single();
             Assert.Equal(16, product.CustomerId);
             Assert.Equal("Henry Been", product.Name);
@@ -39,6 +39,22 @@ namespace Tw.Ing.Challenge3.Tests
             Assert.Equal(3.23d, product.Price);
             Assert.Equal(0.5d, product.Weight);
             Assert.Equal("Netherlands", product.Country);
+        }
+
+        [Fact]
+        public async Task DownloadOrderCsv_NotFound()
+        {
+            // ARRANGE
+            var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Default);
+            string csvString = String.Empty;
+            requestMock.SetupGetMethod(HttpStatusCode.NotFound, "001-experts-inputs.csv", csvString);
+
+            var httpClient = new HttpClient(requestMock.Object);
+            ICsvFileService srv = new CsvFileService(httpClient);
+
+            // ACT / ASSERT
+            await Assert.ThrowsAsync<InvalidOperationException>(() => srv.DownloadCsv(new Uri("https://wwwdoesnotexist")));
+   
         }
     }
 }
