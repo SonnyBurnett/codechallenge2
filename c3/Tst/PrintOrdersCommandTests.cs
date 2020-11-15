@@ -21,10 +21,7 @@ namespace Tw.Ing.Challenge3.Tests
             ICommandAsync cmd = new PrintOrdersCommand(fileServiceMock.Object, orderProcessingMock.Object);
 
             // ACT 
-            if (cmd.CanExecute())
-            {
-                await cmd.Execute();
-            }
+            await cmd.Execute();
 
             // ASSERT
             fileServiceMock.Verify(m => m.DownloadCsv(It.IsAny<Uri>()), Times.Once());

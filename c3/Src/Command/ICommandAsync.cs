@@ -8,7 +8,6 @@ namespace Tw.Ing.Challenge3.Command
 {
     public interface ICommandAsync
     {
-        public bool CanExecute();
         public Task<int> Execute();
     }
 }

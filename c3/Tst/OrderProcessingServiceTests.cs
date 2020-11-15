@@ -58,6 +58,7 @@ namespace Tw.Ing.Challenge3.Tests
 
             var line = new OrderLine() { CustomerId = 1, Weight = 1.1 };
             var order = new CustomerOrder() { CustomerId = 1, Weight = 1.1 };
+            order.OrderLines.Add(line);
             var assignment = new ShippingAssignment() { Order = order };
             // ACT
             var sc = srv.ShippingConfirmation(assignment);

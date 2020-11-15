@@ -23,11 +23,6 @@ namespace Tw.Ing.Challenge3.Command
             _orderProcessingService = orderProcessor;
         }
 
-        bool ICommandAsync.CanExecute()
-        {
-            return true;
-        }
-
         async Task<int> ICommandAsync.Execute()
         {
             var returnCode = 1;

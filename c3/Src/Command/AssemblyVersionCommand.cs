@@ -10,11 +10,6 @@ namespace Tw.Ing.Challenge3.Command
 {
     public class AssemblyVersionCommand : ICommandAsync
     {
-        bool ICommandAsync.CanExecute()
-        {
-            return true;
-        }
-
         Task<int> ICommandAsync.Execute()
         {
             var assemblyVersion = Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
