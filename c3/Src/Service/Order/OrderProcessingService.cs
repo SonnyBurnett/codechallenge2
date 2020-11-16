@@ -16,7 +16,8 @@ namespace Tw.Ing.Challenge3.Service
                 order = new CustomerOrder()
                 {
                     CustomerId = orderLine.CustomerId,
-                    Name = orderLine.Name
+                    Name = orderLine.Name,
+                    Country = orderLine.Country
                 };
             }
 

@@ -12,6 +12,7 @@ namespace Tw.Ing.Challenge3.Model
         public int CustomerId { get; set; }
         public string Name { get; set; }
         public double Weight { get; set; }
+        public string Country { get; set; }
         public List<OrderLine> OrderLines { get; private set; } = new List<OrderLine>();
     }
 }
