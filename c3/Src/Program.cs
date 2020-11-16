@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Tw.Ing.Challenge3.Command;
 using Tw.Ing.Challenge3.Extensions;
 using Tw.Ing.Challenge3.Service;
+using Tw.Ing.Challenge3.Service.Order;
 
 namespace Tw.Ing.Challenge3
 {
@@ -25,7 +26,9 @@ namespace Tw.Ing.Challenge3
             // Setup
             var httpClient = new HttpClient();
             var fileService = new CsvFileService(httpClient);
-            var orderProcessor = new OrderProcessingService();
+            var countryAdapter = new CountryAdapter();
+            var shippingAdapter = new ShippingAdapter();
+            var orderProcessor = new OrderProcessingService(countryAdapter, shippingAdapter);
 
             var app = new CommandLineApplication
             {

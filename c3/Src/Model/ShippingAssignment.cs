@@ -9,7 +9,6 @@ namespace Tw.Ing.Challenge3.Model
     public class ShippingAssignment
     {
         public CustomerOrder Order { get; set; }
-        public string Country { get; set; }
         public string Shipper { get; set; }
     }
 }

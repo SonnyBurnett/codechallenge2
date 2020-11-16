@@ -18,15 +18,12 @@ namespace Tw.Ing.Challenge3.Service.Order
 
         private static ICountryAdapter GetCountryAdapter(CustomerOrder order)
         {
-            switch (order.Country.ToUpperInvariant())
+            return (order.Country.ToUpperInvariant()) switch
             {
-                case "NETHERLANDS":
-                    return new CountryNetherlandsAdapter();
-                case "BELGIUM":
-                    return new CountryBelgiumAdapter();
-                default:
-                    return new CountryOtherAdapter();
-            }
+                "NETHERLANDS" => new CountryNetherlandsAdapter(),
+                "BELGIUM" => new CountryBelgiumAdapter(),
+                _ => new CountryOtherAdapter(),
+            };
         }
 
     }

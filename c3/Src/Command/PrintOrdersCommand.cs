@@ -41,7 +41,7 @@ namespace Tw.Ing.Challenge3.Command
                 .Select(sa => _orderProcessingService.ShippingConfirmation(sa))
                 .Subscribe(
                     sc =>
-                        Console.WriteLine($"Order {sc.Order.CustomerId} - {sc.Order.Name}: "),
+                        Console.WriteLine($"Order {sc.Order.CustomerId} - {sc.Order.Name}: {sc.Shipper}, {sc.ShippingCost}, {sc.Duration}"),
                     ex =>
                     {
                         Console.WriteLine($"Something fishy happened, {ex.Message}");
