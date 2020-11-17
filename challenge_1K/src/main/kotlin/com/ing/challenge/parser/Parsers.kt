@@ -10,13 +10,13 @@ interface Parsable {
 
 /**
  * A [com.ing.challenge.parser.Parser] let's you read and write files of different types.
- * @param <T> A object type
-</T> */
+ * @param [T] A generic type representing the Class read or written from/to the file system.
+ */
 interface Parser<T : Parsable> {
     /**
      * Read lines from a file.
      * @param fileName name of the file
-     * @return A [List] of Object of type T
+     * @return A [List] of Object of type [T]
      * @see Parser.read
      */
     fun read(fileName: String): List<T>
@@ -24,7 +24,7 @@ interface Parser<T : Parsable> {
     /**
      * Read lines from a [File].
      * @param file A [File] object relating to A file on the system
-     * @return A [List] of Object of type T
+     * @return A [List] of Object of type [T]
      * @see Parser.read
      */
     fun read(file: File): List<T>
