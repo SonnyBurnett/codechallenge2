@@ -16,12 +16,10 @@ namespace Tw.Ing.Challenge3.Command
     public class PrintOrdersCommand : ICommandAsync
     {
         private readonly ICsvFileService _fileService;
-        private readonly IOrderProcessingService _orderProcessingService;
 
-        public PrintOrdersCommand(ICsvFileService fileService, IOrderProcessingService orderProcessor)
+        public PrintOrdersCommand(ICsvFileService fileService)
         {
             _fileService = fileService;
-            _orderProcessingService = orderProcessor;
         }
 
         async Task<int> ICommandAsync.Execute()
