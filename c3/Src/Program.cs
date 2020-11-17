@@ -26,9 +26,6 @@ namespace Tw.Ing.Challenge3
             // Setup
             var httpClient = new HttpClient();
             var fileService = new CsvFileService(httpClient);
-            var countryAdapter = new CountryAdapter();
-            var shippingAdapter = new ShippingAdapter();
-            var orderProcessor = new OrderProcessingService(countryAdapter, shippingAdapter);
 
             var app = new CommandLineApplication
             {
@@ -52,7 +49,7 @@ namespace Tw.Ing.Challenge3
             }
             else
             {
-                cmd = new PrintOrdersCommand(fileService, orderProcessor);
+                cmd = new PrintOrdersCommand(fileService);
             }
 
             return await cmd.Execute().ConfigureAwait(false);

@@ -49,18 +49,12 @@ namespace Tw.Ing.Challenge3.Tests
         public void ShippingAssignmentToConfirmation_Success()
         {
             // ARRANGE
-
-            var countryAdapter = new Mock<CountryAdapter>();
-            var shippingAdapter = new Mock<ShippingAdapter>();
-
-            IOrderProcessingService srv = new OrderProcessingService(countryAdapter.Object, shippingAdapter.Object);
-
             var line = new CsvOrderLine() { CustomerId = 1, Weight = 1.1, Country = "Netherlands" };
             var order = new CustomerOrder() { CustomerId = 1, Weight = 1.1, Country = "Netherlands" };
             order.OrderLines.Add(line);
             var assignment = new ShippingAssignment() { Order = order, Shipper = "PostNL" };
             // ACT
-            var sc = srv.ShippingConfirmation(assignment);
+            var sc = assignment.ShippingConfirmation();
 
             // ASSESS
             Assert.Equal(1, sc.Order.CustomerId);

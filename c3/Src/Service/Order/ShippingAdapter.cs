@@ -28,6 +28,7 @@ namespace Tw.Ing.Challenge3.Service.Order
                 "POSTNL" => new ShippingPostNlAdapter(),
                 "DHL" => new ShippingDhlAdapter(),
                 "BELGIOPOSTO" => new ShippingBelgioPostoAdapter(),
+                _ => null
             };
         }
 

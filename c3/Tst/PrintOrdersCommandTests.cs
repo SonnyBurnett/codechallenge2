@@ -17,8 +17,7 @@ namespace Tw.Ing.Challenge3.Tests
         {
             // ARRANGE
             var fileServiceMock = new Mock<ICsvFileService>(MockBehavior.Default);
-            var orderProcessingMock = new Mock<IOrderProcessingService>(MockBehavior.Default);
-            ICommandAsync cmd = new PrintOrdersCommand(fileServiceMock.Object, orderProcessingMock.Object);
+            ICommandAsync cmd = new PrintOrdersCommand(fileServiceMock.Object);
 
             // ACT 
             await cmd.Execute();
