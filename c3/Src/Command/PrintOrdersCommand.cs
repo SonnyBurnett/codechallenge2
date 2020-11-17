@@ -36,8 +36,8 @@ namespace Tw.Ing.Challenge3.Command
                         return csvLine.ToOrder(order);
                     });
                 })
-                .Select(o => o.OrderShippingAssignment())
-                .Select(sa => sa.ShippingConfirmation())
+                .Select(o => o.ToShippingAssignment())
+                .Select(sa => sa.ToShippingConfirmation())
                 .Subscribe(
                     sc =>
                         Console.WriteLine($"Order {sc.Order.CustomerId} - {sc.Order.Name}: {sc.Shipper}, {sc.ShippingCost}, {sc.Duration}"),

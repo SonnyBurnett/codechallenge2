@@ -91,7 +91,7 @@ namespace Tw.Ing.Challenge3.Tests
             {
                 CustomerId = 1,
                 Weight = 11,
-                Country = "Germany"
+                Country = "France"
             };
             // ACT
             var assignment = adapter.GetShippingPartner(order);

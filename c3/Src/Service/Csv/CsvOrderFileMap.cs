@@ -15,7 +15,7 @@ namespace Tw.Ing.Challenge3.Service
             Map(m => m.Product).Name("Product");
             Map(m => m.Price).Name("Price").TypeConverter<CsvPriceConverter>();
             Map(m => m.Weight).Name("Weight").TypeConverter<CsvWeightConverter>();
-            Map(m => m.Country).Name("Country");
+            Map(m => m.Country).Name("Country").TypeConverter<CsvCountryConverter>();
         }
     }
 }

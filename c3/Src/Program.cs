@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using Tw.Ing.Challenge3.Command;
 using Tw.Ing.Challenge3.Extensions;
@@ -17,6 +18,8 @@ namespace Tw.Ing.Challenge3
     {
         static async Task<int> Main(string[] args)
         {
+            Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
+
             var tw = new TextWriterTraceListener(Console.Out);
             tw.TraceOutputOptions |= TraceOptions.None;
             Trace.Listeners.Add(tw);

@@ -10,7 +10,7 @@ namespace Tw.Ing.Challenge3.Extensions
 {
     public static class ShippingAssignmentExtensions
     {
-        public static ShippingNote ShippingConfirmation(this ShippingAssignment shipping)
+        public static ShippingNote ToShippingConfirmation(this ShippingAssignment shipping)
         {
             if (shipping == null)
                 throw new ArgumentNullException(nameof(shipping));

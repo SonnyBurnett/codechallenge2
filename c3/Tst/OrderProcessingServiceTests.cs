@@ -39,7 +39,7 @@ namespace Tw.Ing.Challenge3.Tests
             order.OrderLines.Add(line);
 
             // ACT
-            var shipping = order.OrderShippingAssignment();
+            var shipping = order.ToShippingAssignment();
 
             // ASSESS
             Assert.Equal(1, shipping.Order.CustomerId);
@@ -54,7 +54,7 @@ namespace Tw.Ing.Challenge3.Tests
             order.OrderLines.Add(line);
             var assignment = new ShippingAssignment() { Order = order, Shipper = "PostNL" };
             // ACT
-            var sc = assignment.ShippingConfirmation();
+            var sc = assignment.ToShippingConfirmation();
 
             // ASSESS
             Assert.Equal(1, sc.Order.CustomerId);

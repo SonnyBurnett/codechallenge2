@@ -57,5 +57,27 @@ namespace Tw.Ing.Challenge3.Tests
             await Assert.ThrowsAsync<InvalidOperationException>(() => srv.DownloadCsv(new Uri("https://wwwdoesnotexist")));
    
         }
+
+        [Fact]
+        public async Task DownloadOrderCsv_InvalidCountry()
+        {
+            // ARRANGE
+            var requestMock = new Mock<HttpMessageHandler>(MockBehavior.Default);
+            string csvString =
+@"CustomerId,Name,Product,Price,Weight,Country
+16,Henry Been,Pepernoten,3.23,0,5,Netherlands
+";
+
+            requestMock.SetupGetMethod(HttpStatusCode.OK, "001-experts-inputs.csv", csvString);
+
+            var httpClient = new HttpClient(requestMock.Object);
+            ICsvFileService srv = new CsvFileService(httpClient);
+
+            // ACT / ASSERT
+            var orderList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
+
+            Assert.Empty(orderList);
+
+        }
     }
 }

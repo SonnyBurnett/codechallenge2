@@ -34,7 +34,7 @@ namespace Tw.Ing.Challenge3.Service
             if (memberMapData is null) throw new ArgumentNullException(nameof(memberMapData));
 
             var fieldName = memberMapData.Names.Single();
-            if (fieldName == "price")
+            if (fieldName == "Price")
             {
                 return price.ToString(CultureInfo.InvariantCulture);
             }

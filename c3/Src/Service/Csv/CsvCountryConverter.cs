@@ -10,33 +10,35 @@ using Tw.Ing.Challenge3.Extensions;
 
 namespace Tw.Ing.Challenge3.Service
 {
-    public class CsvWeightConverter : DefaultTypeConverter
+    public class CsvCountryConverter : DefaultTypeConverter
     {
         public override object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)
         {
             if (row is null) throw new ArgumentNullException(nameof(row));
             if (memberMapData is null) throw new ArgumentNullException(nameof(memberMapData));
 
-            var weightString = row.GetField<string>($"Weight");
-            if (!double.TryParse(weightString, NumberStyles.Float, CultureInfo.InvariantCulture, out double weightValue))
-            {
-                weightValue = 0;
-                TraceExtensions.DoWarn($"Row {memberMapData.Index}: Not a valid number  {weightString}");
-            }
+            var countryString = row.GetField<string>($"Country");
 
-            return weightValue;
+            return (countryString.ToUpperInvariant()) switch
+            {
+                "NETHERLANDS" => "Netherlands",
+                "BELGIUM" => "Belgium",
+                "FRANCE" => "France",
+                "FANCE" => "France",
+                _ => throw new InvalidOperationException($"Invalid Country {countryString}")
+            };
         }
 
         public override string ConvertToString(object value, IWriterRow row, MemberMapData memberMapData)
         {
-            var weight = (double)value;
+            var country = (string)value;
 
             if (memberMapData is null) throw new ArgumentNullException(nameof(memberMapData));
 
             var fieldName = memberMapData.Names.Single();
-            if (fieldName == "Weight")
+            if (fieldName == "Country")
             {
-                return weight.ToString(CultureInfo.InvariantCulture);
+                return country;
             }
 
             return base.ConvertToString(value, row, memberMapData);

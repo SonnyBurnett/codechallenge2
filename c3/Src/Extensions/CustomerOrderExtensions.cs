@@ -10,7 +10,7 @@ namespace Tw.Ing.Challenge3.Extensions
 {
     public static class CustomerOrderExtensions
     {
-        public static ShippingAssignment OrderShippingAssignment(this CustomerOrder order)
+        public static ShippingAssignment ToShippingAssignment(this CustomerOrder order)
         {
             ICountryAdapter countryAdapter = new CountryAdapter();
             var shipping = new ShippingAssignment()
