@@ -10,6 +10,8 @@ using System.Reactive.Linq;
 using Tw.Ing.Challenge3.Model;
 using System.Reflection.Metadata.Ecma335;
 using Tw.Ing.Challenge3.Extensions;
+using System.IO;
+using System.Diagnostics;
 
 namespace Tw.Ing.Challenge3.Command
 {
@@ -27,6 +29,11 @@ namespace Tw.Ing.Challenge3.Command
             var returnCode = 1;
             var csvUri = new Uri("https://henrybeen.nl/wp-content/uploads/2020/11/003-experts-inputs.csv");
             var orderList = await _fileService.DownloadCsv(csvUri).ConfigureAwait(false);
+
+            const string CSVFILENAME = "ShippingNotes.csv";
+            string path = $@"{Directory.GetCurrentDirectory()}/{CSVFILENAME}";
+            using var textWriter = new StreamWriter(path);
+
             var csvObservable = orderList.ToObservable<CsvOrderLine>()
                 .GroupBy(ol => ol.CustomerId)
                 .SelectMany(result =>
@@ -40,18 +47,24 @@ namespace Tw.Ing.Challenge3.Command
                 .Select(sa => sa.ToShippingConfirmation())
                 .Subscribe(
                     sc =>
-                        Console.WriteLine($"Order {sc.Order.CustomerId} - {sc.Order.Name}: {sc.Shipper}, {sc.ShippingCost}, {sc.Duration}"),
+                    {
+                        _fileService.SaveCsv(sc, textWriter);
+                        TraceExtensions.DoMessage($"Order {sc.Order.CustomerId} - {sc.Order.Name}: {sc.Shipper}, {sc.ShippingCost}, {sc.Duration}");
+                    },
                     ex =>
                     {
-                        Console.WriteLine($"Something fishy happened, {ex.Message}");
+                        TraceExtensions.DoError($"Something fishy happened, {ex.Message}");
                         returnCode = 1;
                     },
                     () =>
                     {
-                        Console.WriteLine("Done processing orders");
+                        TraceExtensions.DoMessage("Done processing orders");
                         returnCode = 0;
                     }
-                ); 
+                ) ;
+
+            Process.Start("notepad.exe", path);
+
             return returnCode;
         }
     }

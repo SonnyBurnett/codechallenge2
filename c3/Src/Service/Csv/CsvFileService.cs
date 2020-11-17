@@ -15,7 +15,7 @@ namespace Tw.Ing.Challenge3.Service
     public class CsvFileService : ICsvFileService
     {
         private readonly HttpClient _client;
-
+        private bool _isInitialized;
         public CsvFileService(HttpClient client)
         {
             _client = client;
@@ -63,6 +63,24 @@ namespace Tw.Ing.Challenge3.Service
             {
                 throw new InvalidOperationException($"Cannot Read and Parse the CSV File. Exception: {ex.Message}", ex);
             }
+        }
+
+        void ICsvFileService.SaveCsv(ShippingNote shippingNote, TextWriter textWriter)
+        {
+            var csvWrtr = new CsvWriter(textWriter, CultureInfo.InvariantCulture);
+
+//                csvWrtr.Configuration.RegisterClassMap<CsvShippingNoteMap>();
+            csvWrtr.Configuration.Delimiter = ",";
+            csvWrtr.Configuration.TrimOptions = TrimOptions.Trim;
+            if (!_isInitialized)
+            {
+                csvWrtr.WriteHeader(typeof(ShippingNote));
+                _isInitialized = true;
+                csvWrtr.NextRecord();
+            }
+
+            csvWrtr.WriteRecord(shippingNote);
+            csvWrtr.NextRecord();
         }
     }
 }
