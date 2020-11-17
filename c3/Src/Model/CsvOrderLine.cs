@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Tw.Ing.Challenge3.Service
+namespace Tw.Ing.Challenge3.Model
 {
-    public class OrderLine
+    public class CsvOrderLine
     {
         public int CustomerId { get; set; }
         public string Name { get; set; }

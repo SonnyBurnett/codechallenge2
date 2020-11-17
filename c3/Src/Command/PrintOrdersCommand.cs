@@ -9,6 +9,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using Tw.Ing.Challenge3.Model;
 using System.Reflection.Metadata.Ecma335;
+using Tw.Ing.Challenge3.Extensions;
 
 namespace Tw.Ing.Challenge3.Command
 {
@@ -28,17 +29,17 @@ namespace Tw.Ing.Challenge3.Command
             var returnCode = 1;
             var csvUri = new Uri("https://henrybeen.nl/wp-content/uploads/2020/11/003-experts-inputs.csv");
             var orderList = await _fileService.DownloadCsv(csvUri).ConfigureAwait(false);
-            var csvObservable = orderList.ToObservable<OrderLine>()
+            var csvObservable = orderList.ToObservable<CsvOrderLine>()
                 .GroupBy(ol => ol.CustomerId)
                 .SelectMany(result =>
                 {
-                    return result.Aggregate<OrderLine, CustomerOrder>(null, (order, orderLine) =>
+                    return result.Aggregate<CsvOrderLine, CustomerOrder>(null, (order, csvLine) =>
                     {
-                        return _orderProcessingService.LineToOrder(order, orderLine);
+                        return csvLine.ToOrder(order);
                     });
                 })
-                .Select(o => _orderProcessingService.OrderShippingAssignment(o))
-                .Select(sa => _orderProcessingService.ShippingConfirmation(sa))
+                .Select(o => o.OrderShippingAssignment())
+                .Select(sa => sa.ShippingConfirmation())
                 .Subscribe(
                     sc =>
                         Console.WriteLine($"Order {sc.Order.CustomerId} - {sc.Order.Name}: {sc.Shipper}, {sc.ShippingCost}, {sc.Duration}"),

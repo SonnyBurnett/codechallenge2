@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Tw.Ing.Challenge3.Extensions;
 using Tw.Ing.Challenge3.Model;
 using Tw.Ing.Challenge3.Service;
 using Tw.Ing.Challenge3.Service.Order;
@@ -18,15 +19,10 @@ namespace Tw.Ing.Challenge3.Tests
         public void LineToOrder_Success()
         {
             // ARRANGE
-            var countryAdapter = new Mock<CountryAdapter>();
-            var shippingAdapter = new Mock<ShippingAdapter>();
-
-            IOrderProcessingService srv = new OrderProcessingService(countryAdapter.Object, shippingAdapter.Object);
-
-            var line = new OrderLine() { CustomerId = 1, Weight = 1.1 };
+            var line = new CsvOrderLine() { CustomerId = 1, Weight = 1.1 };
             
             // ACT
-            var order = srv.LineToOrder(null, line);
+            var order = line.ToOrder(null);
 
             // ASSESS
             Assert.Equal(1, order.CustomerId);
@@ -38,18 +34,12 @@ namespace Tw.Ing.Challenge3.Tests
         public void OrderToShippingAssignment_Success()
         {
             // ARRANGE
-
-            var countryAdapter = new Mock<CountryAdapter>();
-            var shippingAdapter = new Mock<ShippingAdapter>();
-
-            IOrderProcessingService srv = new OrderProcessingService(countryAdapter.Object, shippingAdapter.Object);
-
-            var line = new OrderLine() { CustomerId = 1, Weight = 1.1, Country = "Netherlands" };
+            var line = new CsvOrderLine() { CustomerId = 1, Weight = 1.1, Country = "Netherlands" };
             var order = new CustomerOrder() { CustomerId = 1, Weight = 1.1, Country = "Netherlands" };
             order.OrderLines.Add(line);
 
             // ACT
-            var shipping = srv.OrderShippingAssignment(order);
+            var shipping = order.OrderShippingAssignment();
 
             // ASSESS
             Assert.Equal(1, shipping.Order.CustomerId);
@@ -65,7 +55,7 @@ namespace Tw.Ing.Challenge3.Tests
 
             IOrderProcessingService srv = new OrderProcessingService(countryAdapter.Object, shippingAdapter.Object);
 
-            var line = new OrderLine() { CustomerId = 1, Weight = 1.1, Country = "Netherlands" };
+            var line = new CsvOrderLine() { CustomerId = 1, Weight = 1.1, Country = "Netherlands" };
             var order = new CustomerOrder() { CustomerId = 1, Weight = 1.1, Country = "Netherlands" };
             order.OrderLines.Add(line);
             var assignment = new ShippingAssignment() { Order = order, Shipper = "PostNL" };

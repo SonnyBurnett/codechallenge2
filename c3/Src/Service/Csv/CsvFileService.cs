@@ -8,6 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Tw.Ing.Challenge3.Extensions;
+using Tw.Ing.Challenge3.Model;
 
 namespace Tw.Ing.Challenge3.Service
 {
@@ -20,7 +21,7 @@ namespace Tw.Ing.Challenge3.Service
             _client = client;
         }
 
-        async Task<IEnumerable<OrderLine>> ICsvFileService.DownloadCsv(Uri csvFile)
+        async Task<IEnumerable<CsvOrderLine>> ICsvFileService.DownloadCsv(Uri csvFile)
         {
             TraceExtensions.DoMessage("Loading Order List.");
             using var req = new HttpRequestMessage(HttpMethod.Get, csvFile);
@@ -38,13 +39,13 @@ namespace Tw.Ing.Challenge3.Service
                 csvRdr.Configuration.TrimOptions = TrimOptions.Trim;
                 int rowCount = 0;
 
-                var orderList = new List<OrderLine>();
+                var orderList = new List<CsvOrderLine>();
                 while (csvRdr.Read())
                 {
                     try
                     {
                         rowCount++;
-                        var order = csvRdr.GetRecord<OrderLine>();
+                        var order = csvRdr.GetRecord<CsvOrderLine>();
                         orderList.Add(order);
                         TraceExtensions.DoMessage($"    row {rowCount}: {order.Name}, {order.Price}");
                     }

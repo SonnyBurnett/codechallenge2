@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Tw.Ing.Challenge3.Model;
 using Tw.Ing.Challenge3.Service;
 using Tw.Ing.Challenge3.Tests.Plumbing;
 using Xunit;
@@ -31,7 +32,7 @@ namespace Tw.Ing.Challenge3.Tests
             var orderList = await srv.DownloadCsv(new Uri("https://henrybeen.nl/wp-content/uploads/2020/10/001-experts-inputs.csv"));
 
             // ASSESS
-            Assert.Single<OrderLine>(orderList);
+            Assert.Single<CsvOrderLine>(orderList);
             var product = orderList.Single();
             Assert.Equal(16, product.CustomerId);
             Assert.Equal("Henry Been", product.Name);

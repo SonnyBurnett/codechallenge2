@@ -2,10 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Tw.Ing.Challenge3.Model;
 
 namespace Tw.Ing.Challenge3.Service
 {
-    public class CsvOrderFileMap : ClassMap<OrderLine>
+    public class CsvOrderFileMap : ClassMap<CsvOrderLine>
     {
         public CsvOrderFileMap()
         {
