@@ -32,7 +32,9 @@ namespace Tw.Ing.Challenge3.Command
 
             const string CSVFILENAME = "ShippingNotes.csv";
             string path = $@"{Directory.GetCurrentDirectory()}/{CSVFILENAME}";
+
             using var textWriter = new StreamWriter(path);
+            _fileService.OpenCsv(textWriter);
 
             var csvObservable = orderList.ToObservable<CsvOrderLine>()
                 .GroupBy(ol => ol.CustomerId)
@@ -48,7 +50,8 @@ namespace Tw.Ing.Challenge3.Command
                 .Subscribe(
                     sc =>
                     {
-                        _fileService.SaveCsv(sc, textWriter);
+                        var line = sc.ToCsvLine();
+                        _fileService.SaveCsv(line);
                         TraceExtensions.DoMessage($"Order {sc.Order.CustomerId} - {sc.Order.Name}: {sc.Shipper}, {sc.ShippingCost}, {sc.Duration}");
                     },
                     ex =>

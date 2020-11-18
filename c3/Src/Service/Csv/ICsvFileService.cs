@@ -10,6 +10,7 @@ namespace Tw.Ing.Challenge3.Service
     public interface ICsvFileService
     {
         Task<IEnumerable<CsvOrderLine>> DownloadCsv(Uri csvFile);
-        void SaveCsv(ShippingNote shippingNotesList, TextWriter textWriter);
+        void OpenCsv(TextWriter textWriter);
+        void SaveCsv(CsvShippingNoteLine csvLine);
     }
 }

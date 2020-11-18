@@ -24,18 +24,20 @@ namespace Tw.Ing.Challenge3.Tests
             fileServiceMock
                 .Setup(m => m.DownloadCsv(It.IsAny<Uri>()))
                 .ReturnsAsync(() => {
-                    var list = new List<CsvOrderLine>();
-                    list.Add(new CsvOrderLine()
+                    var list = new List<CsvOrderLine>
                     {
-                        Country = "",
-                        CustomerId = 1,
-                        Name = "",
-                        Price = 1,
-                        Product = "Jas",
-                        Weight = 1
-                    });
+                        new CsvOrderLine()
+                        {
+                            Country = "",
+                            CustomerId = 1,
+                            Name = "",
+                            Price = 1,
+                            Product = "Jas",
+                            Weight = 1
+                        }
+                    };
                     return list;
-                    });
+                });
             ICommandAsync cmd = new PrintOrdersCommand(fileServiceMock.Object);
 
             // ACT 

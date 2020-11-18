@@ -28,8 +28,7 @@ namespace Tw.Ing.Challenge3
 
             // Setup
             var httpClient = new HttpClient();
-            var fileService = new CsvFileService(httpClient);
-
+            using CsvFileService fileService = new CsvFileService(httpClient);
             var app = new CommandLineApplication
             {
                 Name = "TW ING Coding Challenge",

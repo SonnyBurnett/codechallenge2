@@ -12,10 +12,12 @@ using Tw.Ing.Challenge3.Model;
 
 namespace Tw.Ing.Challenge3.Service
 {
-    public class CsvFileService : ICsvFileService
+    public class CsvFileService : ICsvFileService, IDisposable
     {
         private readonly HttpClient _client;
-        private bool _isInitialized;
+        private CsvWriter _csvWriter;
+        private bool isDisposed;
+
         public CsvFileService(HttpClient client)
         {
             _client = client;
@@ -65,22 +67,41 @@ namespace Tw.Ing.Challenge3.Service
             }
         }
 
-        void ICsvFileService.SaveCsv(ShippingNote shippingNote, TextWriter textWriter)
+        void ICsvFileService.OpenCsv(TextWriter textWriter)
         {
-            var csvWrtr = new CsvWriter(textWriter, CultureInfo.InvariantCulture);
+            _csvWriter = new CsvWriter(textWriter, CultureInfo.InvariantCulture);
+            _csvWriter.Configuration.RegisterClassMap<CsvShippingNoteFileMap>();
+            _csvWriter.Configuration.Delimiter = ",";
+            _csvWriter.Configuration.TrimOptions = TrimOptions.Trim;
 
-//                csvWrtr.Configuration.RegisterClassMap<CsvShippingNoteMap>();
-            csvWrtr.Configuration.Delimiter = ",";
-            csvWrtr.Configuration.TrimOptions = TrimOptions.Trim;
-            if (!_isInitialized)
+            _csvWriter.WriteHeader(typeof(CsvShippingNoteLine));
+            _csvWriter.NextRecord();
+
+        }
+
+        void ICsvFileService.SaveCsv(CsvShippingNoteLine csvLine)
+        {
+            _csvWriter.WriteRecord(csvLine);
+            _csvWriter.NextRecord();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // The bulk of the clean-up code is implemented in Dispose(bool)
+        protected virtual void Dispose(bool disposing)
+        {
+            if (isDisposed) return;
+            if (disposing)
             {
-                csvWrtr.WriteHeader(typeof(ShippingNote));
-                _isInitialized = true;
-                csvWrtr.NextRecord();
+                // free managed resources
+                _csvWriter.Dispose();
+                _client.Dispose();
             }
-
-            csvWrtr.WriteRecord(shippingNote);
-            csvWrtr.NextRecord();
+            isDisposed = true;
         }
     }
 }
