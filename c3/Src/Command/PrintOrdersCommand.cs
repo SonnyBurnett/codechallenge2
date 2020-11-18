@@ -12,6 +12,7 @@ using System.Reflection.Metadata.Ecma335;
 using Tw.Ing.Challenge3.Extensions;
 using System.IO;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Tw.Ing.Challenge3.Command
 {
@@ -65,8 +66,10 @@ namespace Tw.Ing.Challenge3.Command
                         returnCode = 0;
                     }
                 ) ;
-
-            Process.Start("notepad.exe", path);
+            if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Process.Start("notepad.exe", path);
+            }
 
             return returnCode;
         }
