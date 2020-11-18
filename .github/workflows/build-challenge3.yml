@@ -1,22 +1,22 @@
-name: Build C2
+name: Build C3
 
 on:
   push:
     branches: [ main ]
     paths: 
-    - 'c2/**'
+    - 'c3/**'
   pull_request:
     branches: [ main ]
     paths: 
-    - 'c2/**'
+    - 'c3/**'
   workflow_dispatch:
     
 env:
   configuration: Release
-  solution: c2/c2.sln
-  project: c2/Src/Tw.Ing.Challenge2.csproj
+  solution: c3/c3.sln
+  project: c3/Src/Tw.Ing.Challenge3.csproj
   runtime: win-x64
-  testProject: c2/Tst/Tw.Ing.Challenge2.Tests.csproj
+  testProject: c3/Tst/Tw.Ing.Challenge3.Tests.csproj
 
 jobs:
   build:
@@ -33,11 +33,11 @@ jobs:
       id: gitversion # step id used as reference for output values
       uses: gittools/actions/gitversion/execute@v0.9.5
       with: 
-        targetPath: c2
+        targetPath: c3
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.1.301
+        dotnet-version: 5.0.100
     - name: Install dependencies
       run: dotnet restore ${{ env.solution }} --runtime ${{ env.runtime }}
     - name: Build
