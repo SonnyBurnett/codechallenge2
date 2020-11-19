@@ -14,7 +14,7 @@
 
 Some tips for the reviewer:
 - The [Program.cs](https://github.com/teamwildenberg/IngBytes/blob/main/c3/Src/Program.cs) - Program entry, initialization of services  
-- The [CommandObjects](https://github.com/teamwildenberg/IngBytes/blob/main/c3/Src/Command/PrintOrdersCommand.cs) - Executes the order processing using [ReactivX](http://reactivex.io/). 
+- The [PrintOrdersCommand](https://github.com/teamwildenberg/IngBytes/blob/main/c3/Src/Command/PrintOrdersCommand.cs) - Executes the order processing using [ReactivX](http://reactivex.io/). 
   - All object transitions are implemented as [Extensions](https://github.com/teamwildenberg/IngBytes/blob/main/c3/Src/Extensions)
   - All interfaces are implemented as services [Services](https://github.com/teamwildenberg/IngBytes/blob/main/c3/Src/Service)
     - [CsvFileWriter](https://github.com/teamwildenberg/IngBytes/blob/main/c3/Src/Service/Csv/CsvFileService.cs) for Input / Result of the CSV files
