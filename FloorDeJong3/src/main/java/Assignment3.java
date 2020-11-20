@@ -9,16 +9,19 @@ import java.util.Map;
 
 public class Assignment3 {
 
-    private Map<Long, Customer> customerDatabase = new HashMap<>();
+    private final Map<Long, Customer> customerDatabase = new HashMap<>();
 
-    public void run() throws IOException {
-        String inputFile = "FloorDeJong3/src/main/resources/input.csv";
-        String outputFile = "FloorDeJong3/src/main/resources/output.csv";
+    private final CustomerFileReader reader = new CustomerFileReader();
+    private final ShippingInfoWriter writer = new ShippingInfoWriter();
+    private final ShippingInfoDeterminer determiner = new ShippingInfoDeterminer();
 
-        new CustomerFileReader().read(inputFile, customerDatabase);
-
-        new ShippingInfoDeterminer().determineInfo(customerDatabase);
-
-        new ShippingInfoWriter().write(outputFile, customerDatabase);
+    public void run(String inputFile, String outputFile) {
+        try {
+            reader.read(inputFile, customerDatabase);
+            determiner.determineInfo(customerDatabase);
+            writer.write(outputFile, customerDatabase);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

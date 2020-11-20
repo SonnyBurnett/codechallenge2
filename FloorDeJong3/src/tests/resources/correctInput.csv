@@ -1,7 +1,8 @@
 CustomerId,Name,Product,Price,Weight,Country
 16,Henry Been,Pepernoten,3.23,0.5,Netherlands
-21,Pietje de Boer,Monitor,466.19,2.5,Belgium,extraField
-16.0,Henry Been,Jas,128.12, 2.2,Netherlands
+21,Pietje de Boer,Monitor,466.19,2.5,Belgium
+16,Henry Been,Jas,128.12, 2.2,Netherlands
+16.0,Henry Been,boek,128.12, 2.2,Netherlands
 21,Pietje de Boer,CPU,150.99,0.5bla,Belgium
 16,Henry Been,Broek,52.99bla, 3.5,Netherlands
-8,Kareltje van Gruttenveen,Microfoon,69.99,1.5,Fance
+8,Kareltje van Gruttenveen,Microfoon,69.99,1.5,Fance,extraField

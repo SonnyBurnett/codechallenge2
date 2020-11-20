@@ -1,7 +1,7 @@
 package model.shippers;
 
 public enum Shipper {
-    POSTNL ("PostNl") {
+    POSTNL ("PostNL") {
         @Override
         public double determineCosts(double weight) {
             return 6.95;
