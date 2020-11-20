@@ -1,5 +1,6 @@
 import io.CustomerFileReader;
 import model.customer.Customer;
+import model.shippers.ShippingInfoDeterminer;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -12,11 +13,9 @@ public class Assignment3 {
     public void run() throws IOException {
         String fileName = "FloorDeJong3/src/main/resources/input.csv";
 
-        // Read file
         new CustomerFileReader().read(fileName, customerDatabase);
 
-        // Do logic
-
+        new ShippingInfoDeterminer().determineInfo(customerDatabase);
 
         // Write file
 //        new ShippingInfoWriter().write();

@@ -18,4 +18,8 @@ public class Product {
     public double getPrice() {
         return price;
     }
+
+    public double getWeight() {
+        return weight;
+    }
 }
