@@ -1,4 +1,4 @@
-package model;
+package model.product;
 
 public class ProductFactory {
     public Product create(String productName, double price, double weight) {

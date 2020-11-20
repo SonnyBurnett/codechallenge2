@@ -1,4 +1,4 @@
-package model;
+package model.customer;
 
 public class CustomerFactory {
     public Customer create(long customerId, String name, String country) {

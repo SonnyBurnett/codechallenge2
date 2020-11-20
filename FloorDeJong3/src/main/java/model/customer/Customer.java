@@ -1,4 +1,6 @@
-package model;
+package model.customer;
+
+import model.product.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +10,9 @@ public class Customer {
     private String name;
     private String country;
     private List<Product> productList;
+    private String shipper;
+    private int duration;
+    private double shippingCosts;
 
     public Customer(long customerId, String name, String country) {
         this.customerId = customerId;

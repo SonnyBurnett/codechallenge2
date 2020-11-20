@@ -1,9 +1,9 @@
 package io;
 
-import model.Customer;
-import model.CustomerFactory;
-import model.Product;
-import model.ProductFactory;
+import model.customer.Customer;
+import model.customer.CustomerFactory;
+import model.product.Product;
+import model.product.ProductFactory;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

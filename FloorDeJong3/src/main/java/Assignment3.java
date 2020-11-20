@@ -1,5 +1,5 @@
 import io.CustomerFileReader;
-import model.Customer;
+import model.customer.Customer;
 
 import java.io.IOException;
 import java.util.HashMap;
