@@ -101,4 +101,3 @@ public class Product implements Cloneable {
         return currency;
     }
 }
- 
