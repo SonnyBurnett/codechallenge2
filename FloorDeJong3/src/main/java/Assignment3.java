@@ -1,4 +1,5 @@
 import io.CustomerFileReader;
+import io.ShippingInfoWriter;
 import model.customer.Customer;
 import model.shippers.ShippingInfoDeterminer;
 
@@ -11,13 +12,13 @@ public class Assignment3 {
     private Map<Long, Customer> customerDatabase = new HashMap<>();
 
     public void run() throws IOException {
-        String fileName = "FloorDeJong3/src/main/resources/input.csv";
+        String inputFile = "FloorDeJong3/src/main/resources/input.csv";
+        String outputFile = "FloorDeJong3/src/main/resources/output.csv";
 
-        new CustomerFileReader().read(fileName, customerDatabase);
+        new CustomerFileReader().read(inputFile, customerDatabase);
 
         new ShippingInfoDeterminer().determineInfo(customerDatabase);
 
-        // Write file
-//        new ShippingInfoWriter().write();
+        new ShippingInfoWriter().write(outputFile, customerDatabase);
     }
 }

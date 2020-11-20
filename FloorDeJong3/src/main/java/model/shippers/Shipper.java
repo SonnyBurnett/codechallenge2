@@ -52,4 +52,14 @@ public enum Shipper {
     public int determineDuration(double weight){
         return 0;
     }
+
+    public String getName() {
+        return name;
+    }
+
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

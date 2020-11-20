@@ -39,12 +39,12 @@ public class Customer {
         setDuration(shipper.determineDuration(totalWeight));
     }
 
-    public void addProduct(Product product) {
-        productList.add(product);
+    public String getShippingInfo() {
+        return String.format("%s,%s,%s,%s,%s", customerId, name, shipper, duration, shippingCosts);
     }
 
-    public long getCustomerId() {
-        return customerId;
+    public void addProduct(Product product) {
+        productList.add(product);
     }
 
     public String getName() {
@@ -59,23 +59,11 @@ public class Customer {
         return productList;
     }
 
-    public Shipper getShipper() {
-        return shipper;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public double getShippingCosts() {
-        return shippingCosts;
-    }
-
-    public void setDuration(int duration) {
+    void setDuration(int duration) {
         this.duration = duration;
     }
 
-    public void setShippingCosts(double shippingCosts) {
+    void setShippingCosts(double shippingCosts) {
         this.shippingCosts = shippingCosts;
     }
 }

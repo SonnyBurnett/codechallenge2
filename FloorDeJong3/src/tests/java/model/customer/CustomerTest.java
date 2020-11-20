@@ -11,7 +11,10 @@ public class CustomerTest {
 
     private Product product = mock(Product.class);
 
-    private Customer customer = spy(new Customer(1, "name", "country"));
+    private Long id = 1L;
+    private String name = "Name";
+    private String country = "Country";
+    private Customer customer = spy(new Customer(id, name, country));
 
     private Shipper shipper = mock(Shipper.class);
 
@@ -39,5 +42,18 @@ public class CustomerTest {
 
         verify(customer, times(1)).setShippingCosts(costs);
         verify(customer, times(1)).setDuration(duration);
+    }
+
+    @Test
+    public void test_getShippingInfo(){
+        double weight = 5.0;
+        when(customer.getTotalWeight()).thenReturn(weight);
+        Shipper shipper = Shipper.BELGIOPOSTO;
+        customer.setShipper(shipper);
+
+        String expectedResult = String.format("%s,%s,%s,%s,%s", id, name, shipper, shipper.determineDuration(weight)
+                , shipper.determineCosts(weight));
+
+        assertEquals(expectedResult, customer.getShippingInfo());
     }
 }
