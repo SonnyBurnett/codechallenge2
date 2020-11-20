@@ -30,11 +30,13 @@ public class ShippingInfoWriterTest {
             database.put(i, customer);
         }
 
+        String header = "CustomerId,Name,Shipper,Duration,ShippingCost\n";
         String info = "1,Name,Shipper,Duration,Costs";
         when(customer.getShippingInfo()).thenReturn(info);
 
         infoWriter.write(fileName, database);
 
-        verify(fileWriter, times(size)).write(info);
+        verify(fileWriter, times(1)).write(header);
+        verify(fileWriter, times(size)).write(info + "\n");
     }
 }
