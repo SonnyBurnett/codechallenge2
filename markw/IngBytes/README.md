@@ -1,45 +1,39 @@
 # IngBytes
 
-![Build Status](https://github.com/teamwildenberg/IngBytes/workflows/Build%20C2/badge.svg)
+![Build Status](https://github.com/teamwildenberg/IngBytes/workflows/Build%20C3/badge.svg)
 
-       _____ _           _ _                                  ___  
-      / ____| |         | | |                                |__ \ 
-     | |    | |__   __ _| | | ___ _ __   __ _  ___   ______     ) |
-     | |    | '_ \ / _` | | |/ _ \ '_ \ / _` |/ _ \ |______|   / / 
-     | |____| | | | (_| | | |  __/ | | | (_| |  __/           / /_ 
-      \_____|_| |_|\__,_|_|_|\___|_| |_|\__, |\___|          |____|
-                                         __/ |                     
-                                        |___/                     
-![Game Play](c2/Doc/Challenge2.gif)
+      _____ _           _ _                         ____  
+     / ____| |         | | |                       |___ \ 
+    | |    | |__   __ _| | | ___ _ __   __ _  ___    __) |
+    | |    | '_ \ / _` | | |/ _ \ '_ \ / _` |/ _ \  |__ < 
+    | |____| | | | (_| | | |  __/ | | | (_| |  __/  ___) |
+     \_____|_| |_|\__,_|_|_|\___|_| |_|\__, |\___| |____/ 
+                                        __/ |             
+                                       |___/              
 
-## For the Reviewer:
 
 Some tips for the reviewer:
-- The [Program.cs](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Program.cs) game-loop together with the [TwgeService.cs](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Services/TwgeService.cs) controls the game
-- The [CommandObjects](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Commands) control the flow of the game. For example:
-  - [ResetGameCommand.cs](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Commands/ResetGameCommand.cs)
-- Each GameObject (Game, Board and Player) has it's own state engine
-  - The [Context](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Model/ContextBase.cs) contains the state of the Object. For example:
-    - [GameContext](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Model/ContextBase.cs)
-  - The State objects determine the behaviour of the Object and when to transition state. For example:
-    - [GameStateNew](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Model/GameStateNew.cs)
-    - [GameStateActive](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Model/GameStateActive.cs)
-    - [GameStateFinished](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Model/GameStateFinished.cs)
-- Each GameState Object determines
-  - Which Actions they have represented by the Commands (executed by the TwgeService()). For example:
-    - [ITweContext.GetActionCommands implemented in GameStateActive.cs](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Model/GameStateActive.cs)
-  - How to render their current state (Draw())
-    - [ITweContext.Draw implemented in BoardStatePlaying.cs](https://github.com/teamwildenberg/IngBytes/blob/main/c2/Src/Model/BoardStatePlaying.cs)
-## Test Run for PR # (23)
-### Run Summary
+- The [Program.cs](https://github.com/teamwildenberg/IngBytes/blob/main/c3/Src/Program.cs) - Program entry, initialization of services  
+- The [PrintOrdersCommand](https://github.com/teamwildenberg/IngBytes/blob/main/c3/Src/Command/PrintOrdersCommand.cs) - Executes the order processing using [ReactivX](http://reactivex.io/). 
+  - All object transitions are implemented as [Extensions](https://github.com/teamwildenberg/IngBytes/blob/main/c3/Src/Extensions)
+  - All interfaces are implemented as services [Services](https://github.com/teamwildenberg/IngBytes/blob/main/c3/Src/Service)
+    - [CsvFileWriter](https://github.com/teamwildenberg/IngBytes/blob/main/c3/Src/Service/Csv/CsvFileService.cs) for Input / Result of the CSV files
+    - [CountryAdapter](https://github.com/teamwildenberg/IngBytes/blob/main/c3/Src/Service/Order/CountryAdapter.cs) for the different country rules
+    - [ShippingAdapter](https://github.com/teamwildenberg/IngBytes/blob/main/c3/Src/Service/Order/ShippingAdapter.cs) for the different shipper rules
+
+
+
+
+### Result Sets
+#### Tw.Ing.Challenge3.Tests.dll - 100%
 
 <p>
 <strong>Overall Result:</strong> ✔️ Pass <br />
 <strong>Pass Rate:</strong> 100% <br />
-<strong>Run Duration:</strong> 2s 156ms <br />
-<strong>Date:</strong> 2020-10-29 20:36:40 - 2020-10-29 20:36:42 <br />
-<strong>Framework:</strong> .NETCoreApp,Version=v3.1 <br />
-<strong>Total Tests:</strong> 19 <br />
+<strong>Run Duration:</strong> 2s 83ms <br />
+<strong>Date:</strong> 2020-11-18 19:28:18 - 2020-11-18 19:28:20 <br />
+<strong>Framework:</strong> .NETCoreApp,Version=v5.0 <br />
+<strong>Total Tests:</strong> 12 <br />
 </p>
 
 <table>
@@ -52,7 +46,7 @@ Some tips for the reviewer:
 </thead>
 <tbody>
 <tr>
-<td>19</td>
+<td>12</td>
 <td>0</td>
 <td>0</td>
 </tr>
@@ -65,7 +59,7 @@ Some tips for the reviewer:
 </table>
 
 ### Result Sets
-#### Tw.Ing.Challenge2.Tests.dll - 100%
+#### Tw.Ing.Challenge3.Tests.dll - 100%
 <details>
 <summary>Full Results</summary>
 <table>
@@ -78,98 +72,63 @@ Some tips for the reviewer:
 </thead>
 <tr>
 <td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.GameTests.Player_InvalidStates_New</td>
-<td>101ms</td>
+<td>Tw.Ing.Challenge3.Tests.PrintOrdersCommandTests.DownloadOrderCsv_NotFound</td>
+<td>224ms</td>
 </tr>
 <tr>
 <td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.GameTests.Game_State_NewToActive_Success</td>
-<td>< 1ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_Play_Success</td>
-<td>123ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_State_FinishedToBlanco_Success</td>
+<td>Tw.Ing.Challenge3.Tests.CountryAdapterTests.OrderBelgium_Success</td>
 <td>1ms</td>
 </tr>
 <tr>
 <td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_State_DrawnToFinished_Success</td>
+<td>Tw.Ing.Challenge3.Tests.CountryAdapterTests.OrderNetherlands_11kg_Success</td>
 <td>< 1ms</td>
 </tr>
 <tr>
 <td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_InvalidStates_Finished</td>
+<td>Tw.Ing.Challenge3.Tests.CountryAdapterTests.OrderNetherlands_10kg_Success</td>
 <td>< 1ms</td>
 </tr>
 <tr>
 <td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_InvalidStates_Drawn</td>
+<td>Tw.Ing.Challenge3.Tests.CountryAdapterTests.OrderNetherlands_9kg_Success</td>
 <td>< 1ms</td>
 </tr>
 <tr>
 <td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.BoardTests.PlayBoard_Success</td>
+<td>Tw.Ing.Challenge3.Tests.CountryAdapterTests.OrderOther_Success</td>
 <td>< 1ms</td>
 </tr>
 <tr>
 <td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_InvalidStates_Blanco</td>
-<td>< 1ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_State_BlancToDrawn_Success</td>
-<td>4ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.BoardTests.Board_Play_TwiceError</td>
-<td>< 1ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_State_AtHandToActive_Success</td>
-<td>34ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_State_NewToActive_Success</td>
-<td>1ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_InvalidStates_Active</td>
-<td>1ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_State_ActiveToAtHand_Success</td>
-<td>1ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_InvalidStates_Win</td>
-<td>1ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_State_AtHandToWin_Success</td>
-<td>< 1ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_InvalidStates_AtHand</td>
-<td>< 1ms</td>
-</tr>
-<tr>
-<td> ✔️ Passed </td>
-<td>Tw.Ing.Challenge2.Tests.PlayerTests.Player_InvalidStates_New</td>
+<td>Tw.Ing.Challenge3.Tests.OrderProcessingServiceTests.ShippingAssignmentToConfirmation_Success</td>
 <td>2ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge3.Tests.OrderProcessingServiceTests.OrderToShippingAssignment_Success</td>
+<td>< 1ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge3.Tests.CsvServiceTests.DownloadOrderCsv_Success</td>
+<td>283ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge3.Tests.OrderProcessingServiceTests.LineToOrder_Success</td>
+<td>9ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge3.Tests.CsvServiceTests.DownloadOrderCsv_NotFound</td>
+<td>20ms</td>
+</tr>
+<tr>
+<td> ✔️ Passed </td>
+<td>Tw.Ing.Challenge3.Tests.CsvServiceTests.DownloadOrderCsv_InvalidCountry</td>
+<td>10ms</td>
 </tr>
 </tbody>
 </table>
@@ -179,11 +138,11 @@ Some tips for the reviewer:
 <details>
 <summary>Informational</summary>
 <pre><code>
-[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.0 (64-bit .NET Core 3.1.5)
-[xUnit.net 00:00:00.45]   Discovering: Tw.Ing.Challenge2.Tests
-[xUnit.net 00:00:00.50]   Discovered:  Tw.Ing.Challenge2.Tests
-[xUnit.net 00:00:00.50]   Starting:    Tw.Ing.Challenge2.Tests
-[xUnit.net 00:00:00.76]   Finished:    Tw.Ing.Challenge2.Tests
+[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.3+1b45f5407b (64-bit .NET 5.0.0)
+[xUnit.net 00:00:00.71]   Discovering: Tw.Ing.Challenge3.Tests
+[xUnit.net 00:00:00.76]   Discovered:  Tw.Ing.Challenge3.Tests
+[xUnit.net 00:00:00.77]   Starting:    Tw.Ing.Challenge3.Tests
+[xUnit.net 00:00:01.21]   Finished:    Tw.Ing.Challenge3.Tests
 </code></pre>
 </details>
 
@@ -208,9 +167,9 @@ Data collector 'Code Coverage' message: No code coverage data available. Code co
 
 ### Code Coverage
 
-![Code Coverage](c2/Doc/CodeCoverage.png)
+![Code Coverage](c3/Doc/CodeCoverage.png)
 
 
 ### Code Analysis
 
-![Code Analysis](c2/Doc/CodeAnalysis.png)
+![Code Analysis](c3/Doc/CodeAnalysis.png)
