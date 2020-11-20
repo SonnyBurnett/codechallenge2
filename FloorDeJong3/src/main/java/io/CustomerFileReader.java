@@ -44,15 +44,15 @@ public class CustomerFileReader {
             return;
         }
 
-        Customer existingCustomer = customerDatabase.get(Long.parseLong(data[0]));
+        Customer customer = customerDatabase.get(Long.parseLong(data[0]));
         Product product = productFactory.create(data[2], Double.parseDouble(data[3]), Double.parseDouble(data[4]));
-        if (existingCustomer == null) {
-            Customer newCustomer = customerFactory.create(Long.parseLong(data[0]), data[1], data[5]);
-            newCustomer.addProduct(product);
-            customerDatabase.put(Long.parseLong(data[0]), newCustomer);
-        } else {
-            existingCustomer.addProduct(product);
+        if (customer == null) {
+            customer = customerFactory.create(Long.parseLong(data[0]), data[1], data[5]);
+            customerDatabase.put(Long.parseLong(data[0]), customer);
         }
+
+        customer.addProduct(product);
+
     }
 
     boolean checkHeaderInfo(String header) {

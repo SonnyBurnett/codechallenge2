@@ -136,9 +136,9 @@ public class CustomerFileReaderTest {
         reader.read(fileName, customerDatabase);
 
         verify(reader, times(1)).checkHeaderInfo(anyString());
-        verify(reader, times(6)).processDate(anyMap(),anyString());
-        verify(reader, times(6)).checkData(any());
-        verify(customerDatabase, times(2)).get(anyLong());
+        verify(reader, times(7)).processDate(anyMap(),anyString());
+        verify(reader, times(7)).checkData(any());
+        verify(customerDatabase, times(3)).get(anyLong());
     }
 
     @Test
