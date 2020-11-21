@@ -184,4 +184,6 @@ Special attention to the advices given in the following pages:
 * https://www.geeksforgeeks.org/difference-between-abstract-class-and-interface-in-java/
 And the simplified explanation by this page:
 * https://medium.com/@alifabdullah/easiest-explanation-of-abstract-class-and-interface-280741bc2daf
-    
+
+Collection of frequently used Java Design Patterns:
+* https://www.journaldev.com/1827/java-design-patterns-example-tutorial
