@@ -48,6 +48,9 @@ Some off the decisions I have taken:
     * The input file contains a typo in line two 466,19,2.5 should be 466.19,2.5
     * The output of the sample in the pptx at line 3 the shipping cost should be 4.45 and not 5.7
   * The shipping calculation will be done by a shipping stateful engine, with its own component model.
+  * Special attention to ShippingRule, it needed an overload on equals() and hashCode() for the distinct(), otherwise
+  the duplicates where not filtered in the streams of ShippingRules (note: during testing multiple rules would be added).
+  This proves that you do need to add testing for all methods, even if you have a functioning program. 
 
  Here below I show a simplified diagram model on usages and dependencies etc. 
  (note: this is simplified and not a real UML compliant representation, due to ascii art):
