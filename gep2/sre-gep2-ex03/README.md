@@ -41,13 +41,13 @@ be the Abstract pattern combined with Filter/Criteria pattern
 points.
 
 Some off the decisions I have taken:
-    - Create a customer list with his orders and its packages
-    - I introduced some fun into some names of classes and variables (hint: "Pakjes Avond")
-    - This time I did not make/use property parser, I simply hardcoded used hard coding for the attributes in and out.
-    - I fixed several data issues in the sample data and given examples:
-            - inputs files contains a typo in line two 466,19,2.5 should be 466.19,2.5
-            - the output of the sample in the pptx at line 3 the shipping cost should be 4.45 and not 5.7
-    - The shipping calculation will be done by a shipping stateful engine, with its own component model.
+  * Create a customer list with his orders and its packages
+  * I introduced some fun into some names of classes and variables (hint: "Pakjes Avond")
+  * This time I did not make/use property parser, I simply hardcoded used hard coding for the attributes in and out.
+  * I fixed several data issues in the sample data and given examples:
+    * The input file contains a typo in line two 466,19,2.5 should be 466.19,2.5
+    * The output of the sample in the pptx at line 3 the shipping cost should be 4.45 and not 5.7
+  * The shipping calculation will be done by a shipping stateful engine, with its own component model.
 
  Here below I show a simplified diagram model on usages and dependencies etc. 
  (note: this is simplified and not a real UML compliant representation, due to ascii art):

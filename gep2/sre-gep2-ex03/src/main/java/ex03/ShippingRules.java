@@ -30,11 +30,12 @@ public class ShippingRules {
         shippingRuleList.add(temp);
     }
 
-    public static List<ShippingRule> filerShippingRuleList(String country) {
+    public static List<ShippingRule> filterShippingRuleList(String country) {
         return shippingRuleList
                 .stream()
                 .filter(r -> r.getOperatingCountry().equals(country) ||
                         r.getOperatingCountry().equals("ALL"))
+                .distinct()
                 .collect(Collectors.toList());
     }
 }

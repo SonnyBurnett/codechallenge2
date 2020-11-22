@@ -2,11 +2,16 @@ package ex03;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ShippingRulesTest {
 
     @Test
-    void filerShippingRuleList() {
+    void test_filterShippingRuleList() {
+        List<ShippingRule> result = ShippingRules.filterShippingRuleList("Netherlands");
+
+        assertEquals(8, result.size());
     }
 }

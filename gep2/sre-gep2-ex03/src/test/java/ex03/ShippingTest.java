@@ -3,7 +3,8 @@ package ex03;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ShippingTest {
     private final Shipping testShipping = new Shipping();
@@ -54,28 +55,4 @@ class ShippingTest {
 
         assertEquals(expectedMessage, testShipping.getFileName());
     }
-
-    @Test
-    void readFile() {
-    }
-
-    @Test
-    void writeFile() {
-    }
-    @Test
-    void shippingInfo() {
-    }
-
-    @Test
-    void printShippingLabels() {
-    }
-
-    @Test
-    void load() {
-    }
-
-    @Test
-    void write() {
-    }
-
 }
