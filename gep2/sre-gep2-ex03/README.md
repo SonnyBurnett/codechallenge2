@@ -32,23 +32,54 @@ CustomerId, Name, Shipper, Duration, ShippingCost
 
 ## Brainstorm
 I started with a simple combination of the previous two exercises, 
-during the end of the design I see that I needed to change chosen design pattern (The used patern is that I favour is 
-Composite Entity Pattrn).
-In order to make the original deadline I decided to still commit this one (if I have time, due to the exstention 
-I'll switch maby to the so-favored bridge pattern, however the best pattren to show of acctaully will be the Abstract 
-pattern combined with Filter/Criteria pattern; note this will be looking a lot as a bridge pattern implementation)
+during the end of the design I saw that I needed to change the chosen design pattern (The used pattern is that I favour
+ is Composite Entity pattern).
+In order to make the original deadline I decided to still commit this one (if I have time, or due to the extension of
+the assignment I'll switch maybe to the so-favored bridge pattern, however the best pattern to show off will actually 
+be the Abstract pattern combined with Filter/Criteria pattern 
+(Note: this will be looking a lot as a bridge pattern implementation. So this form will possibly not score the full
+points.
 
-Some off the decissions I have taken:
-    - Create a customer with his orders and its packages
-    - Doing line one I introduced fun into some names of classes and variables (hint: "Pakjes Avond"
-    - This time I did not make/use property parser, I simply hardcoded this as atributes in and out.
+Some off the decisions I have taken:
+    - Create a customer list with his orders and its packages
+    - I introduced some fun into some names of classes and variables (hint: "Pakjes Avond")
+    - This time I did not make/use property parser, I simply hardcoded used hard coding for the attributes in and out.
     - I fixed several data issues in the sample data and given examples:
             - inputs files contains a typo in line two 466,19,2.5 should be 466.19,2.5
             - the output of the sample in the pptx at line 3 the shipping cost should be 4.45 and not 5.7
-    - The calcualtion is done by sort shipping endgine, with its own component model.
+    - The shipping calculation will be done by a shipping stateful engine, with its own component model.
 
  Here below I show a simplified diagram model on usages and dependencies etc. 
  (note: this is simplified and not a real UML compliant representation, due to ascii art):
 ```
+
+ +-----------------------------+      +------------------------------+     +-------------------------------+
+ | Class : ParcelEvening       |      | Interface : ReadFileInterface|     | Interface : WriteFileInterface|
+ +------------+----------------+      +-------------+-----------------+    +-------------+-----------------+
+              |                                     |                                    |
+              |                      +--------------+------------------------------------+
+              |                      |
+              |      +---------------------------+       +-----------------------------+
+              +------+ Class : Shipping          +-------+ Class : Customers           |
+                     +---------------------------+       +-------------+---------------+
+                                     |                                 |
+              +----------------------+                                 |
+              |                                                        |
+ +------------+----------------+                         +-------------+---------------+
+ | Class : ShippingInformation |                         | Class : Customer            |
+ +------------+----------------+                         +-------------+---------------+
+              |                                                        |
+              +-------------------------------------+------------------+-----------------+
+              |                                     |                                    |
+ +------------+----------------+      +-------------+---------------+      +-------------+---------------+
+ | Class : ShippingRules       |      | Class : Orders              |      | Class : Packages            |
+ +------------+----------------+      +-------------+---------------+      +-------------+---------------+
+              |                                     |                                    |
+              |                                     |                                    |
+              |                                     |                                    |
+ +------------+----------------+      +-------------+---------------+      +-------------+---------------+
+ | Class : ShippingRule        |      | Class : Order               |      | Class : Package             |
+ +-----------------------------+      +-----------------------------+      +-----------------------------+
+
 
 ```
