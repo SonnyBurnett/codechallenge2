@@ -46,7 +46,7 @@ The readme files of the root modules contain the explanation for the expert assi
 2. [Expert Assignment 2](gep2/sre-gep2-ex02/README.md): 'gep2/sre-gep2-ex02/README.md'
     is guiding you through the solution for the Object Oriented setup for assignment 2.
 2. [Expert Assignment 3](gep2/sre-gep2-ex03/README.md): 'gep2/sre-gep2-ex03/README.md'
-    <TBD> for assignment 3.
+    is guiding you through the solution for the Object Oriented setup for assignment 3.
 
 ## Deployment
 
@@ -67,63 +67,103 @@ sre14-oop
     |   |   
     |   └──test
     |       └──java
-    └──sre-gep2-ex01
-        ├── README.md               This README for explaining the fist assignment.
-        ├── pom.xml
-        └──src
-            ├──main
-            |   ├──java
-            |   |   └──ex01
-            |   |       ├── Currency.java
-            |   |       ├── Expert01.java
-            |   |       ├── Product.java
-            |   |       ├── ProductDetail.java
-            |   |       ├── Products.java
-            |   |       └── ProductsHandler.java
-            |   └──resources
-            |       ├── 001-experts-inputs.csv
-            |       └── 001-experts-outputs.csv
-            └──test
-                └──java
-                |    └──ex01
-                |       ├── CurrencyTest.java
-                |       ├── ProductTest.java
-                |       └── ProductsTest.java
-                └──resources
-                    ├── 001-test-inputs.csv
-                    └── 001-test-outputs.csv
-
-    └──sre-gep2-ex01
+    ├──sre-gep2-ex01
+    |   ├── README.md               This README for explaining the fist assignment.
+    |   ├── pom.xml
+    |   └──src
+    |       ├──main
+    |       |   ├──java
+    |       |   |   └──ex01
+    |       |   |       ├── Currency.java
+    |       |   |       ├── Expert01.java
+    |       |   |       ├── Product.java
+    |       |   |       ├── ProductDetail.java
+    |       |   |       ├── Products.java
+    |       |   |       └── ProductsHandler.java
+    |       |   └──resources
+    |       |       ├── 001-experts-inputs.csv
+    |       |       └── 001-experts-outputs.csv
+    |       └──test
+    |           └──java
+    |           |    └──ex01
+    |           |       ├── CurrencyTest.java
+    |           |       ├── ProductTest.java
+    |           |       └── ProductsTest.java
+    |           └──resources
+    |               ├── 001-test-inputs.csv
+    |               └── 001-test-outputs.csv
+    |
+    ├──sre-gep2-ex02
+    |   ├── README.md               This README for explaining the second assignment.
+    |   ├── pom.xml
+    |   └──src
+    |       ├──main
+    |       |   ├──java
+    |       |   |   └──ex02
+    |       |   |       ├── Board.java
+    |       |   |       ├── Cell.java
+    |       |   |       ├── fileLoader.java
+    |       |   |       ├── fileWriter.java
+    |       |   |       ├── Game.java
+    |       |   |       ├── GameStates.java
+    |       |   |       ├── IllegalGameSetup.java
+    |       |   |       ├── IllegalMove.java
+    |       |   |       ├── Player.java
+    |       |   |       ├── PlayTicTacToe.java
+    |       |   |       └── TicTacToe.java
+    |       |   └──resources
+    |       |       └── inputs.txt
+    |       └──test
+    |           └──java
+    |           |    └──ex02
+    |           |       ├── BoardTest.java
+    |           |       ├── CellTest.java
+    |           |       ├── GameStatesTest.java
+    |           |       ├── PlayerTest.java
+    |           |       └── TicTacToeTest.java
+    |           └──resources
+    |               ├── 002-experts.txt
+    |               └── 002-experts-example.txt
+    |
+    └──sre-gep2-ex02
         ├── README.md               This README for explaining the second assignment.
         ├── pom.xml
         └──src
             ├──main
             |   ├──java
             |   |   └──ex02
-            |   |       ├── Board.java
-            |   |       ├── Cell.java
-            |   |       ├── fileLoader.java
-            |   |       ├── fileWriter.java
-            |   |       ├── Game.java
-            |   |       ├── GameStates.java
-            |   |       ├── IllegalGameSetup.java
-            |   |       ├── IllegalMove.java
-            |   |       ├── Player.java
-            |   |       ├── PlayTicTacToe.java
-            |   |       └── TicTacToe.java
+            |   |       ├── Customer.java
+            |   |       ├── Customers.java
+            |   |       ├── Order.java
+            |   |       ├── Orders.java
+            |   |       ├── Package.java
+            |   |       ├── Packages.java
+            |   |       ├── ParcelEvening.java
+            |   |       ├── ReadInterface.java
+            |   |       ├── Shipping.java
+            |   |       ├── ShipingInformation.java
+            |   |       ├── ShippingRule.java
+            |   |       ├── ShippingRules.java
+            |   |       └── WriteFileInterface.java
             |   └──resources
-            |       └── inputs.txt
+            |       └── 003-exports-inputs.csv
             └──test
                 └──java
                 |    └──ex02
-                |       ├── BoardTest.java
-                |       ├── CellTest.java
-                |       ├── GameStatesTest.java
-                |       ├── PlayerTest.java
-                |       └── TicTacToeTest.java
+                |       ├── CustomersTest.java
+                |       ├── CustomerTest.java
+                |       ├── OrdersTest.java
+                |       ├── OrderTest.java
+                |       ├── PackagesTest.java
+                |       ├── PackageTest.java
+                |       ├── ParcelEveningTest.java 
+                |       ├── ShipingInformationTest.java
+                |       ├── ShippingRulesTest.java
+                |       ├── ShippingRuleTest.java
+                |       └── ShippingTest.java
                 └──resources
-                    ├── 002-experts.txt
-                    └── 002-experts-example.txt
+                    ├── 003-experts-example.txt
+                    └── 003-experts-inputs.txt
 ```
 ## Build With
 
