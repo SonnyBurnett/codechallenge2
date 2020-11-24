@@ -1,22 +1,27 @@
 import io.CustomerFileReader;
-import model.CustomerDatabase;
+import io.ShippingInfoWriter;
+import model.customer.Customer;
+import model.shippers.ShippingInfoDeterminer;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Assignment3 {
 
-    private CustomerDatabase customerDatabase = new CustomerDatabase();
+    private final Map<Long, Customer> customerDatabase = new HashMap<>();
 
-    public void run() throws IOException {
-        String fileName = "FloorDeJong3/src/main/resources/input.csv";
+    private final CustomerFileReader reader = new CustomerFileReader();
+    private final ShippingInfoWriter writer = new ShippingInfoWriter();
+    private final ShippingInfoDeterminer determiner = new ShippingInfoDeterminer();
 
-        // Read file
-        new CustomerFileReader().read(fileName, customerDatabase);
-
-        // Do logic
-
-
-        // Write file
-//        new ShippingInfoWriter().write();
+    public void run(String inputFile, String outputFile) {
+        try {
+            reader.read(inputFile, customerDatabase);
+            determiner.determineInfo(customerDatabase);
+            writer.write(outputFile, customerDatabase);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
