@@ -19,14 +19,14 @@ public class TicTacToePlayerTest {
     public void testDoMoveThreeInRowPossible() {
         // Assign
         int positionNr = 1;
-        when(spyBoard.hasTwoInRowForSymbol(anyString())).thenReturn(mockPosition);
+        when(spyBoard.gettingWinningPosition(anyString())).thenReturn(mockPosition);
         when(mockPosition.getPositionId()).thenReturn(positionNr);
 
         // Act
         player.doMove(spyBoard);
 
         // assert
-        verify(spyBoard, times(1)).hasTwoInRowForSymbol(anyString());
+        verify(spyBoard, times(1)).gettingWinningPosition(anyString());
         verify(spyBoard, times(1)).setPositionValue(positionNr, player.getSymbol());
         verifyNoMoreInteractions(spyBoard);
     }
@@ -35,13 +35,13 @@ public class TicTacToePlayerTest {
     public void testDoMoveThreeInRowNotPossible() {
         // Assign
         int positionNr = 1;
-        when(spyBoard.hasTwoInRowForSymbol(anyString())).thenReturn(null);
+        when(spyBoard.gettingWinningPosition(anyString())).thenReturn(null);
 
         // Act
         player.doMove(spyBoard);
 
         // assert
-        verify(spyBoard, times(1)).hasTwoInRowForSymbol(anyString());
+        verify(spyBoard, times(1)).gettingWinningPosition(anyString());
         verifyNoMoreInteractions(spyBoard);
     }
 }

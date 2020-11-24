@@ -8,6 +8,7 @@ public class TicTacToePlayer{
     private String name;
     private String symbol;
 
+    // ToDo: make symbol an enum
     public TicTacToePlayer(int id, String name, String symbol) {
         this.id = id;
         this.name = name;
@@ -15,7 +16,7 @@ public class TicTacToePlayer{
     }
 
     public void doMove(TicTacToeBoard board) {
-        BoardPosition position = board.hasTwoInRowForSymbol(this.symbol);
+        BoardPosition position = board.gettingWinningPosition(this.symbol);
 
         if (position != null) {
             board.setPositionValue(position.getPositionId(), this.symbol);

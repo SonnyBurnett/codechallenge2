@@ -126,7 +126,7 @@ public class TicTacToeBoardTest {
         when(mockPosition.sameValue(any(BoardPosition.class))).thenReturn(true);
 
         // Act + assert
-        assertTrue(spyBoard.hasThreeInRowInDirection(mockPosition, "L"));
+        assertTrue(spyBoard.hasThreeInRow(mockPosition, "L"));
     }
 
     @Test
@@ -136,7 +136,7 @@ public class TicTacToeBoardTest {
         when(mockPosition.sameValue(any(BoardPosition.class))).thenReturn(true).thenReturn(false);
 
         // Act + assert
-        assertFalse(spyBoard.hasThreeInRowInDirection(mockPosition, "L"));
+        assertFalse(spyBoard.hasThreeInRow(mockPosition, "L"));
     }
 
     @Test
@@ -145,7 +145,7 @@ public class TicTacToeBoardTest {
         String value = "X";
         when(mockPosition.getValue()).thenReturn(value);
 
-        doReturn(true).doReturn(false).when(spyBoard).hasThreeInRowInDirection(any(BoardPosition.class), anyString());
+        doReturn(true).doReturn(false).when(spyBoard).hasThreeInRow(any(BoardPosition.class), anyString());
 
         // Act + assert
         assertEquals(value, spyBoard.hasThreeInRowOnSides());
@@ -158,7 +158,7 @@ public class TicTacToeBoardTest {
         String value = "X";
         when(mockPosition.getValue()).thenReturn(value);
 
-        doReturn(true).doReturn(false).when(spyBoard).hasThreeInRowInDirection(any(BoardPosition.class), anyString());
+        doReturn(true).doReturn(false).when(spyBoard).hasThreeInRow(any(BoardPosition.class), anyString());
 
         // Act + assert
         assertEquals(value, spyBoard.hasThreeInRowMiddlePosition());
@@ -206,7 +206,7 @@ public class TicTacToeBoardTest {
         when(mockPosition.sameValue(any(BoardPosition.class))).thenReturn(true);
 
         // Act + assert
-        assertEquals(mockPosition, spyBoard.createThreeInRowDirection(mockPosition, "L", value));
+        assertEquals(mockPosition, spyBoard.gettingWinningPosition(mockPosition, "L", value));
     }
 
     @Test
@@ -217,7 +217,7 @@ public class TicTacToeBoardTest {
         when(mockPosition.sameValue(any(BoardPosition.class))).thenReturn(false);
 
         // Act + assert
-        assertNull(spyBoard.createThreeInRowDirection(mockPosition, "L", "X"));
+        assertNull(spyBoard.gettingWinningPosition(mockPosition, "L", "X"));
     }
 
     @Test
@@ -226,11 +226,11 @@ public class TicTacToeBoardTest {
         String value = "X";
         when(mockPosition.getValue()).thenReturn(value);
 
-        doReturn(mockPosition).doReturn(null).when(spyBoard).hasTwoInRowOnSides(anyString());
+        doReturn(mockPosition).doReturn(null).when(spyBoard).getWinningInRowOnSides(anyString());
 
         // Act + assert
-        assertEquals(mockPosition, spyBoard.hasTwoInRowOnSides("X"));
-        assertNull(spyBoard.hasTwoInRowOnSides("X"));
+        assertEquals(mockPosition, spyBoard.getWinningInRowOnSides("X"));
+        assertNull(spyBoard.getWinningInRowOnSides("X"));
     }
 
     @Test
@@ -239,41 +239,41 @@ public class TicTacToeBoardTest {
         String value = "X";
         when(mockPosition.getValue()).thenReturn(value);
 
-        doReturn(mockPosition).doReturn(null).when(spyBoard).hasTwoInRowMiddlePosition(anyString());
+        doReturn(mockPosition).doReturn(null).when(spyBoard).getWinningPositionMiddlePosition(anyString());
 
         // Act + assert
-        assertEquals(mockPosition, spyBoard.hasTwoInRowMiddlePosition("X"));
-        assertNull(spyBoard.hasTwoInRowMiddlePosition("X"));
+        assertEquals(mockPosition, spyBoard.getWinningPositionMiddlePosition("X"));
+        assertNull(spyBoard.getWinningPositionMiddlePosition("X"));
     }
 
     @Test
     public void testTwoInRowViaMiddle() {
         // Assign
-        doReturn(mockPosition).when(spyBoard).hasTwoInRowMiddlePosition(anyString());
-        doReturn(null).when(spyBoard).hasTwoInRowOnSides(anyString());
+        doReturn(mockPosition).when(spyBoard).getWinningPositionMiddlePosition(anyString());
+        doReturn(null).when(spyBoard).getWinningInRowOnSides(anyString());
 
         // Act + assert
-        assertEquals(mockPosition, spyBoard.hasTwoInRowForSymbol("X"));
+        assertEquals(mockPosition, spyBoard.gettingWinningPosition("X"));
     }
 
     @Test
     public void testTwoInRowViaSide() {
         // Assign
         String value = "X";
-        doReturn(null).when(spyBoard).hasTwoInRowMiddlePosition(anyString());
-        doReturn(mockPosition).when(spyBoard).hasTwoInRowOnSides(anyString());
+        doReturn(null).when(spyBoard).getWinningPositionMiddlePosition(anyString());
+        doReturn(mockPosition).when(spyBoard).getWinningInRowOnSides(anyString());
 
         // Act + assert
-        assertEquals(mockPosition, spyBoard.hasTwoInRowForSymbol("X"));
+        assertEquals(mockPosition, spyBoard.gettingWinningPosition("X"));
     }
 
     @Test
     public void testTwoInRowNone() {
         // Assign
-        doReturn(null).when(spyBoard).hasTwoInRowMiddlePosition(anyString());
-        doReturn(null).when(spyBoard).hasTwoInRowOnSides(anyString());
+        doReturn(null).when(spyBoard).getWinningPositionMiddlePosition(anyString());
+        doReturn(null).when(spyBoard).getWinningInRowOnSides(anyString());
 
         // Act + assert
-        assertNull(spyBoard.hasTwoInRowForSymbol("X"));
+        assertNull(spyBoard.gettingWinningPosition("X"));
     }
 }
