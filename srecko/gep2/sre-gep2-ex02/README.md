@@ -1,6 +1,6 @@
 # Project Object Oriented Programing
-## Expert Assignment 1
-### Assignment 1: Experts
+## Expert Assignment 2
+### Assignment 2: Experts
 1. Before you start download the file inputs.csv from 
 https://www.henrybeen.nl/wpcontent/uploads/2020/10/002-experts.txt
 2. Write a program that:
