@@ -1,7 +1,10 @@
-import board.TicTacToeBoard;
+package model;
+
+import model.board.TicTacToeBoard;
+import model.TicTacToeGame;
 import org.junit.jupiter.api.Test;
-import player.TicTacToePlayer;
-import player.TicTacToeSymbol;
+import model.TicTacToePlayer;
+import model.TicTacToeSymbol;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

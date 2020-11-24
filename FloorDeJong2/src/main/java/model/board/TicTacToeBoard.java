@@ -1,9 +1,8 @@
-package board;
+package model.board;
 
 import Exceptions.IllegalMoveException;
 import directions.Directions2D;
-import org.apache.commons.lang3.EnumUtils;
-import player.TicTacToeSymbol;
+import model.TicTacToeSymbol;
 
 import java.util.HashMap;
 import java.util.Map;

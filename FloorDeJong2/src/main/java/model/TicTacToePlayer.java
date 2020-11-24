@@ -1,7 +1,7 @@
-package player;
+package model;
 
-import board.BoardPosition;
-import board.TicTacToeBoard;
+import model.board.BoardPosition;
+import model.board.TicTacToeBoard;
 
 public class TicTacToePlayer{
     private int id;

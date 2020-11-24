@@ -1,6 +1,9 @@
-import board.TicTacToeBoard;
-import player.TicTacToePlayer;
-import player.TicTacToeSymbol;
+import model.board.TicTacToeBoard;
+import io.TicTacToeReader;
+import io.TicTacToeWriter;
+import model.TicTacToeGame;
+import model.TicTacToePlayer;
+import model.TicTacToeSymbol;
 
 import java.io.IOException;
 
@@ -13,8 +16,8 @@ public class Assignment2 {
         TicTacToePlayer player1 = new TicTacToePlayer(1, "Floor", TicTacToeSymbol.X);
         TicTacToePlayer player2 = new TicTacToePlayer(2, "Freek", TicTacToeSymbol.O);
 
-        TicTacToeBoard board = new Reader().readFile(inputFile);
+        TicTacToeBoard board = new TicTacToeReader().readFile(inputFile);
         String nextMove = new TicTacToeGame(board, player1, player2).nextTurn();
-        new Writer().writeNextMove(outputFile, nextMove);
+        new TicTacToeWriter().writeNextMove(outputFile, nextMove);
     }
 }

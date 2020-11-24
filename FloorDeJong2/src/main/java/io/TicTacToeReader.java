@@ -1,30 +1,30 @@
-import board.TicTacToeBoard;
-import board.TicTacToeBoardFactory;
-import player.TicTacToeSymbol;
+package io;
+
+import model.board.TicTacToeBoard;
+import model.board.TicTacToeBoardFactory;
+import model.TicTacToeSymbol;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Reader {
+public class TicTacToeReader {
 
-    private final ScannerFactory scannerFactory;
     private final TicTacToeBoardFactory boardFactory;
 
-    public Reader(ScannerFactory scannerFactory, TicTacToeBoardFactory boardFactory) {
-        this.scannerFactory = scannerFactory;
+    public TicTacToeReader(TicTacToeBoardFactory boardFactory) {
         this.boardFactory = boardFactory;
     }
 
-    public Reader() {
-        this(new ScannerFactory(), new TicTacToeBoardFactory());
+    public TicTacToeReader() {
+        this( new TicTacToeBoardFactory());
     }
 
     public TicTacToeBoard readFile(String fileLocation) throws FileNotFoundException {
         File file = new File(fileLocation);
         TicTacToeBoard board = boardFactory.createBoard();
 
-        try (Scanner scanner = scannerFactory.createScanner(file)) {
+        try (Scanner scanner = new Scanner(file)) {
             int positionCount = -1;
 
             while (scanner.hasNextLine()) {

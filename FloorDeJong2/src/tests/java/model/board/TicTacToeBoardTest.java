@@ -1,8 +1,8 @@
-package board;
+package model.board;
 
 import Exceptions.IllegalMoveException;
 import org.junit.jupiter.api.Test;
-import player.TicTacToeSymbol;
+import model.TicTacToeSymbol;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;

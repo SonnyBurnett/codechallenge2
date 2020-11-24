@@ -1,4 +1,4 @@
-package board;
+package model.board;
 
 import directions.Directions2D;
 

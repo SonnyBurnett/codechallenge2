@@ -1,6 +1,6 @@
-import board.TicTacToeBoard;
-import player.TicTacToePlayer;
-import player.TicTacToeSymbol;
+package model;
+
+import model.board.TicTacToeBoard;
 
 import java.util.HashMap;
 import java.util.Map;
