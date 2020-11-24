@@ -1,27 +1,28 @@
 import board.TicTacToeBoard;
 import org.junit.jupiter.api.Test;
 import player.TicTacToePlayer;
-import player.TicTacToePlayerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class TicTacToeGameTest {
 
-    private final TicTacToePlayer mockPlayer = mock(TicTacToePlayer.class);
-
-    private final TicTacToePlayerFactory mockPlayerFactory = mock(TicTacToePlayerFactory.class);
-    { when(mockPlayerFactory.createPlayer(anyInt(), anyString(), anyString())).thenReturn(mockPlayer); }
+    private final TicTacToePlayer mockPlayer1 = mock(TicTacToePlayer.class);
+    private final TicTacToePlayer mockPlayer2 = mock(TicTacToePlayer.class);
+    {
+        when(mockPlayer1.getSymbol()).thenReturn("X");
+        when(mockPlayer2.getSymbol()).thenReturn("O");
+    }
 
     private final TicTacToeBoard mockBoard = mock(TicTacToeBoard.class);
 
-    private final TicTacToeGame game = new TicTacToeGame(mockBoard, mockPlayerFactory);
+    private final TicTacToeGame game = new TicTacToeGame(mockBoard, mockPlayer1, mockPlayer2);
     private final TicTacToeGame spyGame = spy(game);
 
     @Test
     public void testDetermineNextPlayerEmptyBoard() {
         // Assign
-        TicTacToeGame newGame = new TicTacToeGame(mockBoard);
+        TicTacToeGame newGame = new TicTacToeGame(mockBoard, mockPlayer1, mockPlayer2);
         when(mockBoard.getNumberOccupiedPositions()).thenReturn(0);
 
         // Act + assert
@@ -31,7 +32,7 @@ public class TicTacToeGameTest {
     @Test
     public void testDetermineNextPlayerNonEmptyBoardEven() {
         // Assign
-        TicTacToeGame newGame = new TicTacToeGame(mockBoard);
+        TicTacToeGame newGame = new TicTacToeGame(mockBoard, mockPlayer1, mockPlayer2);
         when(mockBoard.getNumberOccupiedPositions()).thenReturn(2);
 
         // Act + assert
@@ -41,7 +42,7 @@ public class TicTacToeGameTest {
     @Test
     public void testDetermineNextPlayerNonEmptyBoardUneven() {
         // Assign
-        TicTacToeGame newGame = new TicTacToeGame(mockBoard);
+        TicTacToeGame newGame = new TicTacToeGame(mockBoard, mockPlayer1, mockPlayer2);
         when(mockBoard.getNumberOccupiedPositions()).thenReturn(3);
 
         // Act + assert
@@ -55,7 +56,7 @@ public class TicTacToeGameTest {
         when(mockBoard.hasThreeInRow()).thenReturn(value);
 
         // Act + Assert
-        assertEquals(mockPlayer, game.hasWinner());
+        assertEquals(mockPlayer1, game.hasWinner());
     }
 
     @Test
@@ -71,8 +72,8 @@ public class TicTacToeGameTest {
     public void testNextTurnHasWinner() {
         // Assign
         String value = "X";
-        doReturn(mockPlayer).when(spyGame).hasWinner();
-        when(mockPlayer.getSymbol()).thenReturn(value);
+        doReturn(mockPlayer1).when(spyGame).hasWinner();
+        when(mockPlayer1.getSymbol()).thenReturn(value);
 
         // Act + assert
         assertEquals("WINNER " + value, spyGame.nextTurn());
@@ -83,7 +84,7 @@ public class TicTacToeGameTest {
         // Assign
         String value = "X";
         doReturn(null).when(spyGame).hasWinner();
-        when(mockPlayer.getSymbol()).thenReturn(value);
+        when(mockPlayer1.getSymbol()).thenReturn(value);
 
         // Act + assert
         assertEquals("NEXTMOVE " + value, spyGame.nextTurn());

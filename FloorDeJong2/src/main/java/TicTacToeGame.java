@@ -1,36 +1,21 @@
 import board.TicTacToeBoard;
 import player.TicTacToePlayer;
-import player.TicTacToePlayerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class TicTacToeGame {
 
-    private final TicTacToePlayerFactory playerFactory;
-
     TicTacToeBoard board;
     Map<String, TicTacToePlayer> players = new HashMap<>();
     boolean isFinished;
 
-    public TicTacToeGame(TicTacToeBoard board, TicTacToePlayerFactory playerFactory) {
+//    ToDo: check whether players have different symbols
+    public TicTacToeGame(TicTacToeBoard board, TicTacToePlayer player1, TicTacToePlayer player2) {
         this.isFinished = false;
         this.board = board;
-        this.playerFactory = playerFactory;
-        this.createPlayers();
-    }
-
-    public TicTacToeGame(TicTacToeBoard board) {
-        this(board, new TicTacToePlayerFactory());
-    }
-
-    public TicTacToeGame() {
-        this(new TicTacToeBoard());
-    }
-
-    public void createPlayers() {
-        this.players.put("X", this.playerFactory.createPlayer(1, "Player1", "X"));
-        this.players.put("O", this.playerFactory.createPlayer(2, "Player2", "O"));
+        this.players.put(player1.getSymbol(), player1);
+        this.players.put(player2.getSymbol(), player2);
     }
 
     public String nextTurn() {
@@ -40,6 +25,7 @@ public class TicTacToeGame {
             return "WINNER " + winner.getSymbol();
         } else {
             TicTacToePlayer nextPlayer = determineNextPlayer();
+            nextPlayer.doMove(board);
             return "NEXTMOVE " + nextPlayer.getSymbol();
         }
     }
