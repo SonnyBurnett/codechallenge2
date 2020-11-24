@@ -34,16 +34,14 @@ public class TicTacToeGame {
     }
 
     public String nextTurn() {
-        TicTacToePlayer nextPlayer = determineNextPlayer();
-        nextPlayer.doMove(this.board);
 
         TicTacToePlayer winner = hasWinner();
         if (winner != null) {
             return "WINNER " + winner.getSymbol();
         } else {
+            TicTacToePlayer nextPlayer = determineNextPlayer();
             return "NEXTMOVE " + nextPlayer.getSymbol();
         }
-
     }
 
     public TicTacToePlayer determineNextPlayer() {
