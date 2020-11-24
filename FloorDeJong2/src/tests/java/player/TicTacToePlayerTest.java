@@ -13,20 +13,20 @@ public class TicTacToePlayerTest {
 
     private final BoardPosition mockPosition = mock(BoardPosition.class);
 
-    private final TicTacToePlayer player = new TicTacToePlayer(1, "Player1", "X");
+    private final TicTacToePlayer player = new TicTacToePlayer(1, "Player1", TicTacToeSymbol.X);
 
     @Test
     public void testDoMoveThreeInRowPossible() {
         // Assign
         int positionNr = 1;
-        when(spyBoard.gettingWinningPosition(anyString())).thenReturn(mockPosition);
+        when(spyBoard.gettingWinningPosition(any())).thenReturn(mockPosition);
         when(mockPosition.getPositionId()).thenReturn(positionNr);
 
         // Act
         player.doMove(spyBoard);
 
         // assert
-        verify(spyBoard, times(1)).gettingWinningPosition(anyString());
+        verify(spyBoard, times(1)).gettingWinningPosition(any());
         verify(spyBoard, times(1)).setPositionValue(positionNr, player.getSymbol());
         verifyNoMoreInteractions(spyBoard);
     }
@@ -35,13 +35,13 @@ public class TicTacToePlayerTest {
     public void testDoMoveThreeInRowNotPossible() {
         // Assign
         int positionNr = 1;
-        when(spyBoard.gettingWinningPosition(anyString())).thenReturn(null);
+        when(spyBoard.gettingWinningPosition(any())).thenReturn(null);
 
         // Act
         player.doMove(spyBoard);
 
         // assert
-        verify(spyBoard, times(1)).gettingWinningPosition(anyString());
+        verify(spyBoard, times(1)).gettingWinningPosition(any());
         verifyNoMoreInteractions(spyBoard);
     }
 }

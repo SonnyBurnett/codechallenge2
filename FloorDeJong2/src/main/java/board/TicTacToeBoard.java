@@ -1,14 +1,21 @@
 package board;
 
 import Exceptions.IllegalMoveException;
+import directions.Directions2D;
+import org.apache.commons.lang3.EnumUtils;
+import player.TicTacToeSymbol;
 
-public class TicTacToeBoard extends Board2D {
+import java.util.HashMap;
+import java.util.Map;
+
+public class TicTacToeBoard {
+    Map<Integer, BoardPosition> positions = new HashMap<>();
+    Directions2D directions = new Directions2D();
 
     final BoardPositionFactory boardPositionFactory;
 
     public TicTacToeBoard(BoardPositionFactory boardPositionFactory) {
         this.boardPositionFactory = boardPositionFactory;
-        setAllowedValues();
         createPositions();
     }
 
@@ -16,14 +23,7 @@ public class TicTacToeBoard extends Board2D {
         this(new BoardPositionFactory());
     }
 
-    @Override
-    public void setAllowedValues() {
-        this.allowedValues.add("X");
-        this.allowedValues.add("O");
-    }
-
     // ToDo: make of directions enums.
-    @Override
     public void createPositions() {
         for (int i=0; i<9; i++) {
             positions.put(i, boardPositionFactory.createBoardPosition(i));
@@ -55,32 +55,21 @@ public class TicTacToeBoard extends Board2D {
         positions.get(4).addNeighbour("RD", positions.get(8));
     }
 
-    @Override
-    public void setPositionValue(int positionNr, String symbol) {
-        if (isExistingPosition(positionNr) && isCorrectValue(symbol)) {
+    public void setPositionValue(int positionNr, TicTacToeSymbol symbol) {
+        if (isExistingPosition(positionNr)) {
             BoardPosition position = positions.get(positionNr);
             if (! position.isOccupied()) {
-                position.setValue(symbol);
+                position.setValue(symbol.toString());
             } else {
                 throw new IllegalMoveException("Position " + positionNr + " is already occupied");
             }
         }
     }
 
-    @Override
     public boolean isExistingPosition(int positionNr) {
         if (! this.positions.containsKey(positionNr)) {
             throw new IllegalArgumentException("Incorrect position number. Expected: 0 - 8, received: " + positionNr);
         }
-        return true;
-    }
-
-    @Override
-    public boolean isCorrectValue(String value) {
-        if (! allowedValues.contains(value)) {
-            throw new IllegalArgumentException("Incorrect symbol. Expected: one of " + allowedValues + ", received: " + value);
-        }
-
         return true;
     }
 
@@ -93,6 +82,10 @@ public class TicTacToeBoard extends Board2D {
         }
 
         return occupiedPositions;
+    }
+
+    public Map<Integer, BoardPosition> getPositions() {
+        return positions;
     }
 
     public String hasThreeInRow() {
@@ -143,22 +136,22 @@ public class TicTacToeBoard extends Board2D {
         return false;
     }
 
-    public BoardPosition gettingWinningPosition(String value) {
-        BoardPosition position = getWinningPositionMiddlePosition(value);
+    public BoardPosition gettingWinningPosition(TicTacToeSymbol symbol) {
+        BoardPosition position = getWinningPositionMiddlePosition(symbol);
         if (position != null) {
             return position;
         }
 
-        return getWinningInRowOnSides(value);
+        return getWinningInRowOnSides(symbol);
     }
 
-    public BoardPosition getWinningPositionMiddlePosition(String value) {
+    public BoardPosition getWinningPositionMiddlePosition(TicTacToeSymbol symbol) {
         BoardPosition middlePosition = positions.get(4);
 
         String[] directionsToCheck = new String[]{"LU", "U", "RU", "L"};
 
         for (String direction: directionsToCheck) {
-            BoardPosition position = gettingWinningPosition(middlePosition, direction, value);
+            BoardPosition position = gettingWinningPosition(middlePosition, direction, symbol);
             if (position != null) {
                 return  position;
             }
@@ -166,12 +159,12 @@ public class TicTacToeBoard extends Board2D {
         return null;
     }
 
-    public BoardPosition getWinningInRowOnSides(String value) {
+    public BoardPosition getWinningInRowOnSides(TicTacToeSymbol symbol) {
         int[] positionsNrToCheck = new int[]{1, 3, 5, 7};
         String[] directionsToCheck = new String[]{"L", "U", "U", "L"};
 
         for (int i=0; i<positionsNrToCheck.length; i++) {
-            BoardPosition position = gettingWinningPosition(this.positions.get(positionsNrToCheck[i]), directionsToCheck[i], value);
+            BoardPosition position = gettingWinningPosition(this.positions.get(positionsNrToCheck[i]), directionsToCheck[i], symbol);
 
             if (position != null) {
                 return position;
@@ -181,22 +174,22 @@ public class TicTacToeBoard extends Board2D {
         return null;
     }
 
-    public BoardPosition gettingWinningPosition(BoardPosition position, String direction, String value) {
+    public BoardPosition gettingWinningPosition(BoardPosition position, String direction, TicTacToeSymbol symbol) {
         String oppositeDirection = directions.getOppositeDirection(direction);
 
         BoardPosition position1 = position.getNeighbourAtDirection(direction);
         BoardPosition position2 = position.getNeighbourAtDirection(oppositeDirection);
 
         if (position.getValue() == null && position1.getValue() != null && position2.getValue() != null) {
-            if (position1.sameValue(position2) && position1.getValue().equals(value)) {
+            if (position1.sameValue(position2) && position1.getValue().equals(symbol.toString())) {
                 return position;
             }
         } else if (position.getValue() != null && position1.getValue() == null && position2.getValue() != null) {
-            if (position.sameValue(position2) && position.getValue().equals(value)) {
+            if (position.sameValue(position2) && position.getValue().equals(symbol.toString())) {
                 return position1;
             }
         } else if (position.getValue() != null && position1.getValue() != null && position2.getValue() == null) {
-            if (position.sameValue(position1) && position.getValue().equals(value)) {
+            if (position.sameValue(position1) && position.getValue().equals(symbol.toString())) {
                 return position2;
             }
         }

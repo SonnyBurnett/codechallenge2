@@ -6,10 +6,10 @@ import board.TicTacToeBoard;
 public class TicTacToePlayer{
     private int id;
     private String name;
-    private String symbol;
+    private TicTacToeSymbol symbol;
 
     // ToDo: make symbol an enum
-    public TicTacToePlayer(int id, String name, String symbol) {
+    public TicTacToePlayer(int id, String name, TicTacToeSymbol symbol) {
         this.id = id;
         this.name = name;
         this.symbol = symbol;
@@ -25,7 +25,7 @@ public class TicTacToePlayer{
         // Logic for move if not possible to create three in a row.
     }
 
-    public String getSymbol() {
+    public TicTacToeSymbol getSymbol() {
         return symbol;
     }
 }

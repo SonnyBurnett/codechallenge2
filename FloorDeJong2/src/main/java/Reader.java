@@ -1,5 +1,6 @@
 import board.TicTacToeBoard;
 import board.TicTacToeBoardFactory;
+import player.TicTacToeSymbol;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,7 +33,7 @@ public class Reader {
                 for (int i=0; i<data.length(); i++) {
                     positionCount ++;
                     if (data.charAt(i)!='.') {
-                        board.setPositionValue(positionCount, String.valueOf(data.charAt(i)));
+                        board.setPositionValue(positionCount, getSymbol(String.valueOf(data.charAt(i))));
                     }
                 }
             }
@@ -40,4 +41,13 @@ public class Reader {
         return board;
     }
 
+    TicTacToeSymbol getSymbol(String character) {
+        TicTacToeSymbol[] symbols = TicTacToeSymbol.class.getEnumConstants();
+        for (TicTacToeSymbol symbol: symbols) {
+            if (symbol.toString().equals(character)) {
+                return symbol;
+            }
+        }
+        return null;
+    }
 }

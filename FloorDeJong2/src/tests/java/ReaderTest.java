@@ -1,6 +1,7 @@
 import board.TicTacToeBoard;
 import board.TicTacToeBoardFactory;
 import org.junit.jupiter.api.Test;
+import player.TicTacToeSymbol;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -40,10 +41,10 @@ public class ReaderTest {
 
         // Assert
 
-        verify(spyBoard, times(1)).setPositionValue(1, "X");
-        verify(spyBoard, times(1)).setPositionValue(3, "X");
-        verify(spyBoard, times(1)).setPositionValue(2, "O");
-        verify(spyBoard, times(1)).setPositionValue(5, "O");
+        verify(spyBoard, times(1)).setPositionValue(1, TicTacToeSymbol.X);
+        verify(spyBoard, times(1)).setPositionValue(3, TicTacToeSymbol.X);
+        verify(spyBoard, times(1)).setPositionValue(2, TicTacToeSymbol.O);
+        verify(spyBoard, times(1)).setPositionValue(5, TicTacToeSymbol.O);
         verifyNoMoreInteractions(spyBoard);
     }
 }

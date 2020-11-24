@@ -2,6 +2,7 @@ package board;
 
 import Exceptions.IllegalMoveException;
 import org.junit.jupiter.api.Test;
+import player.TicTacToeSymbol;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -29,7 +30,7 @@ public class TicTacToeBoardTest {
     @Test
     public void testSetPositionValueHappyFlow() {
         // Assign
-        String value = "X";
+        TicTacToeSymbol value =TicTacToeSymbol.X;
         int positionNr = 1;
         TicTacToeBoard ticTacToeBoard = new TicTacToeBoard();
 
@@ -37,7 +38,7 @@ public class TicTacToeBoardTest {
         ticTacToeBoard.setPositionValue(positionNr, value);
 
         // Assert
-        assertEquals(value, ticTacToeBoard.getPositions().get(positionNr).getValue());
+        assertEquals(value.toString(), ticTacToeBoard.getPositions().get(positionNr).getValue());
 
         for (int i = 0; i< ticTacToeBoard.getPositions().size(); i++) {
             if (i != positionNr) {
@@ -49,12 +50,12 @@ public class TicTacToeBoardTest {
     @Test
     public void testSetPositionValueIncorrectPositionNr() {
         // Assign
-        String value = "X";
+        TicTacToeSymbol value =TicTacToeSymbol.X;
         int positionNr = 9;
 
         doThrow(new IllegalArgumentException("Incorrect position number. Expected: 0 - 8, received: " + positionNr))
                 .when(spyBoard).isExistingPosition(anyInt());
-        doReturn(true).when(spyBoard).isCorrectValue(anyString());
+//        doReturn(true).when(spyBoard).isCorrectValue(anyString());
         when(mockPosition.isOccupied()).thenReturn(false);
 
         // Act + assert
@@ -64,33 +65,14 @@ public class TicTacToeBoardTest {
         assertEquals(expectedMessage, exception.getMessage());
     }
 
-    @Test
-    public void testSetPositionValueIncorrectValue() {
-        // Assign
-        String value = "H";
-        int positionNr = 1;
-
-        doReturn(true).when(spyBoard).isExistingPosition(anyInt());
-        doThrow(new IllegalArgumentException("Incorrect symbol. Expected: one of " + spyBoard.getAllowedValues() + ", received: " + value))
-                .when(spyBoard).isCorrectValue(anyString());
-        when(mockPosition.isOccupied()).thenReturn(false);
-
-
-        // Act + assert
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> spyBoard.setPositionValue(positionNr, value));
-
-        String expectedMessage = "Incorrect symbol. Expected: one of " + spyBoard.getAllowedValues() + ", received: " + value;
-        assertEquals(expectedMessage, exception.getMessage());
-    }
 
     @Test
     public void testSetPositionValueOccupiedPosition() {
         // Assign
-        String value = "X";
+        TicTacToeSymbol value =TicTacToeSymbol.X;
         int positionNr = 1;
 
         doReturn(true).when(spyBoard).isExistingPosition(anyInt());
-        doReturn(true).when(spyBoard).isCorrectValue(anyString());
         when(mockPosition.isOccupied()).thenReturn(true);
 
         // Act + assert
@@ -200,9 +182,9 @@ public class TicTacToeBoardTest {
     @Test
     public void testTwoInRowInDirectionTrue() {
         // Assign
-        String value = "X";
+        TicTacToeSymbol value = TicTacToeSymbol.X;
         when(mockPosition.getNeighbourAtDirection(anyString())).thenReturn(mockPosition);
-        when(mockPosition.getValue()).thenReturn(null).thenReturn(value);
+        when(mockPosition.getValue()).thenReturn(null).thenReturn(value.toString());
         when(mockPosition.sameValue(any(BoardPosition.class))).thenReturn(true);
 
         // Act + assert
@@ -217,63 +199,63 @@ public class TicTacToeBoardTest {
         when(mockPosition.sameValue(any(BoardPosition.class))).thenReturn(false);
 
         // Act + assert
-        assertNull(spyBoard.gettingWinningPosition(mockPosition, "L", "X"));
+        assertNull(spyBoard.gettingWinningPosition(mockPosition, "L", TicTacToeSymbol.X));
     }
 
     @Test
     public void testTwoInRowOnSides(){
         // Assign
-        String value = "X";
-        when(mockPosition.getValue()).thenReturn(value);
+        TicTacToeSymbol value = TicTacToeSymbol.X;
+        when(mockPosition.getValue()).thenReturn(value.toString());
 
-        doReturn(mockPosition).doReturn(null).when(spyBoard).getWinningInRowOnSides(anyString());
+        doReturn(mockPosition).doReturn(null).when(spyBoard).getWinningInRowOnSides(any());
 
         // Act + assert
-        assertEquals(mockPosition, spyBoard.getWinningInRowOnSides("X"));
-        assertNull(spyBoard.getWinningInRowOnSides("X"));
+        assertEquals(mockPosition, spyBoard.getWinningInRowOnSides(value));
+        assertNull(spyBoard.getWinningInRowOnSides(value));
     }
 
     @Test
     public void testTwoInRowMiddlePosition(){
         // Assign
-        String value = "X";
-        when(mockPosition.getValue()).thenReturn(value);
+        TicTacToeSymbol value = TicTacToeSymbol.X;
+        when(mockPosition.getValue()).thenReturn(value.toString());
 
-        doReturn(mockPosition).doReturn(null).when(spyBoard).getWinningPositionMiddlePosition(anyString());
+        doReturn(mockPosition).doReturn(null).when(spyBoard).getWinningPositionMiddlePosition(any());
 
         // Act + assert
-        assertEquals(mockPosition, spyBoard.getWinningPositionMiddlePosition("X"));
-        assertNull(spyBoard.getWinningPositionMiddlePosition("X"));
+        assertEquals(mockPosition, spyBoard.getWinningPositionMiddlePosition(value));
+        assertNull(spyBoard.getWinningPositionMiddlePosition(value));
     }
 
     @Test
     public void testTwoInRowViaMiddle() {
         // Assign
-        doReturn(mockPosition).when(spyBoard).getWinningPositionMiddlePosition(anyString());
-        doReturn(null).when(spyBoard).getWinningInRowOnSides(anyString());
+        doReturn(mockPosition).when(spyBoard).getWinningPositionMiddlePosition(any());
+        doReturn(null).when(spyBoard).getWinningInRowOnSides(any());
 
         // Act + assert
-        assertEquals(mockPosition, spyBoard.gettingWinningPosition("X"));
+        assertEquals(mockPosition, spyBoard.gettingWinningPosition(TicTacToeSymbol.X));
     }
 
     @Test
     public void testTwoInRowViaSide() {
         // Assign
         String value = "X";
-        doReturn(null).when(spyBoard).getWinningPositionMiddlePosition(anyString());
-        doReturn(mockPosition).when(spyBoard).getWinningInRowOnSides(anyString());
+        doReturn(null).when(spyBoard).getWinningPositionMiddlePosition(any());
+        doReturn(mockPosition).when(spyBoard).getWinningInRowOnSides(any());
 
         // Act + assert
-        assertEquals(mockPosition, spyBoard.gettingWinningPosition("X"));
+        assertEquals(mockPosition, spyBoard.gettingWinningPosition(TicTacToeSymbol.X));
     }
 
     @Test
     public void testTwoInRowNone() {
         // Assign
-        doReturn(null).when(spyBoard).getWinningPositionMiddlePosition(anyString());
-        doReturn(null).when(spyBoard).getWinningInRowOnSides(anyString());
+        doReturn(null).when(spyBoard).getWinningPositionMiddlePosition(any());
+        doReturn(null).when(spyBoard).getWinningInRowOnSides(any());
 
         // Act + assert
-        assertNull(spyBoard.gettingWinningPosition("X"));
+        assertNull(spyBoard.gettingWinningPosition(TicTacToeSymbol.X));
     }
 }

@@ -1,5 +1,6 @@
 import board.TicTacToeBoard;
 import player.TicTacToePlayer;
+import player.TicTacToeSymbol;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +8,7 @@ import java.util.Map;
 public class TicTacToeGame {
 
     TicTacToeBoard board;
-    Map<String, TicTacToePlayer> players = new HashMap<>();
+    Map<TicTacToeSymbol, TicTacToePlayer> players = new HashMap<>();
     boolean isFinished;
 
 //    ToDo: check whether players have different symbols
@@ -33,9 +34,9 @@ public class TicTacToeGame {
     public TicTacToePlayer determineNextPlayer() {
         int nrTurnsPlayed = this.board.getNumberOccupiedPositions();
         if (nrTurnsPlayed % 2 == 0) {
-            return this.players.get("X");
+            return this.players.get(TicTacToeSymbol.X);
         } else {
-            return this.players.get("O");
+            return this.players.get(TicTacToeSymbol.O);
         }
     }
 
@@ -43,12 +44,18 @@ public class TicTacToeGame {
         String winningSymbol = this.board.hasThreeInRow();
         if (winningSymbol != null) {
             this.isFinished = true;
-            return this.players.get(winningSymbol);
+            for (TicTacToePlayer player: players.values()) {
+                if (player.getSymbol().toString().equals(winningSymbol)) {
+                    return player;
+                } else {
+                    System.out.println("Error: Winning symbol is not one of the TicTacToeSymbols. received: " + winningSymbol);
+                }
+            }
         }
         return null;
     }
 
-    public Map<String, TicTacToePlayer> getPlayers() {
+    public Map<TicTacToeSymbol, TicTacToePlayer> getPlayers() {
         return this.players;
     }
 }

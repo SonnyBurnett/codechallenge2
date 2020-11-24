@@ -1,6 +1,7 @@
 import board.TicTacToeBoard;
 import org.junit.jupiter.api.Test;
 import player.TicTacToePlayer;
+import player.TicTacToeSymbol;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -10,8 +11,8 @@ public class TicTacToeGameTest {
     private final TicTacToePlayer mockPlayer1 = mock(TicTacToePlayer.class);
     private final TicTacToePlayer mockPlayer2 = mock(TicTacToePlayer.class);
     {
-        when(mockPlayer1.getSymbol()).thenReturn("X");
-        when(mockPlayer2.getSymbol()).thenReturn("O");
+        when(mockPlayer1.getSymbol()).thenReturn(TicTacToeSymbol.X);
+        when(mockPlayer2.getSymbol()).thenReturn(TicTacToeSymbol.O);
     }
 
     private final TicTacToeBoard mockBoard = mock(TicTacToeBoard.class);
@@ -26,7 +27,7 @@ public class TicTacToeGameTest {
         when(mockBoard.getNumberOccupiedPositions()).thenReturn(0);
 
         // Act + assert
-        assertEquals("X", newGame.determineNextPlayer().getSymbol());
+        assertEquals(TicTacToeSymbol.X, newGame.determineNextPlayer().getSymbol());
     }
 
     @Test
@@ -36,7 +37,7 @@ public class TicTacToeGameTest {
         when(mockBoard.getNumberOccupiedPositions()).thenReturn(2);
 
         // Act + assert
-        assertEquals("X", newGame.determineNextPlayer().getSymbol());
+        assertEquals(TicTacToeSymbol.X, newGame.determineNextPlayer().getSymbol());
     }
 
     @Test
@@ -46,14 +47,14 @@ public class TicTacToeGameTest {
         when(mockBoard.getNumberOccupiedPositions()).thenReturn(3);
 
         // Act + assert
-        assertEquals("O", newGame.determineNextPlayer().getSymbol());
+        assertEquals(TicTacToeSymbol.O, newGame.determineNextPlayer().getSymbol());
     }
 
     @Test
     public void testHasWinner() {
         // Assign
-        String value = "X";
-        when(mockBoard.hasThreeInRow()).thenReturn(value);
+        TicTacToeSymbol value = TicTacToeSymbol.X;
+        when(mockBoard.hasThreeInRow()).thenReturn(value.toString());
 
         // Act + Assert
         assertEquals(mockPlayer1, game.hasWinner());
@@ -71,7 +72,7 @@ public class TicTacToeGameTest {
     @Test
     public void testNextTurnHasWinner() {
         // Assign
-        String value = "X";
+        TicTacToeSymbol value = TicTacToeSymbol.X;
         doReturn(mockPlayer1).when(spyGame).hasWinner();
         when(mockPlayer1.getSymbol()).thenReturn(value);
 
@@ -82,7 +83,7 @@ public class TicTacToeGameTest {
     @Test
     public void testNextTurnHasNoWinner() {
         // Assign
-        String value = "X";
+        TicTacToeSymbol value = TicTacToeSymbol.X;
         doReturn(null).when(spyGame).hasWinner();
         when(mockPlayer1.getSymbol()).thenReturn(value);
 
