@@ -4,6 +4,7 @@ import model.board.TicTacToeBoard;
 import model.board.TicTacToeBoardFactory;
 import model.TicTacToeSymbol;
 
+import javax.sound.midi.Soundbank;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -48,6 +49,8 @@ public class TicTacToeReader {
                 return symbol;
             }
         }
+
+        System.out.printf("Error: %s is not a correct TicTacToeSymbol%n", character);
         return null;
     }
 }
