@@ -1,6 +1,7 @@
 package nl.codechallenge.model;
 
 import com.opencsv.bean.CsvBindByName;
+import com.opencsv.bean.CsvRecurse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,16 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderedProduct {
-    @CsvBindByName
-    private Integer CustomerId;
-    @CsvBindByName
-    private String Name;
+    @CsvRecurse
+    private CustomerInfo customerInfo;
     @CsvBindByName
     private String Product;
     @CsvBindByName
     private Double Price;
     @CsvBindByName
     private Double Weight;
-    @CsvBindByName
-    private Country Country;
 }

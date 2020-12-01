@@ -1,7 +1,5 @@
-package nl.codechallenge.model;
+package nl.codechallenge.service;
 
-import nl.codechallenge.service.ArgumentValidator;
-import nl.codechallenge.service.ArgumentValidatorImpl;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 

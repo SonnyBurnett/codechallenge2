@@ -33,4 +33,4 @@ Example output file:
 
 CustomerId, Name, Shipper, Duration, ShippingCost
 16, Henry Been, PostNL, 1, 6.95
-21, Pietje de Boer, BelgioPosto, 3, 5.7 
+21, Pietje de Boer, BelgioPosto, 2, 5.7 

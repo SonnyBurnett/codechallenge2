@@ -1,7 +1,6 @@
 package nl.codechallenge.model;
 
 import com.opencsv.bean.CsvBindByName;
-import com.opencsv.bean.CsvRecurse;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,13 +8,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderShipping {
-    @CsvRecurse
-    private CustomerInfo customerInfo;
+public class CustomerInfo {
     @CsvBindByName
-    private nl.codechallenge.model.Shipper Shipper;
+    private Integer CustomerId;
     @CsvBindByName
-    private Integer Duration;
+    private String Name;
     @CsvBindByName
-    private Double ShippingCost;
+    private Country Country;
 }
