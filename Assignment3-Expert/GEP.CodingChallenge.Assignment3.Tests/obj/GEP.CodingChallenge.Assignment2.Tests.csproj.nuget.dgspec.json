@@ -1,0 +1,148 @@
+{
+  "format": 1,
+  "restore": {
+    "\\\\ad.ing.net\\WPS\\NL\\P\\UD\\200027\\BH87TJ\\Home\\My Documents\\ING\\CodingChallenge2\\GEP\\Assignment3-Expert\\GEP.CodingChallenge.Assignment2.Tests\\GEP.CodingChallenge.Assignment2.Tests.csproj": {}
+  },
+  "projects": {
+    "\\\\ad.ing.net\\WPS\\NL\\P\\UD\\200027\\BH87TJ\\Home\\My Documents\\ING\\CodingChallenge2\\GEP\\Assignment3-Expert\\GEP.CodeChallenge.Assignment2\\GEP.CodeChallenge.Assignment3.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "\\\\ad.ing.net\\WPS\\NL\\P\\UD\\200027\\BH87TJ\\Home\\My Documents\\ING\\CodingChallenge2\\GEP\\Assignment3-Expert\\GEP.CodeChallenge.Assignment2\\GEP.CodeChallenge.Assignment3.csproj",
+        "projectName": "GEP.CodeChallenge.Assignment3",
+        "projectPath": "\\\\ad.ing.net\\WPS\\NL\\P\\UD\\200027\\BH87TJ\\Home\\My Documents\\ING\\CodingChallenge2\\GEP\\Assignment3-Expert\\GEP.CodeChallenge.Assignment2\\GEP.CodeChallenge.Assignment3.csproj",
+        "packagesPath": "C:\\Users\\BH87TJ\\.nuget\\packages\\",
+        "outputPath": "\\\\ad.ing.net\\WPS\\NL\\P\\UD\\200027\\BH87TJ\\Home\\My Documents\\ING\\CodingChallenge2\\GEP\\Assignment3-Expert\\GEP.CodeChallenge.Assignment2\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\BH87TJ\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "CsvHelper": {
+              "target": "Package",
+              "version": "[15.0.9, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "\\\\ad.ing.net\\WPS\\NL\\P\\UD\\200027\\BH87TJ\\Home\\My Documents\\ING\\CodingChallenge2\\GEP\\Assignment3-Expert\\GEP.CodingChallenge.Assignment2.Tests\\GEP.CodingChallenge.Assignment2.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "\\\\ad.ing.net\\WPS\\NL\\P\\UD\\200027\\BH87TJ\\Home\\My Documents\\ING\\CodingChallenge2\\GEP\\Assignment3-Expert\\GEP.CodingChallenge.Assignment2.Tests\\GEP.CodingChallenge.Assignment2.Tests.csproj",
+        "projectName": "GEP.CodingChallenge.Assignment2.Tests",
+        "projectPath": "\\\\ad.ing.net\\WPS\\NL\\P\\UD\\200027\\BH87TJ\\Home\\My Documents\\ING\\CodingChallenge2\\GEP\\Assignment3-Expert\\GEP.CodingChallenge.Assignment2.Tests\\GEP.CodingChallenge.Assignment2.Tests.csproj",
+        "packagesPath": "C:\\Users\\BH87TJ\\.nuget\\packages\\",
+        "outputPath": "\\\\ad.ing.net\\WPS\\NL\\P\\UD\\200027\\BH87TJ\\Home\\My Documents\\ING\\CodingChallenge2\\GEP\\Assignment3-Expert\\GEP.CodingChallenge.Assignment2.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\BH87TJ\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "projectReferences": {
+              "\\\\ad.ing.net\\WPS\\NL\\P\\UD\\200027\\BH87TJ\\Home\\My Documents\\ING\\CodingChallenge2\\GEP\\Assignment3-Expert\\GEP.CodeChallenge.Assignment2\\GEP.CodeChallenge.Assignment3.csproj": {
+                "projectPath": "\\\\ad.ing.net\\WPS\\NL\\P\\UD\\200027\\BH87TJ\\Home\\My Documents\\ING\\CodingChallenge2\\GEP\\Assignment3-Expert\\GEP.CodeChallenge.Assignment2\\GEP.CodeChallenge.Assignment3.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "dependencies": {
+            "MSTest.TestAdapter": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "MSTest.TestFramework": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.5.0, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[1.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.103\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
